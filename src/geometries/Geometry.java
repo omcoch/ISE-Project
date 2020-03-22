@@ -9,5 +9,10 @@ import primitives.Vector;
  * @author Omri Cochavi
  */
 public interface Geometry {
+    /**
+     * The function calculate the normal to the shape at this point
+     * @param p point
+     * @return the normal (vector)
+     */
     Vector getNormal(Point3D p);
 }

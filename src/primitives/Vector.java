@@ -33,6 +33,13 @@ public class Vector {
         _head=new Point3D(v._head.get_x(), v._head.get_y(), v._head.get_z());
     }
 
+    public Vector (Coordinate x, Coordinate y, Coordinate z) {
+        this(new Point3D(x,y,z));
+    }
+
+    public Vector (double x, double y, double z) {
+        this(new Point3D(x,y,z));
+    }
 
     public double dotProduct(Vector n) {
         return _head._x._coord * n._head._x._coord +
@@ -44,10 +51,42 @@ public class Vector {
         return new Vector(
                 new Point3D(
                         this._head._y._coord * v._head._z._coord - this._head._z._coord * v._head._y._coord,
-                        this._head._z._coord * v._head._x._coord - this._head._x._coord * v._head._z    ._coord,
+                        this._head._z._coord * v._head._x._coord - this._head._x._coord * v._head._z._coord,
                         this._head._x._coord * v._head._y._coord - this._head._y._coord * v._head._x._coord
                 )
         );
+    }
+
+    public double lengthSquared() {
+        return _head.distanceSquared(Point3D.ZERO);
+    }
+
+    public double length() {
+        return Math.sqrt(lengthSquared());
+    }
+
+    public Vector add (Vector v) {
+        return new Vector(new Point3D(
+            _head.get_x()._coord + v._head.get_x()._coord,
+            _head.get_y()._coord + v._head.get_y()._coord,
+            _head.get_z()._coord + v._head.get_z()._coord
+        ));
+    }
+
+    public Vector subtract (Vector v) {
+        return new Vector(new Point3D(
+                _head.get_x()._coord - v._head.get_x()._coord,
+                _head.get_y()._coord - v._head.get_y()._coord,
+                _head.get_z()._coord - v._head.get_z()._coord
+        ));
+    }
+
+    public Vector scale (double s) {
+        return new Vector(new Point3D(
+                _head.get_x()._coord *s,
+                _head.get_y()._coord *s,
+                _head.get_z()._coord *s
+        ));
     }
 
     @Override
@@ -56,10 +95,17 @@ public class Vector {
     }
 
     public Vector normalize() {
+        double len = length();
+        _head=new Point3D(
+                _head._x._coord / len,
+                _head._y._coord / len,
+                _head._z._coord / len
+                );
         return this;
     }
 
     public Vector normalized() {
-        return null;
+        Vector newVec = new Vector(this);
+        return newVec.normalize();
     }
 }

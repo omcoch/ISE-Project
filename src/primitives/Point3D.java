@@ -76,6 +76,10 @@ public class Point3D {
                 (p._z._coord-_z._coord)*(p._z._coord-_z._coord);
     }
 
+    public double distance(Point3D p) {
+        return Math.sqrt(distanceSquared(p));
+    }
+
     @Override
     public String toString() {
         return "(" +

@@ -15,7 +15,9 @@ public class Plane implements Geometry {
 
     public Plane(Point3D p1, Point3D p2, Point3D p3) {
         _p=new Point3D(p1.get_x(),p1.get_y(),p1.get_z());
-        _normal=new Vector(Point3D.ZERO); //TODO:זה אסור לפי ההוראות
+  //      Vector v1=p3.subtract(p1), v2=p2.subtract(p1);
+   //     _normal=v1.crossProduct(v2);
+        _normal=null;
     }
 
     public Plane(Plane pl) {

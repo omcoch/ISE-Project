@@ -24,7 +24,9 @@ public class Vector {
     }
 
     public Vector(Point3D p) {
-        this._head = new Point3D(p._x._coord,p._y._coord,p._z._coord);;
+        if(p.equals(Point3D.ZERO))
+            throw new IllegalArgumentException("vector cannot be zero");
+        this._head = new Point3D(p._x._coord,p._y._coord,p._z._coord);
     }
 
 

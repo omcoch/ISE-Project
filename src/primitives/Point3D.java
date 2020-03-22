@@ -42,6 +42,10 @@ public class Point3D {
         this(new Coordinate(_x), new Coordinate(_y), new Coordinate(_z));
     }
 
+    public Point3D (Point3D p) {
+        this(new Coordinate(p._x), new Coordinate(p._y), new Coordinate(p._z));
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -51,7 +55,6 @@ public class Point3D {
                _y.equals(point3D._y) &&
                 _z.equals(point3D._z);
     }
-
 
     public Vector subtract(Point3D p) {
         return new Vector( new Point3D(
@@ -66,5 +69,19 @@ public class Point3D {
                 v._head._y._coord + _y._coord,
                 v._head._z._coord + _z._coord
         );
+    }
+    public double distanceSquared(Point3D p){
+        return (p._x._coord-_x._coord)*(p._x._coord-_x._coord)+
+                (p._y._coord-_y._coord)*(p._y._coord-_y._coord)+
+                (p._z._coord-_z._coord)*(p._z._coord-_z._coord);
+    }
+
+    @Override
+    public String toString() {
+        return "(" +
+                   _x +
+                   _y +
+                   _z +
+                ')';
     }
 }

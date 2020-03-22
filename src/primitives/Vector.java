@@ -29,6 +29,10 @@ public class Vector {
         this._head = new Point3D(p._x._coord,p._y._coord,p._z._coord);
     }
 
+    public Vector (Vector v) {
+        _head=new Point3D(v._head.get_x(), v._head.get_y(), v._head.get_z());
+    }
+
 
     public double dotProduct(Vector n) {
         return _head._x._coord * n._head._x._coord +
@@ -44,5 +48,18 @@ public class Vector {
                         this._head._x._coord * v._head._y._coord - this._head._y._coord * v._head._x._coord
                 )
         );
+    }
+
+    @Override
+    public String toString() {
+        return "" + _head;
+    }
+
+    public Vector normalize() {
+        return this;
+    }
+
+    public Vector normalized() {
+        return null;
     }
 }

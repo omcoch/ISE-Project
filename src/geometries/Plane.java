@@ -23,6 +23,6 @@ public class Plane implements Geometry {
     }
 
     public Vector getNormal() {
-        return getNormal(_p)
+        return getNormal(_p);
     }
 }

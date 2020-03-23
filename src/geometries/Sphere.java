@@ -3,6 +3,11 @@ package geometries;
 import primitives.Point3D;
 import primitives.Vector;
 
+/**
+ * Sphere class represents a radial geometric sphere
+ *
+ * @author Omri&Ron
+ */
 public class Sphere extends RadialGeometry  {
     Point3D _center;
 
@@ -11,12 +16,6 @@ public class Sphere extends RadialGeometry  {
         _center = new Point3D(center);
     }
 
-    /**
-     * The function calculate the normal to the shape at this point
-     *
-     * @param p point
-     * @return the normal (vector)
-     */
     @Override
     public Vector getNormal(Point3D p) {
         return null;

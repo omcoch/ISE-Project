@@ -4,6 +4,11 @@ import primitives.Vector;
 
 import java.util.Objects;
 
+/**
+ * Plane class represents a Plane
+ *
+ * @author Omri&Ron
+ */
 public class Plane implements Geometry {
     Point3D _p;
     primitives.Vector _normal;

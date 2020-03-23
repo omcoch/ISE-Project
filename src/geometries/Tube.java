@@ -4,8 +4,14 @@ import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
 
+/**
+ * Tube class represents a Tube
+ *
+ * @author Omri&Ron
+ */
 public class Tube extends RadialGeometry {
     Ray _ray;
+
 
     public Tube(double _radius, Ray _ray) {
         super(_radius);

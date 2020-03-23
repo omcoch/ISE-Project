@@ -3,6 +3,11 @@ package geometries;
 import primitives.Point3D;
 import primitives.Vector;
 
+/**
+ * Cylinder represents a cylinder
+ *
+ * @author Omri&Ron
+ */
 public class Cylinder extends RadialGeometry {
     double _height;
 

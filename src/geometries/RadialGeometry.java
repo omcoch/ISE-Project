@@ -1,8 +1,8 @@
 package geometries;
 
 /**
- * interface Geometry is the basic interface for all geometric objects
- * who are implementing getNormal method.
+ * interface RadialGeometry is the basic interface for all radial geometric objects
+ * who are implementing Geometry interface.
  *
  * @author Omri & Ron
  */

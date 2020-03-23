@@ -7,4 +7,11 @@ public class Triangle extends Polygon {
         super(p1,p2,p3);
     }
 
+    @Override
+    public String toString() {
+        return "Triangle{" +
+                "_vertices=" + _vertices +
+                ", _plane=" + _plane +
+                '}';
+    }
 }

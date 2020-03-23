@@ -1,20 +1,19 @@
 package geometries;
 
 import primitives.Point3D;
-import primitives.Ray;
 import primitives.Vector;
 
-public class Tube extends RadialGeometry {
-    Ray _ray;
+public class Cylinder extends RadialGeometry {
+    double _height;
 
-    public Tube(double _radius, Ray _ray) {
+    public Cylinder(double _radius, double _height) {
         super(_radius);
-        this._ray = _ray;
+        this._height = _height;
     }
 
-    public Tube(RadialGeometry rd, Ray _ray) {
+    public Cylinder(RadialGeometry rd, double _height) {
         super(rd);
-        this._ray = _ray;
+        this._height = _height;
     }
 
     /**
@@ -28,14 +27,14 @@ public class Tube extends RadialGeometry {
         return null;
     }
 
-    public Ray get_ray() {
-        return _ray;
+    public double get_height() {
+        return _height;
     }
 
     @Override
     public String toString() {
-        return "Tube{" +
-                "_ray=" + _ray +
+        return "Cylinder{" +
+                "_height=" + _height +
                 ", _radius=" + _radius +
                 '}';
     }

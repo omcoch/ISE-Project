@@ -1,4 +1,5 @@
 package geometries;
+
 import primitives.Point3D;
 import primitives.Vector;
 
@@ -11,6 +12,7 @@ import primitives.Vector;
 public interface Geometry {
     /**
      * The function calculate the normal to the shape at this point
+     *
      * @param p point
      * @return the normal (vector)
      */

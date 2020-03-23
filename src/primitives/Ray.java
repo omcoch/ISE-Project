@@ -24,12 +24,12 @@ public class Ray {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Ray ray = (Ray) o;
-        return _p0.equals( ray._p0) &&
-                _dir.equals( ray._dir);
+        return _p0.equals(ray._p0) &&
+                _dir.equals(ray._dir);
     }
 
     public Ray(Point3D p0, Vector dir) {
-        this._p0 = new Point3D(p0._x._coord,p0._y._coord,p0._z._coord);
+        this._p0 = new Point3D(p0._x._coord, p0._y._coord, p0._z._coord);
 
         this._dir = new Vector(dir.normalized());
     }

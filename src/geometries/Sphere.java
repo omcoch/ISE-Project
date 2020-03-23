@@ -8,7 +8,7 @@ import primitives.Vector;
  *
  * @author Omri&Ron
  */
-public class Sphere extends RadialGeometry  {
+public class Sphere extends RadialGeometry {
     Point3D _center;
 
     public Sphere(double radius, Point3D center) {

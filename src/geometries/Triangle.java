@@ -1,6 +1,6 @@
 package geometries;
 
-import primitives.Point3D;
+        import primitives.Point3D;
 
 /**
  * Triangle class represents a triangle

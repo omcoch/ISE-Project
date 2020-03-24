@@ -1,5 +1,7 @@
 package primitives;
 
+import javax.swing.text.StyledEditorKit;
+
 /**
  * Util class is used for some internal utilities, e.g. controlling accuracy
  *
@@ -40,4 +42,12 @@ public abstract class Util {
     public static double alignZero(double number) {
         return getExp(number) < ACCURACY ? 0.0 : number;
     }
+
+    public static double simplePow(double x, int n) {
+        double result = x;
+        for (int i=1; i<n; ++i)
+            result *= result;
+        return result;
+    }
+
 }

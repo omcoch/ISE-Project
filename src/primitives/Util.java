@@ -43,11 +43,12 @@ public abstract class Util {
         return getExp(number) < ACCURACY ? 0.0 : number;
     }
 
-    public static double simplePow(double x, int n) {
-        double result = x;
-        for (int i=1; i<n; ++i)
-            result *= result;
-        return result;
+    /**
+     * Calculates square of number
+     * @param x the base
+     * @return the power result
+     */
+    public static double simpleSquare(double x) {
+        return x*x;
     }
-
 }

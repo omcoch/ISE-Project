@@ -34,6 +34,11 @@ public class Ray {
         this._dir = new Vector(dir.normalized());
     }
 
+    public Ray(Ray other){
+        this._dir=new Vector(other._dir);
+        this._p0=new Point3D(other._p0);
+    }
+
     @Override
     public String toString() {
         return "Ray{" +

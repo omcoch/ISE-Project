@@ -3,11 +3,14 @@ package primitives;
 import java.util.Objects;
 
 /**
- * class Vector
+ * class Vector is the basic class representing a vector in a 3D system.
  *
  * @author Omri & Ron
  */
 public class Vector {
+    /**
+     * Point that representing direction of the vector
+     */
     Point3D _head;
 
     @Override
@@ -94,6 +97,10 @@ public class Vector {
         return "" + _head;
     }
 
+    /**
+     * Calculate the normal of <b>this</b> vector
+     * @return the same Vector after normalisation
+     */
     public Vector normalize() {
         double len = length();
         _head = new Point3D(
@@ -104,6 +111,10 @@ public class Vector {
         return this;
     }
 
+    /**
+     * Calculate the normal of this vector
+     * @return the <b>new</b> Vector after normalisation
+     */
     public Vector normalized() {
         Vector newVec = new Vector(this);
         return newVec.normalize();

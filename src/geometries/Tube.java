@@ -15,12 +15,12 @@ public class Tube extends RadialGeometry {
 
     public Tube(double _radius, Ray _ray) {
         super(_radius);
-        this._ray = _ray;
+        this._ray = new Ray(_ray);
     }
 
-    public Tube(RadialGeometry rd, Ray _ray) {
-        super(rd);
-        this._ray = _ray;
+    public Tube(Tube other) {
+        super(other);
+        this._ray =new Ray(other._ray);
     }
 
     /**

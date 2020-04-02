@@ -1,6 +1,4 @@
-/**
- *
- */
+
 package geometries;
 
 import static org.junit.Assert.*;
@@ -38,21 +36,24 @@ public class PolygonTest {
             new Polygon(new Point3D(0, 0, 1), new Point3D(0, 1, 0),
                     new Point3D(1, 0, 0), new Point3D(-1, 1, 1));
             fail("Constructed a polygon with wrong order of vertices");
-        } catch (IllegalArgumentException e) {}
+        } catch (IllegalArgumentException e) {
+        }
 
         // TC03: Not in the same plane
         try {
             new Polygon(new Point3D(0, 0, 1), new Point3D(1, 0, 0),
                     new Point3D(0, 1, 0), new Point3D(0, 2, 2));
             fail("Constructed a polygon with vertices that are not in the same plane");
-        } catch (IllegalArgumentException e) {}
+        } catch (IllegalArgumentException e) {
+        }
 
         // TC04: Concave quadrangular
         try {
             new Polygon(new Point3D(0, 0, 1), new Point3D(1, 0, 0),
                     new Point3D(0, 1, 0), new Point3D(0.5, 0.25, 0.5));
             fail("Constructed a concave polygon");
-        } catch (IllegalArgumentException e) {}
+        } catch (IllegalArgumentException e) {
+        }
 
         // =============== Boundary Values Tests ==================
 
@@ -61,21 +62,24 @@ public class PolygonTest {
             new Polygon(new Point3D(0, 0, 1), new Point3D(1, 0, 0),
                     new Point3D(0, 1, 0), new Point3D(0, 0.5, 0.5));
             fail("Constructed a polygon with vertex on a side");
-        } catch (IllegalArgumentException e) {}
+        } catch (IllegalArgumentException e) {
+        }
 
         // TC11: Last point = first point
         try {
             new Polygon(new Point3D(0, 0, 1), new Point3D(1, 0, 0),
                     new Point3D(0, 1, 0), new Point3D(0, 0, 1));
             fail("Constructed a polygon with vertices on a side");
-        } catch (IllegalArgumentException e) {}
+        } catch (IllegalArgumentException e) {
+        }
 
         // TC12: Collocated points
         try {
             new Polygon(new Point3D(0, 0, 1), new Point3D(1, 0, 0),
                     new Point3D(0, 1, 0), new Point3D(0, 1, 0));
             fail("Constructed a polygon with vertices on a side");
-        } catch (IllegalArgumentException e) {}
+        } catch (IllegalArgumentException e) {
+        }
 
     }
 

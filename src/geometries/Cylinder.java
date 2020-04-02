@@ -17,9 +17,10 @@ public class Cylinder extends Tube {
         super(_radius, _ray);
         this._height = _height;
     }
-    public Cylinder(Cylinder other){
+
+    public Cylinder(Cylinder other) {
         super(other);
-        this._height=other._height;
+        this._height = other._height;
     }
 
     /**
@@ -30,7 +31,15 @@ public class Cylinder extends Tube {
      */
     @Override
     public Vector getNormal(Point3D p) {
-        return null;
+        // base1 and base2 are the button and upper bases of the cylinder.
+        Plane base1 = new Plane(_ray.get_p0(), _ray.get_dir()),
+                //p0+normal(v)*height
+                base2 = new Plane(_ray.get_p0().add(_ray.get_dir().normalized().scale(_height)), _ray.get_dir());
+
+        if (base1.isPointInPlane(p) || base2.isPointInPlane(p)) // the point is on one of the bases
+            return _ray.get_dir().normalized();
+
+        return super.getNormal(p); // the point is on the casing
     }
 
     public double get_height() {

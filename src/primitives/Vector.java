@@ -99,6 +99,7 @@ public class Vector {
 
     /**
      * Calculate the normal of <b>this</b> vector
+     *
      * @return the same Vector after normalisation
      */
     public Vector normalize() {
@@ -113,6 +114,7 @@ public class Vector {
 
     /**
      * Calculate the normal of this vector
+     *
      * @return the <b>new</b> Vector after normalisation
      */
     public Vector normalized() {

@@ -99,7 +99,7 @@ class VectorTest {
 
         // =============== Boundary Values Tests ==================
         // Test zero vector from add of two vectors
-        Vector v3 = new Vector(-1,-2,-3);
+        Vector v3 = new Vector(-1, -2, -3);
         try {
             v1.add(v3);
             fail("add() for opposite vectors does not throw an exception of zero vector");
@@ -134,8 +134,8 @@ class VectorTest {
      */
     @Test
     void scale() {
-        Vector v1 = new Vector(1,2,3);
-        Vector result = new Vector(2,4,6);
+        Vector v1 = new Vector(1, 2, 3);
+        Vector result = new Vector(2, 4, 6);
         double scale = 2;
 
         // ============ Equivalence Partitions Tests ==============
@@ -164,11 +164,11 @@ class VectorTest {
 
         // ============ Equivalence Partitions Tests ==============
         // Test for correct value
-        assertTrue(isZero(vNormalize.length() - 1),"ERROR: normalize() result is not a unit vector");
+        assertTrue(isZero(vNormalize.length() - 1), "ERROR: normalize() result is not a unit vector");
 
         // =============== Boundary Values Tests ==================
         // Test modification of the current vector
-        assertTrue(v != vNormalize,"ERROR: normalize() function creates a new vector");
+        assertTrue(v == vNormalize, "ERROR: normalize() function creates a new vector");
     }
 
     /**
@@ -181,10 +181,10 @@ class VectorTest {
 
         // ============ Equivalence Partitions Tests ==============
         // Test for correct value
-        assertTrue(isZero(u.length() - 1),"ERROR: normalized() result is not a unit vector");
+        assertTrue(isZero(u.length() - 1), "ERROR: normalized() result is not a unit vector");
 
         // =============== Boundary Values Tests ==================
         // Test creation of a new vector
-        assertTrue (u == v, "ERROR: normalizated() function does not create a new vector");
+        assertTrue(u != v, "ERROR: normalizated() function does not create a new vector");
     }
 }

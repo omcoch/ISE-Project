@@ -20,7 +20,7 @@ public class Tube extends RadialGeometry {
 
     public Tube(Tube other) {
         super(other);
-        this._ray =new Ray(other._ray);
+        this._ray = new Ray(other._ray);
     }
 
     /**
@@ -31,7 +31,9 @@ public class Tube extends RadialGeometry {
      */
     @Override
     public Vector getNormal(Point3D p) {
-        return null;
+        double t = _ray.get_dir().dotProduct(p.subtract(_ray.get_p0()));
+        Point3D center = _ray.get_p0().add(_ray.get_dir().scale(t));
+        return new Vector(p.subtract(center)).normalize();
     }
 
     public Ray get_ray() {

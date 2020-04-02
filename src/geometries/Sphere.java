@@ -15,14 +15,15 @@ public class Sphere extends RadialGeometry {
         super(radius);
         _center = new Point3D(center);
     }
-    public Sphere(Sphere other){
+
+    public Sphere(Sphere other) {
         super(other);
-        this._center=new Point3D(other._center);
+        this._center = new Point3D(other._center);
     }
 
     @Override
     public Vector getNormal(Point3D p) {
-        return null;
+        return new Vector(p.subtract(_center)).normalize();
     }
 
     public Point3D get_center() {

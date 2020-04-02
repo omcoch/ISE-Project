@@ -21,9 +21,8 @@ public class Plane implements Geometry {
 
     public Plane(Point3D p1, Point3D p2, Point3D p3) {
         _p = new Point3D(p1.get_x(), p1.get_y(), p1.get_z());
-        //      Vector v1=p3.subtract(p1), v2=p2.subtract(p1);
-        //     _normal=v1.crossProduct(v2);
-        _normal = null;
+        Vector v1 = p2.subtract(p1), v2 = p3.subtract(p1);
+        _normal = v1.crossProduct(v2).normalize();
     }
 
     public Plane(Plane pl) {
@@ -54,5 +53,22 @@ public class Plane implements Geometry {
 
     public Vector getNormal() {
         return getNormal(_p);
+    }
+
+    /**
+     * the function checks if a point is in the plane
+     *
+     * @param p a point
+     * @return true if the point is in the plane else false
+     */
+    public boolean isPointInPlane(Point3D p) {
+        // Plane equation: aX + bY + cZ + d = 0
+        double a = _normal.get_head().get_x().get(),
+                b = _normal.get_head().get_y().get(),
+                c = _normal.get_head().get_z().get(),
+                d = -a * _p.get_x().get() - b * _p.get_y().get() - c * _p.get_z().get();
+
+        // Placing the point in the plane equation
+        return (a * p.get_x().get() + b * p.get_y().get() + c * p.get_z().get() + d) == 0;
     }
 }

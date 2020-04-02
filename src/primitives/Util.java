@@ -45,10 +45,11 @@ public abstract class Util {
 
     /**
      * Calculates square of number
+     *
      * @param x the base
      * @return the power result
      */
     public static double simpleSquare(double x) {
-        return x*x;
+        return x * x;
     }
 }

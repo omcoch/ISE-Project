@@ -31,6 +31,7 @@ public class Point3D {
 
     /**
      * Constructor
+     *
      * @param _x coordinate on the X axis
      * @param _y coordinate on the Y axis
      * @param _z coordinate on the Z axis
@@ -75,7 +76,7 @@ public class Point3D {
     }
 
     public double distanceSquared(Point3D p) {
-        return  simpleSquare(p._x._coord - _x._coord) +
+        return simpleSquare(p._x._coord - _x._coord) +
                 simpleSquare(p._y._coord - _y._coord) +
                 simpleSquare(p._z._coord - _z._coord);
     }

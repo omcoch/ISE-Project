@@ -1,7 +1,10 @@
 package geometries;
 
 import primitives.Point3D;
+import primitives.Ray;
 import primitives.Vector;
+
+import java.util.List;
 
 /**
  * Sphere class represents a radial geometric sphere
@@ -36,5 +39,14 @@ public class Sphere extends RadialGeometry {
                 "_center=" + _center +
                 ", _radius=" + _radius +
                 '}';
+    }
+
+    /**
+     * @param ray ray pointing toward a Geometry
+     * @return List<Point3D> return values
+     */
+    @Override
+    public List<Point3D> findIntersections(Ray ray) {
+        return null;
     }
 }

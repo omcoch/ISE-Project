@@ -9,7 +9,7 @@ import primitives.Vector;
  *
  * @author Omri Cochavi
  */
-public interface Geometry {
+public interface Geometry extends Intersectable {
     /**
      * The function calculate the normal to the shape at this point
      *

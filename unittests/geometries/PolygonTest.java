@@ -8,10 +8,12 @@ import org.junit.Test;
 import geometries.*;
 import primitives.*;
 
+import java.util.List;
+
 /**
  * Testing Polygons
- * @author Dan
  *
+ * @author Dan
  */
 public class PolygonTest {
 
@@ -96,4 +98,24 @@ public class PolygonTest {
         assertEquals("Bad normal to triangle", new Vector(sqrt3, sqrt3, sqrt3), pl.getNormal(new Point3D(0, 0, 1)));
     }
 
+    @Test
+    public void testFindIntersections() {
+        // ============ Equivalence Partitions Tests ==============
+        Polygon poly = new Polygon(new Point3D(2, 3, 0), new Point3D(-3, 0, 0), new Point3D(0, -3, 0), new Point3D(4, 0, 0));
+
+        // TC00: ray intersects with the plane
+        Ray r0 = new Ray(new Point3D(2, 0, 0), new Vector(new Point3D(-2, -2, 0)));
+        assertNull("wrong number of intersections", poly.findIntersections(r0));
+
+        // TC01: ray intersects inside the polygon
+        Ray r1 = new Ray(new Point3D(3, 2, -1), new Vector(new Point3D(-4, -2, 1)));
+        List<Point3D> result = poly.findIntersections(r1);
+        assertEquals("wrong intersection point",new Point3D(-1,0,0),result.get(0));
+
+        // TC02: ray intersects inside the polygon
+        Ray r2 = new Ray(new Point3D(3, 2, -1), new Vector(new Point3D(-4, -2, 1)));
+        result = poly.findIntersections(r1);
+        assertEquals("wrong intersection point",new Point3D(-1,0,0),result.get(0));
+
+    }
 }

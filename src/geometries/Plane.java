@@ -1,8 +1,10 @@
 package geometries;
 
 import primitives.Point3D;
+import primitives.Ray;
 import primitives.Vector;
 
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -70,5 +72,14 @@ public class Plane implements Geometry {
 
         // Placing the point in the plane equation
         return (a * p.get_x().get() + b * p.get_y().get() + c * p.get_z().get() + d) == 0;
+    }
+
+    /**
+     * @param ray ray pointing toward a Geometry
+     * @return List<Point3D> return values
+     */
+    @Override
+    public List<Point3D> findIntersections(Ray ray) {
+        return null;
     }
 }

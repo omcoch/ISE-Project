@@ -4,6 +4,8 @@ import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
 
+import java.util.List;
+
 /**
  * Cylinder represents a cylinder
  *
@@ -52,5 +54,14 @@ public class Cylinder extends Tube {
                 "_height=" + _height +
                 ", _radius=" + _radius +
                 '}';
+    }
+
+    /**
+     * @param ray ray pointing toward a Geometry
+     * @return List<Point3D> return values
+     */
+    @Override
+    public List<Point3D> findIntersections(Ray ray) {
+        return super.findIntersections(ray);
     }
 }

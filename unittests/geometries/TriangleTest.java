@@ -2,6 +2,7 @@ package geometries;
 
 import org.junit.jupiter.api.Test;
 import primitives.Point3D;
+import primitives.Ray;
 import primitives.Vector;
 
 import static org.junit.Assert.assertEquals;
@@ -28,6 +29,15 @@ class TriangleTest {
         // Test for correct normal of triangle
         assertTrue(expected.equals(the_normal) || expected.equals(the_normal.scale(-1)),
                 "Bad normal to triangle");
+    }
+
+    /**
+     * Test method for {@link geometries.Triangle#findIntersections(primitives.Ray)}.
+     */
+    @Test
+    void testFindIntersections() {
+        // ============ Equivalence Partitions Tests ==============
+
     }
 
 }

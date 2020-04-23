@@ -6,6 +6,9 @@ import primitives.Vector;
 
 import java.util.List;
 
+import static primitives.Util.alignZero;
+import static primitives.Util.isZero;
+
 /**
  * Triangle class represents a triangle
  *
@@ -18,7 +21,7 @@ public class Triangle extends Polygon {
      */
     @Override
     public List<Point3D> findIntersections(Ray ray) {
-        return null;
+        return super.findIntersections(ray);
     }
 
     public Triangle(Point3D p1, Point3D p2, Point3D p3) {

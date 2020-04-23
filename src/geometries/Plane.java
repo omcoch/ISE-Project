@@ -4,6 +4,8 @@ import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
 
+import primitives.*;
+
 import java.util.List;
 import java.util.Objects;
 
@@ -80,6 +82,19 @@ public class Plane implements Geometry {
      */
     @Override
     public List<Point3D> findIntersections(Ray ray) {
+
+        if (this._p.equals(ray.get_p0())) // the ray start inside plane
+            return null;
+
+        double nv = this._normal.dotProduct(ray.get_dir());
+        if(Util.isZero(nv)) // Ray is parallel to the plane
+            return null;
+
+        double t = Util.alignZero(this._normal.dotProduct(this._p.subtract(ray.get_p0())) / nv);
+        if (t > 0) {
+            Point3D p = ray.getPoint(t);
+            return List.of(p);
+        }
         return null;
     }
 }

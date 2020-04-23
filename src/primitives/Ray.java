@@ -2,6 +2,8 @@ package primitives;
 
 import java.util.Objects;
 
+
+
 /**
  * Class Ray is the basic class representing a ray in a 3D system.
  *
@@ -13,6 +15,14 @@ public class Ray {
 
     public Point3D get_p0() {
         return _p0;
+    }
+
+    /**
+     * @param length
+     * @return new Point3D
+     */
+    public Point3D getPoint(double length) {
+        return Util.isZero(length ) ? _p0 : _p0.add(_dir.scale(length));
     }
 
     public Vector get_dir() {

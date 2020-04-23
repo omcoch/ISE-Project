@@ -112,10 +112,28 @@ public class PolygonTest {
         List<Point3D> result = poly.findIntersections(r1);
         assertEquals("wrong intersection point",new Point3D(-1,0,0),result.get(0));
 
-        // TC02: ray intersects inside the polygon
-        Ray r2 = new Ray(new Point3D(3, 2, -1), new Vector(new Point3D(-4, -2, 1)));
-        result = poly.findIntersections(r1);
-        assertEquals("wrong intersection point",new Point3D(-1,0,0),result.get(0));
+        // TC02: ray intersects outside against edge
+        Ray r2 = new Ray(new Point3D(-5,-1,6), new Vector(new Point3D(1,-1,-6)));
+        assertNull("wrong intersection point against edge",poly.findIntersections(r2));
 
+        // TC03: ray intersects outside against vertex
+        Ray r3 = new Ray(new Point3D(-5,-1,4), new Vector(new Point3D(0,1,-4)));
+        assertNull("wrong intersection point against vertex",poly.findIntersections(r3));
+
+
+        // =============== Boundary Values Tests ==================
+
+        //**** Group:the ray begins "before" the plane
+        // TC04: ray intersects on edge
+        Ray r4 = new Ray(new Point3D(-1,2,4), new Vector(new Point3D(0,0.8,4)));
+        assertNull("wrong intersection point on edge",poly.findIntersections(r4));
+
+        // TC05: ray intersects in vertex
+        Ray r5 = new Ray(new Point3D(-5,-1,4), new Vector(new Point3D(2,1,-4)));
+        assertNull("wrong intersection point in vertex",poly.findIntersections(r5));
+
+        // TC06: ray intersects On edge's continuation
+        Ray r6 = new Ray(new Point3D(-5,-1,4), new Vector(new Point3D(1.5,1.5,-4)));
+        assertNull("wrong intersection point On edge's continuation",poly.findIntersections(r5));
     }
 }

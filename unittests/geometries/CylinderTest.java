@@ -33,4 +33,10 @@ class CylinderTest {
         assertEquals(c._ray.get_dir(), c.getNormal(new Point3D(0, 2, -2)), "The normal was incorrect");
 
     }
+
+    @Test
+    void findIntersections() {
+        // ============ Equivalence Partitions Tests ==============
+        //
+    }
 }

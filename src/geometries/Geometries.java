@@ -35,8 +35,9 @@ public class Geometries implements Intersectable{
 
 
     /**
+     * Calculate intersection point of ray with the geometries
      * @param ray ray pointing toward a Geometry
-     * @return List<Point3D> return values
+     * @return List<Point3D> return list of the intersection points, null if not exists
      */
     @Override
     public List<Point3D> findIntersections(Ray ray) {

@@ -57,8 +57,9 @@ public class Cylinder extends Tube {
     }
 
     /**
+     * Calculate intersection of ray with cylinder
      * @param ray ray pointing toward a Geometry
-     * @return List<Point3D> return values
+     * @return List<Point3D> return list of the intersection points
      */
     @Override
     public List<Point3D> findIntersections(Ray ray) {

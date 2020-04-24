@@ -44,18 +44,19 @@ public class Sphere extends RadialGeometry {
     }
 
     /**
+     * Calculate intersection of ray with the sphere
+     *
      * @param ray ray pointing toward a Geometry
-     * @return List<Point3D> return values
+     * @return List<Point3D> return list of the intersection points, null if not exists
      */
     @Override
     public List<Point3D> findIntersections(Ray ray) {
-        double tm,th,t1,t2,d;
-        if(this._center.equals(ray.get_p0())) {//in case of ray start at center
-            th=this._radius;
-            t1=th;
-            t2=-th;
-        }
-        else{
+        double tm, th, t1, t2, d;
+        if (this._center.equals(ray.get_p0())) {//in case of ray start at center
+            th = this._radius;
+            t1 = th;
+            t2 = -th;
+        } else {
             Vector u = this._center.subtract(ray.get_p0());
             tm = Util.alignZero(ray.get_dir().dotProduct(u));
             d = Math.sqrt(u.lengthSquared() - Util.simpleSquare(tm));
@@ -65,11 +66,12 @@ public class Sphere extends RadialGeometry {
             t1 = tm + th;
             t2 = tm - th;
         }
-        if(t2!=t1) {
-            if (t1 > 0&&t2 > 0){
+        if (t2 != t1) {
+            if (t1 > 0 && t2 > 0) { // the ray starts before the sphere
                 return List.of(ray.getPoint(t1),
                         ray.getPoint(t2));
             }
+            // the ray starts inside the sphere (2 options for t, but chose  only the positive)
             if (t1 > 0) {
                 return List.of(ray.getPoint(t1));
             }

@@ -88,11 +88,13 @@ public class Polygon implements Geometry {
     }
 
     /**
+     * Calculate intersection of ray with the polygon
      * @param ray ray pointing toward a Geometry
-     * @return List<Point3D> return values
+     * @return List<Point3D> return list of the intersection points, null if not exists
      */
     @Override
     public List<Point3D> findIntersections(Ray ray) {
+        // find intersection with the plane
         List<Point3D> intersections = _plane.findIntersections(ray);
         if (intersections == null) return null;
 
@@ -101,6 +103,7 @@ public class Polygon implements Geometry {
 
         Vector v1  = _vertices.get(1).subtract(p0);
         Vector v2 = _vertices.get(0).subtract(p0);
+        // The point is inside if all 𝒗 ∙ 𝑵𝒊 have the same sign
         double sign = v.dotProduct(v1.crossProduct(v2));
         if (isZero(sign))
             return null;

@@ -16,8 +16,9 @@ import static primitives.Util.isZero;
  */
 public class Triangle extends Polygon {
     /**
+     *  Calculate intersection of ray with the Triangle using the polygon's function
      * @param ray ray pointing toward a Geometry
-     * @return List<Point3D> return values
+     * @return List<Point3D> return list of the intersection points, null if not exists
      */
     @Override
     public List<Point3D> findIntersections(Ray ray) {

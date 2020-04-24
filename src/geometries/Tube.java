@@ -15,8 +15,9 @@ public class Tube extends RadialGeometry {
     Ray _ray;
 
     /**
+     *  Calculate intersection of ray with the tube
      * @param ray ray pointing toward a Geometry
-     * @return List<Point3D> return values
+     * @return List<Point3D> return list of the intersection points, null if not exists
      */
     @Override
     public List<Point3D> findIntersections(Ray ray) {

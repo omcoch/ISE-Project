@@ -7,7 +7,7 @@ import primitives.Vector;
  * interface Geometry is the basic interface for all geometric objects
  * who are implementing getNormal method.
  *
- * @author Omri Cochavi
+ * @author Omri Cochavi & Ron Elkabetz
  */
 public interface Geometry extends Intersectable {
     /**

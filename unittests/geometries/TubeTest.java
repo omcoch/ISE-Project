@@ -104,6 +104,6 @@ class TubeTest {
         assertEquals(new Point3D(-1,0,2),result.get(0),
                 "Ray tangent tube");
 
-
+        // התחלנו לעשות את הבדיקות אבל מפאת קוצר הזמן לא סיימנו
     }
 }

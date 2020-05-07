@@ -3,6 +3,9 @@ package elements;
 import primitives.*;
 import static primitives.Util.*;
 
+/**
+ * Represents camera in 3D, its location and simulate the rays out from
+ */
 public class Camera {
     private Point3D location;
     private Vector Vto;
@@ -62,7 +65,8 @@ public class Camera {
     }
 
     /**
-     * Construct Ray Through Pixel
+     * Create Ray that start in the camera's location
+     * and go through the given Pixel
      * @param nX number of pixels on X axis
      * @param nY number of pixels on Y axis
      * @param j index for x

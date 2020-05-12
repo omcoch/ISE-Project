@@ -1,124 +1,124 @@
 <?xml version = "1.0"?>
-<render>
-    <scene>
+<Render>
+    <Scene>
         <name>Test scene</name>
-        <camera>
-            <point>
+        <Camera>
+            <Point>
                 <x>0</x>
                 <y>0</y>
                 <z>0</z>
-            </point>
-            <vector>
+            </Point>
+            <Vector>
                 <x>0</x>
                 <y>0</y>
                 <z>1</z>
-            </vector>
-            <vector>
+            </Vector>
+            <Vector>
                 <x>0</x>
                 <y>-1</y>
                 <z>0</z>
-            </vector>
-        </camera>
+            </Vector>
+        </Camera>
         <distance>100</distance>
-        <background>
-            <color>
+        <Background>
+            <Color>
                 <r>75</r>
                 <g>127</g>
                 <b>90</b>
-            </color>
-        </background>
-        <ambientLight>
-            <color>
+            </Color>
+        </Background>
+        <AmbientLight>
+            <Color>
                 <r>255</r>
                 <g>191</g>
                 <b>191</b>
-            </color>
+            </Color>
             <ka>1</ka>
-        </ambientLight>
+        </AmbientLight>
         <Geometries>
             <Sphere>
                 <radius>50</radius>
-                <point>
+                <Point>
                     <x>0</x>
                     <y>0</y>
                     <z>100</z>
-                </point>
+                </Point>
             </Sphere>
             <Triangle>
-                <point>
+                <Point>
                     <x>100</x>
                     <y>0</y>
                     <z>100</z>
-                </point>
-                <point>
+                </Point>
+                <Point>
                     <x>0</x>
                     <y>100</y>
                     <z>100</z>
-                </point>
-                <point>
+                </Point>
+                <Point>
                     <x>100</x>
                     <y>100</y>
                     <z>100</z>
-                </point>
+                </Point>
             </Triangle>
             <Triangle>
-                <point>
+                <Point>
                     <x>100</x>
                     <y>0</y>
                     <z>100</z>
-                </point>
-                <point>
+                </Point>
+                <Point>
                     <x>0</x>
                     <y>-100</y>
                     <z>100</z>
-                </point>
-                <point>
+                </Point>
+                <Point>
                     <x>100</x>
                     <y>-100</y>
                     <z>100</z>
-                </point>
+                </Point>
             </Triangle>
             <Triangle>
-                <point>
+                <Point>
                     <x>-100</x>
                     <y>0</y>
                     <z>100</z>
-                </point>
-                <point>
+                </Point>
+                <Point>
                     <x>0</x>
                     <y>100</y>
                     <z>100</z>
-                </point>
-                <point>
+                </Point>
+                <Point>
                     <x>-100</x>
                     <y>100</y>
                     <z>100</z>
-                </point>
+                </Point>
             </Triangle>
             <Triangle>
-                <point>
+                <Point>
                     <x>-100</x>
                     <y>0</y>
                     <z>100</z>
-                </point>
-                <point>
+                </Point>
+                <Point>
                     <x>0</x>
                     <y>-100</y>
                     <z>100</z>
-                </point>
-                <point>
+                </Point>
+                <Point>
                     <x>-100</x>
                     <y>-100</y>
                     <z>100</z>
-                </point>
+                </Point>
             </Triangle>
         </Geometries>
-    </scene>
-    <imageWriter>
+    </Scene>
+    <ImageWriter>
         <name>base render test</name>
         <width>500</width>
         <height>500</height>
         <nX>500</nX>
         <nY>500</nY>
-    </imageWriter>
-</render>
+    </ImageWriter>
+</Render>

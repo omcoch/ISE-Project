@@ -53,12 +53,13 @@ public class Render {
         }
     }
 
+
     /**
      * Returns the point that is closest to the camera on a ray
      * @param intersectionPoints
      * @return the closet point
      */
-    public Point3D getClosestPoint(List<Point3D> intersectionPoints) {
+    private Point3D getClosestPoint(List<Point3D> intersectionPoints) {
         Point3D result = null;
         double min = Double.MAX_VALUE;
 

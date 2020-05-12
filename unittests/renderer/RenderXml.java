@@ -32,38 +32,38 @@ public abstract class RenderXml {
     }
 
     public static Intersectable[] createListOfGeometries(NodeList geometries) {
-        Intersectable[] l = new Intersectable[geometries.getLength()];
-        for (int i = 0; i < geometries.getLength(); i++) {
+        Intersectable[] l = new Intersectable[geometries.getLength()/2];
+        for (int i = 1; i < geometries.getLength(); i+=2) {
             Node geo = geometries.item(i);
             if (geo.getNodeType() == Node.ELEMENT_NODE) {
                 Element eElement = (Element) geo;
                 if ("Sphere".equals(eElement.getNodeName()))
-                    l[i] = createSphere(eElement);
+                    l[(i-1)/2] = createSphere(eElement);
                 else if ("Triangle".equals(eElement.getNodeName()))
-                    l[i] = (createTriangle(eElement));
+                    l[(i-1)/2] = (createTriangle(eElement));
                 else if ("Plane".equals(eElement.getNodeName()))
-                    l[i] = (createPlane(eElement));
+                    l[(i-1)/2] = (createPlane(eElement));
             }
         }
         return l;
     }
 
     private static Intersectable createPlane(Element eElement) {
-        // no implementation because we don't need right now
+        // no implementation because we don't need it right now
         return null;
     }
 
     private static Sphere createSphere(Element eElement) {
         return new Sphere(
                 Double.parseDouble(eElement.getElementsByTagName("radius").item(0).getTextContent()),
-        createPointFromElement(eElement.getElementsByTagName("point").item(0)));
+        createPointFromElement(eElement.getElementsByTagName("Point").item(0)));
     }
 
     private static Triangle createTriangle(Element eElement) {
         return new Triangle(
-          createPointFromElement(eElement.getElementsByTagName("point").item(0)),
-          createPointFromElement(eElement.getElementsByTagName("point").item(1)),
-          createPointFromElement(eElement.getElementsByTagName("point").item(2)));
+          createPointFromElement(eElement.getElementsByTagName("Point").item(0)),
+          createPointFromElement(eElement.getElementsByTagName("Point").item(1)),
+          createPointFromElement(eElement.getElementsByTagName("Point").item(2)));
     }
 
 

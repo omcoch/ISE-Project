@@ -9,11 +9,18 @@ import scene.Scene;
 
 import java.util.List;
 
-
+/**
+ * Class that render a scene to an image
+ */
 public class Render {
     private ImageWriter _imageWriter;
     private Scene _scene;
 
+    /**
+     * Constructor
+     * @param imageWriter
+     * @param scene
+     */
     public Render(ImageWriter imageWriter, Scene scene) {
         _imageWriter = imageWriter;
         _scene = scene;
@@ -75,6 +82,11 @@ public class Render {
         return result;
     }
 
+    /**
+     *  Calculate the color of a point
+     * @param point the lighting point
+     * @return the color of the point
+     */
     private Color calcColor(Point3D point) {
         return _scene.get_ambientLight().getIntensity();
     }
@@ -97,6 +109,9 @@ public class Render {
         }
     }
 
+    /**
+     * Do the image writing
+     */
     public void writeToImage() {
         _imageWriter.writeToImage();
     }

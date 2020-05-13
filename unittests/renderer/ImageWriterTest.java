@@ -6,8 +6,14 @@ import java.awt.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Test draw an image
+ */
 class ImageWriterTest {
 
+    /**
+     * Test for basic image write
+     */
     @Test
     public void FirstImageTest() {
         ImageWriter imageWriter = new ImageWriter("our first image", 1600, 1000, 800, 500);

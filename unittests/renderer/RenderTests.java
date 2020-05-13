@@ -51,8 +51,8 @@ public class RenderTests {
 
         ImageWriter imageWriter = new ImageWriter("base render test", 500, 500, 500, 500);
 */
-        // initialize the scene and imageWriter, the class variables to the values
-        // from the xml file
+
+        // initialize the scene and imageWriter, the class variables to the values from the xml file
         GetFromXML("unittests/renderer/data.xml");
         Render render = new Render(_imageWriter, _scene);
         render.renderImage();
@@ -97,6 +97,12 @@ public class RenderTests {
 
       }
   */
+
+    /**
+     * Handle the xml file which contains data for Scene and ImageWriter objects
+     * and inserts the data into these class variables
+     * @param filename the xml file to upload
+     */
     private void GetFromXML(String filename) {
         try {
             File inputFile = new File(filename);

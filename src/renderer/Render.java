@@ -2,6 +2,7 @@ package renderer;
 
 import elements.Camera;
 import geometries.Intersectable;
+import geometries.Intersectable.*;
 import primitives.Color;
 import primitives.Point3D;
 import primitives.Ray;
@@ -47,13 +48,13 @@ public class Render {
                 Ray ray = camera.constructRayThroughPixel(Nx, Ny, j, i, distance, width, height);
 
                 // find the intersection points for each geometry with the ray:
-                List<Point3D> intersectionPoints = geometries.findIntersections(ray);
+                List<Intersectable.GeoPoint> intersectionPoints = geometries.findIntersections(ray);
                 if (intersectionPoints == null) {
                     // paints blank pixels with the background color
                     _imageWriter.writePixel(j, i, background);
                 }
                 else { // paint the pixel that the geometry is passing through it
-                    Point3D closestPoint = getClosestPoint(intersectionPoints);
+                    GeoPoint closestPoint = getClosestPoint(intersectionPoints);
                     _imageWriter.writePixel(j, i, calcColor(closestPoint).getColor());
                 }
             }
@@ -66,17 +67,18 @@ public class Render {
      * @param intersectionPoints
      * @return the closet point
      */
-    private Point3D getClosestPoint(List<Point3D> intersectionPoints) {
-        Point3D result = null;
+    private GeoPoint getClosestPoint(List<GeoPoint> intersectionPoints) {
+        GeoPoint result = null;
         double min = Double.MAX_VALUE;
 
         Point3D p0 = this._scene.get_camera().getLocation();
 
-        for (Point3D point : intersectionPoints) {
-            double distance = p0.distance(point);
+        for (GeoPoint geo : intersectionPoints) {
+            Point3D pt = geo.point;
+            double distance = p0.distance(pt);
             if (distance < min) {
                 min = distance;
-                result = point;
+                result = geo;
             }
         }
         return result;
@@ -84,11 +86,13 @@ public class Render {
 
     /**
      *  Calculate the color of a point
-     * @param point the lighting point
+     * @param intersection the lighting point
      * @return the color of the point
      */
-    private Color calcColor(Point3D point) {
-        return _scene.get_ambientLight().getIntensity();
+    private Color calcColor(GeoPoint intersection) {
+        Color color = _scene.get_ambientLight().getIntensity();
+        color = color.add(intersection.geometry.get_emission());
+        return color;
     }
 
     /**

@@ -5,9 +5,7 @@ import primitives.Color;
 /**
  * Represents the ambient lighting of an image
  */
-public class AmbientLight {
-
-    private final Color _intensity;
+public class AmbientLight extends Light {
 
     /**
      * Constructor
@@ -15,14 +13,8 @@ public class AmbientLight {
      * @param ka the mekadem hanhata
      */
     public AmbientLight(Color _intensity, double ka) {
+        super(_intensity);
         this._intensity = _intensity.scale(ka);
     }
 
-    /**
-     *  Returns the ambient light intensity
-     * @return the object's intensity
-     */
-    public Color getIntensity() {
-        return _intensity;
-    }
 }

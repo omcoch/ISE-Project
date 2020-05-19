@@ -61,7 +61,7 @@ class TubeTest {
 
         //Test for 1 intersection points
         Ray r1=new Ray(new Point3D(-3,1,1),new Vector(new Point3D(0,-3,0)));
-        List<Point3D> result = t.findIntersections(r1);
+        List<Intersectable.GeoPoint> result = t.findIntersections(r1);
         assertEquals(1, result.size(), "wrong number of intersection points");
         assertEquals(new Point3D(-3,-2,1),result.get(0),"wrong intersection point");
 
@@ -70,7 +70,7 @@ class TubeTest {
         Point3D p1 = new Point3D(-3,2,1), p2=new Point3D(-3,-2,1);
         result = t.findIntersections(r2);
         assertEquals(2, result.size(), "wrong number of intersection points");
-        if (result.get(0).get_y().get() < result.get(1).get_y().get())
+        if (result.get(0).point.get_y().get() < result.get(1).point.get_y().get())
             result = List.of(result.get(1), result.get(0));
         assertEquals(List.of(p1, p2), result, "Ray crosses tube");
 

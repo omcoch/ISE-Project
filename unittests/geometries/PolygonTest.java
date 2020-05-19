@@ -109,7 +109,7 @@ public class PolygonTest {
 
         // TC01: ray intersects inside the polygon
         Ray r1 = new Ray(new Point3D(3, 2, -1), new Vector(new Point3D(-4, -2, 1)));
-        List<Point3D> result = poly.findIntersections(r1);
+        List<Intersectable.GeoPoint> result = poly.findIntersections(r1);
         assertEquals("wrong intersection point",new Point3D(-1,0,0),result.get(0));
 
         // TC02: ray intersects outside against edge

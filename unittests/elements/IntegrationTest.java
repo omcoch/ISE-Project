@@ -1,7 +1,7 @@
 package elements;
 
-import geometries.Plane;
-import geometries.Triangle;
+import geometries.*;
+import geometries.Intersectable.*;
 import org.junit.jupiter.api.Test;
 
 import geometries.Sphere;
@@ -28,7 +28,7 @@ public class IntegrationTest {
     @Test
     public void testIntegrationWithSphere() {
         Camera camera = new Camera(Point3D.ZERO, new Vector(0, 0, 1), new Vector(0, -1, 0));
-        List<Point3D> r;
+        List<GeoPoint> r;
 
         // TC01: r=1
         Sphere s1 = new Sphere(1, new Point3D(0, 0, 3));
@@ -156,7 +156,7 @@ public class IntegrationTest {
     @Test
     public void testIntegrationWithPlane() {
         Camera camera = new Camera(Point3D.ZERO, new Vector(0, 0, 1), new Vector(0, -1, 0));
-        List<Point3D> res;
+        List<GeoPoint> res;
         int count = 0;
 
         //TC01: parallel
@@ -208,7 +208,7 @@ public class IntegrationTest {
     @Test
     public void testIntegrationWithTriangle() {
         Camera camera = new Camera(Point3D.ZERO, new Vector(0, 0, 1), new Vector(0, -1, 0));
-        List<Point3D> res;
+        List<GeoPoint> res;
         int count = 0;
 
         //TC01: small

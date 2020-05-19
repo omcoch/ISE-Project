@@ -20,7 +20,7 @@ public class Tube extends RadialGeometry {
      * @return List<Point3D> return list of the intersection points, null if not exists
      */
     @Override
-    public List<Point3D> findIntersections(Ray ray) {
+    public List<GeoPoint> findIntersections(Ray ray) {
         return null;
     }
 

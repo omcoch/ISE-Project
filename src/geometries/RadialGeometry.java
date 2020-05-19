@@ -1,5 +1,7 @@
 package geometries;
 
+import primitives.Color;
+
 import static primitives.Util.isZero;
 
 /**
@@ -8,13 +10,22 @@ import static primitives.Util.isZero;
  *
  * @author Omri & Ron
  */
-public abstract class RadialGeometry implements Geometry {
+public abstract class RadialGeometry extends Geometry {
     double _radius;
 
-    public RadialGeometry(double _radius) {
-        if (isZero(_radius) || (_radius < 0.0))
-            throw new IllegalArgumentException("radius " + _radius + " is not valid");
-        this._radius = _radius;
+    /*public RadialGeometry(Color emissionLight, double radius, Material material) {
+        super(emissionLight, material);
+        _radius=radius;
+    }*/
+
+    public RadialGeometry(Color emissionLight, double radius) {
+        super(emissionLight);
+        _radius=radius;
+    }
+
+    public RadialGeometry(double radius) {
+        super();
+        _radius=radius;
     }
 
     public RadialGeometry(RadialGeometry rd) {

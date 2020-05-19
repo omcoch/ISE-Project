@@ -48,7 +48,7 @@ class TriangleTest {
 
         // TC01: ray intersects inside the triangle
         Ray r1 = new Ray(new Point3D(-1,-2,0), new Vector(new Point3D(-1,2, 1)));
-        List<Point3D> result = tri.findIntersections(r1);
+        List<Intersectable.GeoPoint> result = tri.findIntersections(r1);
         assertEquals("wrong intersection point",new Point3D(-2,0,1),result.get(0));
 
         // TC02: ray intersects outside against edge

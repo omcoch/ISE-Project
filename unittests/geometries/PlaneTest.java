@@ -2,6 +2,7 @@ package geometries;
 
 import org.junit.jupiter.api.Test;
 import primitives.*;
+import geometries.Intersectable.*;
 
 import java.util.List;
 import java.io.PipedInputStream;
@@ -69,14 +70,14 @@ class PlaneTest {
 
         //TC01: Ray intersects the plane
         Ray r1 = new Ray(new Point3D(0, -1, 4), new Vector(new Point3D(-0.5, 1, -0.5)));
-        List<Point3D> result = plane.findIntersections(r1);
+        List<GeoPoint> result = plane.findIntersections(r1);
         Point3D p1 = new Point3D(-0.5, 0, 3.5);
         assertEquals(1, result.size(), "wrong number of points");
         assertEquals(p1, result.get(0), "wrong point");
 
         //TC02: Ray doesn't intersects the plane
         Ray r2 = new Ray(new Point3D(0, -1, 4), new Vector(new Point3D(0, -4, -0.5)));
-        List<Point3D> result2 = plane.findIntersections(r2);
+        List<GeoPoint> result2 = plane.findIntersections(r2);
         assertEquals(null, result2, "ray start after the plane");
 
         // =============== Boundary Values Tests ==================
@@ -93,7 +94,7 @@ class PlaneTest {
         //**** Group:Ray is orthogonal to the plane
         //TC05:p0 before plane
         Ray r5=new Ray(new Point3D(2,2,0),new Vector(new Point3D(0,-2,0)));
-        List<Point3D> result5 = plane.findIntersections(r5);
+        List<GeoPoint> result5 = plane.findIntersections(r5);
         Point3D p5 = new Point3D(2, 0, 0);
         assertEquals(1, result5.size(), "wrong number of points");
         assertEquals(p5, result5.get(0), "wrong point");

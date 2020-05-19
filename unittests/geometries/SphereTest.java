@@ -66,10 +66,10 @@ class SphereTest {
         // TC02: Ray starts before and crosses the sphere (2 points)
         Point3D p1 = new Point3D(0.0651530771650466, 0.355051025721682, 0);
         Point3D p2 = new Point3D(1.53484692283495, 0.844948974278318, 0);
-        List<Point3D> result = sphere.findIntersections(new Ray(new Point3D(-1, 0, 0),
+        List<Intersectable.GeoPoint> result = sphere.findIntersections(new Ray(new Point3D(-1, 0, 0),
                 new Vector(3, 1, 0)));
         assertEquals(2, result.size(), "Wrong number of points");
-        if (result.get(0).get_x().get() > result.get(1).get_x().get())
+        if (result.get(0).point.get_x().get() > result.get(1).point.get_x().get())
             result = List.of(result.get(1), result.get(0));
         assertEquals(List.of(p1, p2), result, "Ray crosses sphere");
 
@@ -99,7 +99,7 @@ class SphereTest {
         result = sphere.findIntersections(new Ray(new Point3D(1, -2, 0), new Vector(0, 1, 0)));
 
         assertEquals( 2, result.size(),"Wrong number of points");
-        if (result.get(0).get_y().get() > result.get(1).get_y().get()) {
+        if (result.get(0).point.get_y().get() > result.get(1).point.get_y().get()) {
             result = List.of(result.get(1), result.get(0));
         }
         assertEquals(List.of(new Point3D(1, -1, 0), new Point3D(1, 1, 0)), result,

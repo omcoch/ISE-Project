@@ -14,20 +14,34 @@ import java.util.Objects;
  *
  * @author Omri&Ron
  */
-public class Plane implements Geometry {
+public class Plane extends Geometry {
     Point3D _p;
     primitives.Vector _normal;
 
-    public Plane(Point3D _p, Vector _normal) {
-        this._p = new Point3D(_p);
-        this._normal = new Vector(_normal);
-    }
 
-    public Plane(Point3D p1, Point3D p2, Point3D p3) {
+
+    public Plane(Color emission, Point3D p1, Point3D p2, Point3D p3) {
+        super(emission);
         _p = new Point3D(p1.get_x(), p1.get_y(), p1.get_z());
         Vector v1 = p2.subtract(p1), v2 = p3.subtract(p1);
         _normal = v1.crossProduct(v2).normalize();
     }
+
+    public Plane(Point3D p1, Point3D p2, Point3D p3) {
+        this(Color.BLACK, p1, p2, p3);
+    }
+
+
+    public Plane(Color emission, Point3D _p, Vector _normal) {
+        super(emission);
+        this._p = _p;
+        this._normal = new Vector(_normal);
+    }
+
+    public Plane(Point3D _p, Vector _normal) {
+        this(Color.BLACK, _p, _normal);
+    }
+
 
     public Plane(Plane pl) {
         this(pl._p, pl._normal);
@@ -82,7 +96,7 @@ public class Plane implements Geometry {
      * @return List<Point3D> return list of the intersection points, null if not exists
      */
     @Override
-    public List<Point3D> findIntersections(Ray ray) {
+    public List<GeoPoint> findIntersections(Ray ray) {
 
         if (this._p.equals(ray.get_p0())) // the ray start inside plane
             return null;
@@ -93,7 +107,7 @@ public class Plane implements Geometry {
 
         double t = Util.alignZero(this._normal.dotProduct(this._p.subtract(ray.get_p0())) / nv);
         if (t > 0) {
-            Point3D p = ray.getPoint(t);
+            GeoPoint p =new GeoPoint(this,ray.getPoint(t));
             return List.of(p);
         }
         return null;

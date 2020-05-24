@@ -4,6 +4,9 @@ import elements.*;
 import geometries.*;
 import primitives.Color;
 
+import java.util.LinkedList;
+import java.util.List;
+
 /**
  * Class that represents a scene
  */
@@ -15,6 +18,8 @@ public class Scene {
     private AmbientLight _ambientLight;
     private Camera _camera;
     private double _distance;
+
+    private List<LightSource> _lights=new LinkedList<LightSource>();
 
     /**
      * Constructor of scene
@@ -106,6 +111,15 @@ public class Scene {
         return _distance;
     }
 
+    /**
+     * getter for the light sources in the scene
+     * @return the light sources
+     */
+    public List<LightSource> get_lights() {
+        return _lights;
+    }
+
+    public void addLights(LightSource... lights){_lights.addAll(List.of(lights));}
 
     /**
      * Add a list of Intersectables to this 3D scene model

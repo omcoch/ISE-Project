@@ -13,14 +13,13 @@ import java.util.List;
 public class Sphere extends RadialGeometry {
     Point3D _center;
 
-    /*public Sphere(Color emissionLight, Material material, double radius, Point3D center) {
+    public Sphere(Color emissionLight, Material material, double radius, Point3D center) {
         super(emissionLight, radius, material);
         this._center = new Point3D(center);
-    }*/
+    }
 
     public Sphere(Color emissionLight, double radius, Point3D center) {
-        super(emissionLight,radius);
-        this._center = new Point3D(center);
+        this(emissionLight,new Material(0, 0, 0),radius,center);
     }
 
     public Sphere(double radius, Point3D center) {

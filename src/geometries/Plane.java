@@ -19,23 +19,33 @@ public class Plane extends Geometry {
     primitives.Vector _normal;
 
 
+    public Plane(Color emissionLight, Material material, Point3D p1, Point3D p2, Point3D p3) {
+        super(emissionLight, material);
 
-    public Plane(Color emission, Point3D p1, Point3D p2, Point3D p3) {
-        super(emission);
+        _p = new Point3D(p1);
+
         _p = new Point3D(p1.get_x(), p1.get_y(), p1.get_z());
         Vector v1 = p2.subtract(p1), v2 = p3.subtract(p1);
         _normal = v1.crossProduct(v2).normalize();
+
+
+    }
+
+    public Plane(Color emission, Point3D p1, Point3D p2, Point3D p3) {
+        this(emission,new Material(0, 0, 0),p1,p2,p3);
     }
 
     public Plane(Point3D p1, Point3D p2, Point3D p3) {
         this(Color.BLACK, p1, p2, p3);
     }
 
-
-    public Plane(Color emission, Point3D _p, Vector _normal) {
-        super(emission);
+    public Plane(Color emission, Material material, Point3D _p, Vector _normal) {
+        super(emission,material);
         this._p = _p;
         this._normal = new Vector(_normal);
+    }
+    public Plane(Color emission, Point3D _p, Vector _normal) {
+        this(emission,new Material(0, 0, 0),_p,_normal);
     }
 
     public Plane(Point3D _p, Vector _normal) {

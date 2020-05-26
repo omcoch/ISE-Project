@@ -12,7 +12,6 @@ import java.util.Objects;
 public interface Intersectable {
 
     /**
-     * TODO: להשלים הערה
      * Help class that creates a connection between point and geometry
      */
     public static class GeoPoint {

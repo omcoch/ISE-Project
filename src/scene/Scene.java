@@ -119,6 +119,10 @@ public class Scene {
         return _lights;
     }
 
+    /**
+     * add lights to the scene
+     * @param lights one or more lights
+     */
     public void addLights(LightSource... lights){_lights.addAll(List.of(lights));}
 
     /**

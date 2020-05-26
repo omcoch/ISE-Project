@@ -1,5 +1,8 @@
 package primitives;
 
+/**
+ * Represents the material of shape
+ */
 public class Material {
     private double _kD;
     private double _kS;
@@ -7,9 +10,9 @@ public class Material {
 
     /**
      * constructor for material
-     * @param _kD
-     * @param _kS
-     * @param _nShininess
+     * @param _kD Diffuse attenuation
+     * @param _kS Specular attenuation
+     * @param _nShininess shininess
      */
     public Material(double _kD, double _kS, int _nShininess) {
         this._kD = _kD;
@@ -18,24 +21,24 @@ public class Material {
     }
 
     /**
-     *
-     * @return
+     * getter for the diffuse attenuation
+     * @return the diffuse attenuation
      */
     public double get_kD() {
         return _kD;
     }
 
     /**
-     *
-     * @return
+     * getter for the specular attenuation
+     * @return the specular attenuation
      */
     public double get_kS() {
         return _kS;
     }
 
     /**
-     *
-     * @return
+     * getter for the shininess
+     * @return the shininess
      */
     public int get_nShininess() {
         return _nShininess;

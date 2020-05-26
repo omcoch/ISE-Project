@@ -20,17 +20,38 @@ public class Triangle extends Polygon {
      */
     @Override
     public List<GeoPoint> findIntersections(Ray ray) {
-        // TODO: this, in the super class suppose to work perfect
         return super.findIntersections(ray);
     }
 
+    /**
+     * constructor of triangle
+     * @param emissionLight the color of the triangle
+     * @param material the material of the triangle
+     * @param p1 point
+     * @param p2 point
+     * @param p3 point
+     */
     public Triangle(Color emissionLight, Material material, Point3D p1, Point3D p2, Point3D p3) {
         super(emissionLight,material,p1,p2,p3);
     }
+
+    /**
+     * constructor of triangle
+     * @param emissionLight the color of the triangle
+     * @param p1 point
+     * @param p2 point
+     * @param p3 point
+     */
     public Triangle(Color emissionLight, Point3D p1, Point3D p2, Point3D p3) {
         super(emissionLight,p1, p2, p3);
     }
 
+    /**
+     * constructor of triangle
+     * @param p1 point
+     * @param p2 point
+     * @param p3 point
+     */
     public Triangle(Point3D p1, Point3D p2, Point3D p3) {
         super(p1, p2, p3);
     }

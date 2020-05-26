@@ -174,13 +174,13 @@ public class Render {
      * Calculate Diffusive component of light reflection.
      *
      * @param kd diffusive component coef
-     * @param n
-     * @param l
+     * @param n normal to surface at the point
+     * @param l direction from light to point
      * @param ip light intensity at the point
      * @return diffusive component of light reflection
      * @author Dan Zilberstein
      * <p>
-     * The diffuse component is that dot product n•L that we discussed in class. It approximates light, originally
+     * The diffuse component is that dot product n•L. It approximates light, originally
      * from light source L, reflecting from a surface which is diffuse, or non-glossy. One example of a non-glossy
      * surface is paper. In general, you'll also want this to have a non-gray color value, so this term would in general
      * be a color defined as: [rd,gd,bd](n•L)

@@ -12,9 +12,9 @@ public class SpotLight extends PointLight {
      * constructor of the spot light
      * @param _intensity intensity of the light
      * @param _position position of the light
-     * @param _kC
-     * @param _kL
-     * @param _kQ
+     * @param _kC Constant attenuation
+     * @param _kL Linear attenuation
+     * @param _kQ Quadratic attenuation
      * @param _direction the direction of the light
      */
     public SpotLight(Color _intensity, Point3D _position, double _kC, double _kL, double _kQ, Vector _direction) {
@@ -22,6 +22,12 @@ public class SpotLight extends PointLight {
         this._direction = _direction.normalize();
     }
 
+    /**
+     * Returns intensity color of a point
+     *
+     * @param p the point
+     * @return color of intensity
+     */
     @Override
     public Color getIntensity(Point3D p) {
         double angle = _direction.dotProduct(getL(p));

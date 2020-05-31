@@ -12,6 +12,10 @@ import java.util.Objects;
 public class Ray {
     Point3D _p0;
     Vector _dir;
+    /**
+     * used for moving the point by DELTA
+     */
+    private static final double DELTA = 0.1;
 
     public Point3D get_p0() {
         return _p0;
@@ -36,6 +40,14 @@ public class Ray {
         Ray ray = (Ray) o;
         return _p0.equals(ray._p0) &&
                 _dir.equals(ray._dir);
+    }
+
+    public Ray(Point3D point, Vector direction, Vector normal) {
+        // head + normal.scale(±DELTA)
+        _dir = new Vector(direction).normalized();
+        double nv = normal.dotProduct(direction);
+        Vector normalDelta = normal.scale((nv > 0 ? DELTA : -DELTA));
+        _p0 = point.add(normalDelta);
     }
 
     public Ray(Point3D p0, Vector dir) {

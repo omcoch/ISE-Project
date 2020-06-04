@@ -17,6 +17,7 @@ import static primitives.Util.alignZero;
 public class Render {
     private ImageWriter _imageWriter;
     private Scene _scene;
+    // parameters for determine how much reflection and refraction rays we will make
     private static final int MAX_CALC_COLOR_LEVEL = 10;
     private static final double MIN_CALC_COLOR_K = 0.001;
 
@@ -89,21 +90,31 @@ public class Render {
     }
 
     /**
-     *  Calculate the color of a point
+     * Calculate the color of a point
+     *
      * @param intersection the lighting point
      * @return the color of the point
      */
-    private Color calcColor(GeoPoint intersection,Ray ray) {
-        Color color=calcColor(intersection,ray,MAX_CALC_COLOR_LEVEL,1);
-        color=color.add(_scene.get_ambientLight().getIntensity());
+    private Color calcColor(GeoPoint intersection, Ray ray) {
+        Color color = calcColor(intersection, ray, MAX_CALC_COLOR_LEVEL, 1);
+        color = color.add(_scene.get_ambientLight().getIntensity());
         return color;
     }
 
+    /**
+     * Recursive function that calculate the color of a point
+     *
+     * @param geoPoint the point
+     * @param inRay    ray that intersect the point
+     * @param level    the level of the recursion
+     * @param k        the attenuation
+     * @return the color ot the point
+     */
     private Color calcColor(GeoPoint geoPoint, Ray inRay, int level, double k) {
-        Color color =geoPoint.geometry.get_emission();
+        Color color = geoPoint.geometry.get_emission();
         Vector v = geoPoint.point.subtract(_scene.get_camera().getLocation()).normalize();
         Vector n = geoPoint.geometry.getNormal(geoPoint.point);
-        Material material =geoPoint.geometry.get_material();
+        Material material = geoPoint.geometry.get_material();
         int nShininess = material.get_nShininess();
         double kd = material.get_kD();
         double ks = material.get_kS();
@@ -113,9 +124,9 @@ public class Render {
             if (sign(nl) == sign(nv) && nv!=0 && nl!=0) {
                 double ktr= transparency(lightSource, l, n, geoPoint);
                 if (ktr * k > MIN_CALC_COLOR_K) {
-                Color lightIntensity = lightSource.getIntensity(geoPoint.point).scale(ktr);
-                color = color.add(calcDiffusive(kd, n, l, lightIntensity),
-                        calcSpecular(ks, l, n, v, nShininess, lightIntensity));
+                    Color lightIntensity = lightSource.getIntensity(geoPoint.point).scale(ktr);
+                    color = color.add(calcDiffusive(kd, n, l, lightIntensity),
+                            calcSpecular(ks, l, n, v, nShininess, lightIntensity));
                 }
             }
         }
@@ -225,11 +236,12 @@ public class Render {
     }
 
     /**
-     *
-     * @param l
-     * @param n
-     * @param gpoint
-     * @return
+     * Determine if there is no shadow on the point
+     * Not in use currently
+     * @param l light vector
+     * @param n normal
+     * @param gpoint point
+     * @return true if there is no shadow
      */
     private boolean unshaded(LightSource light,Vector l, Vector n, GeoPoint gpoint){
         Vector lightDirection = l.scale(-1); // from point to light source
@@ -246,12 +258,12 @@ public class Render {
     }
 
     /**
-     *
-     * @param ls
-     * @param l
-     * @param n
-     * @param geopoint
-     * @return
+     * Calculate the transparency of the shadow in a point
+     * @param ls light source
+     * @param l light vector
+     * @param n normal
+     * @param geopoint the point
+     * @return the transparency of the shadow in a point
      */
     private double transparency(LightSource ls, Vector l, Vector n, GeoPoint geopoint){
         Vector lightDirection = l.scale(-1); // from point to light source
@@ -270,10 +282,10 @@ public class Render {
     }
 
     /**
-     *
-     * @param n
-     * @param p
-     * @param inRay
+     * Construct a reflected ray from the point
+     * @param n normal
+     * @param p point
+     * @param inRay the ray that intersect the point
      * @return 𝒗 −𝟐∙(𝒗∙𝒏)∙𝒏
      */
     Ray constructReflectedRay (Vector n,Point3D p, Ray inRay) {
@@ -281,15 +293,15 @@ public class Render {
         double nv=n.dotProduct(v);
         if(nv==0)
             return null;
-        return new Ray(p,v.subtract(n.scale(2*nv)),n);
+        return new Ray(p,v.subtract(n.scale(2 * nv)), n);
     }
 
     /**
-     *
-     * @param point
-     * @param inRay
-     * @param n
-     * @return
+     * Construct a refracted ray from the point
+     * @param point the point
+     * @param inRay the ray that intersect the point
+     * @param n normal
+     * @return refracted ray from the point
      */
     private Ray constructRefractedRay(Point3D point, Ray inRay,Vector n) {
         return new Ray(point, inRay.get_dir(), n);

@@ -207,7 +207,7 @@ public class ReflectionRefractionTests {
         );
 
         ImageWriter imageWriter = new ImageWriter("ourBonusTest", 200, 200, 600, 600);
-        Render render = new Render(imageWriter, scene);
+        Render render = new Render(imageWriter, scene).setMultithreading(1).setDebugPrint();
 
         render.renderImage();
         render.writeToImage();

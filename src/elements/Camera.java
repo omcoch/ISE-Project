@@ -107,7 +107,7 @@ public class Camera {
 
         Vector Vij = Pij.subtract(location);
 
-        return new Beam(new Ray(location,Vij),Ry,Rx,amountOdRays);
+        return new Beam(new Ray(location,Vij),Pij,Ry,Rx,amountOdRays);
     }
 
 }

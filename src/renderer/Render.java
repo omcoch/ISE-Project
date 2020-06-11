@@ -168,7 +168,7 @@ public class Render {
                         }
                     }
                     //calculate the average color of the beam
-                    color.scale(1 / rays.rayList.size());
+                    color=color.scale(1d / rays.rayList.size());
                     //paint the pixel with the color
                     _imageWriter.writePixel(pixel.col, pixel.row, color.getColor());
                 }

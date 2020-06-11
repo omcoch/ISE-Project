@@ -175,11 +175,12 @@ public class RenderTests {
                 new Triangle(new Color(java.awt.Color.GREEN),
                         new Point3D(-100, 0, 100), new Point3D(0, -100, 100), new Point3D(-100, -100, 100))); // upper left
 
-        ImageWriter imageWriter = new ImageWriter("color render test", 500, 500, 500, 500);
-        Render render = new Render(imageWriter, scene);
+        ImageWriter imageWriter = new ImageWriter("color render test2", 500, 500, 500, 500);
+        Render render = new Render(imageWriter, scene).setAmountOfRays(1).setMultithreading(3);
 
         render.renderImage();
         render.printGrid(50, java.awt.Color.WHITE);
         render.writeToImage();
     }
+
 }

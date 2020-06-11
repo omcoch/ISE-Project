@@ -65,7 +65,7 @@ public class Camera {
     }
 
     /**
-     * Create Ray that start in the camera's location
+     * Create List of rays that start in the camera's location
      * and go through the given Pixel
      * @param nX number of pixels on X axis
      * @param nY number of pixels on Y axis
@@ -74,11 +74,13 @@ public class Camera {
      * @param screenDistance distance between the camera and view plane
      * @param screenWidth view plane's width
      * @param screenHeight view plane's height
-     * @return Ray the ray from camera through pixel (j,i)
+     * @param amountOdRays the amount of rays in the beam
+     * @return List of rays from camera through pixel (j,i)
      */
-    public Ray constructRayThroughPixel(int nX, int nY,
+    public Beam constructRayThroughPixel(int nX, int nY,
                                         int j, int i, double screenDistance,
-                                        double screenWidth, double screenHeight) {
+                                        double screenWidth, double screenHeight,
+                                        int amountOdRays) {
         if (isZero(screenDistance))
         {
             throw new IllegalArgumentException("distance cannot be 0");
@@ -105,7 +107,7 @@ public class Camera {
 
         Vector Vij = Pij.subtract(location);
 
-        return new Ray(location,Vij);
+        return new Beam(new Ray(location,Vij),Ry,Rx,amountOdRays);
     }
 
 }

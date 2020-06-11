@@ -32,15 +32,15 @@ public class IntegrationTest {
 
         // TC01: r=1
         Sphere s1 = new Sphere(1, new Point3D(0, 0, 3));
-        Ray r1 = camera.constructRayThroughPixel(3, 3, 0, 0, 1, 3, 3),
-                r2 = camera.constructRayThroughPixel(3, 3, 0, 1, 1, 3, 3),
-                r3 = camera.constructRayThroughPixel(3, 3, 0, 2, 1, 3, 3),
-                r4 = camera.constructRayThroughPixel(3, 3, 1, 0, 1, 3, 3),
-                r5 = camera.constructRayThroughPixel(3, 3, 1, 1, 1, 3, 3),
-                r6 = camera.constructRayThroughPixel(3, 3, 1, 2, 1, 3, 3),
-                r7 = camera.constructRayThroughPixel(3, 3, 2, 0, 1, 3, 3),
-                r8 = camera.constructRayThroughPixel(3, 3, 2, 1, 1, 3, 3),
-                r9 = camera.constructRayThroughPixel(3, 3, 2, 2, 1, 3, 3);
+        Ray r1 = camera.constructRayThroughPixel(3, 3, 0, 0, 1, 3, 3,1).rayList.get(0),
+                r2 = camera.constructRayThroughPixel(3, 3, 0, 1, 1, 3, 3,1).rayList.get(0),
+                r3 = camera.constructRayThroughPixel(3, 3, 0, 2, 1, 3, 3,1).rayList.get(0),
+                r4 = camera.constructRayThroughPixel(3, 3, 1, 0, 1, 3, 3,1).rayList.get(0),
+                r5 = camera.constructRayThroughPixel(3, 3, 1, 1, 1, 3, 3,1).rayList.get(0),
+                r6 = camera.constructRayThroughPixel(3, 3, 1, 2, 1, 3, 3,1).rayList.get(0),
+                r7 = camera.constructRayThroughPixel(3, 3, 2, 0, 1, 3, 3,1).rayList.get(0),
+                r8 = camera.constructRayThroughPixel(3, 3, 2, 1, 1, 3, 3,1).rayList.get(0),
+                r9 = camera.constructRayThroughPixel(3, 3, 2, 2, 1, 3, 3,1).rayList.get(0);
         int count = 0;
         count += (r = s1.findIntersections(r1)) != null ? r.size() : 0;
         count += (r = s1.findIntersections(r2)) != null ? r.size() : 0;
@@ -56,15 +56,15 @@ public class IntegrationTest {
         //TC02: r=2.5
         camera = new Camera(new Point3D(0, 0, -0.5), new Vector(0, 0, 1), new Vector(0, -1, 0));
         Sphere s2 = new Sphere(2.5, new Point3D(0, 0, 2.5));
-        r1 = camera.constructRayThroughPixel(3, 3, 0, 0, 1, 3, 3);
-        r2 = camera.constructRayThroughPixel(3, 3, 0, 1, 1, 3, 3);
-        r3 = camera.constructRayThroughPixel(3, 3, 0, 2, 1, 3, 3);
-        r4 = camera.constructRayThroughPixel(3, 3, 1, 0, 1, 3, 3);
-        r5 = camera.constructRayThroughPixel(3, 3, 1, 1, 1, 3, 3);
-        r6 = camera.constructRayThroughPixel(3, 3, 1, 2, 1, 3, 3);
-        r7 = camera.constructRayThroughPixel(3, 3, 2, 0, 1, 3, 3);
-        r8 = camera.constructRayThroughPixel(3, 3, 2, 1, 1, 3, 3);
-        r9 = camera.constructRayThroughPixel(3, 3, 2, 2, 1, 3, 3);
+        r1 = camera.constructRayThroughPixel(3, 3, 0, 0, 1, 3, 3,1).rayList.get(0);
+        r2 = camera.constructRayThroughPixel(3, 3, 0, 1, 1, 3, 3,1).rayList.get(0);
+        r3 = camera.constructRayThroughPixel(3, 3, 0, 2, 1, 3, 3,1).rayList.get(0);
+        r4 = camera.constructRayThroughPixel(3, 3, 1, 0, 1, 3, 3,1).rayList.get(0);
+        r5 = camera.constructRayThroughPixel(3, 3, 1, 1, 1, 3, 3,1).rayList.get(0);
+        r6 = camera.constructRayThroughPixel(3, 3, 1, 2, 1, 3, 3,1).rayList.get(0);
+        r7 = camera.constructRayThroughPixel(3, 3, 2, 0, 1, 3, 3,1).rayList.get(0);
+        r8 = camera.constructRayThroughPixel(3, 3, 2, 1, 1, 3, 3,1).rayList.get(0);
+        r9 = camera.constructRayThroughPixel(3, 3, 2, 2, 1, 3, 3,1).rayList.get(0);
         count = 0;
         count += (r = s2.findIntersections(r1)) != null ? r.size() : 0;
         count += (r = s2.findIntersections(r2)) != null ? r.size() : 0;
@@ -79,15 +79,15 @@ public class IntegrationTest {
 
         //TC03: r=2
         Sphere s3 = new Sphere(2, new Point3D(0, 0, 2));
-        r1 = camera.constructRayThroughPixel(3, 3, 0, 0, 1, 3, 3);
-        r2 = camera.constructRayThroughPixel(3, 3, 0, 1, 1, 3, 3);
-        r3 = camera.constructRayThroughPixel(3, 3, 0, 2, 1, 3, 3);
-        r4 = camera.constructRayThroughPixel(3, 3, 1, 0, 1, 3, 3);
-        r5 = camera.constructRayThroughPixel(3, 3, 1, 1, 1, 3, 3);
-        r6 = camera.constructRayThroughPixel(3, 3, 1, 2, 1, 3, 3);
-        r7 = camera.constructRayThroughPixel(3, 3, 2, 0, 1, 3, 3);
-        r8 = camera.constructRayThroughPixel(3, 3, 2, 1, 1, 3, 3);
-        r9 = camera.constructRayThroughPixel(3, 3, 2, 2, 1, 3, 3);
+        r1 = camera.constructRayThroughPixel(3, 3, 0, 0, 1, 3, 3,1).rayList.get(0);
+        r2 = camera.constructRayThroughPixel(3, 3, 0, 1, 1, 3, 3,1).rayList.get(0);
+        r3 = camera.constructRayThroughPixel(3, 3, 0, 2, 1, 3, 3,1).rayList.get(0);
+        r4 = camera.constructRayThroughPixel(3, 3, 1, 0, 1, 3, 3,1).rayList.get(0);
+        r5 = camera.constructRayThroughPixel(3, 3, 1, 1, 1, 3, 3,1).rayList.get(0);
+        r6 = camera.constructRayThroughPixel(3, 3, 1, 2, 1, 3, 3,1).rayList.get(0);
+        r7 = camera.constructRayThroughPixel(3, 3, 2, 0, 1, 3, 3,1).rayList.get(0);
+        r8 = camera.constructRayThroughPixel(3, 3, 2, 1, 1, 3, 3,1).rayList.get(0);
+        r9 = camera.constructRayThroughPixel(3, 3, 2, 2, 1, 3, 3,1).rayList.get(0);
         count = 0;
         count += (r = s3.findIntersections(r1)) != null ? r.size() : 0;
         count += (r = s3.findIntersections(r2)) != null ? r.size() : 0;
@@ -103,15 +103,15 @@ public class IntegrationTest {
         //TC04: r=4
         camera = new Camera(new Point3D(0, 0, -1), new Vector(0, 0, 1), new Vector(0, -1, 0));
         Sphere s4 = new Sphere(4, new Point3D(0, 0, 0));
-        r1 = camera.constructRayThroughPixel(3, 3, 0, 0, 1, 3, 3);
-        r2 = camera.constructRayThroughPixel(3, 3, 0, 1, 1, 3, 3);
-        r3 = camera.constructRayThroughPixel(3, 3, 0, 2, 1, 3, 3);
-        r4 = camera.constructRayThroughPixel(3, 3, 1, 0, 1, 3, 3);
-        r5 = camera.constructRayThroughPixel(3, 3, 1, 1, 1, 3, 3);
-        r6 = camera.constructRayThroughPixel(3, 3, 1, 2, 1, 3, 3);
-        r7 = camera.constructRayThroughPixel(3, 3, 2, 0, 1, 3, 3);
-        r8 = camera.constructRayThroughPixel(3, 3, 2, 1, 1, 3, 3);
-        r9 = camera.constructRayThroughPixel(3, 3, 2, 2, 1, 3, 3);
+        r1 = camera.constructRayThroughPixel(3, 3, 0, 0, 1, 3, 3,1).rayList.get(0);
+        r2 = camera.constructRayThroughPixel(3, 3, 0, 1, 1, 3, 3,1).rayList.get(0);
+        r3 = camera.constructRayThroughPixel(3, 3, 0, 2, 1, 3, 3,1).rayList.get(0);
+        r4 = camera.constructRayThroughPixel(3, 3, 1, 0, 1, 3, 3,1).rayList.get(0);
+        r5 = camera.constructRayThroughPixel(3, 3, 1, 1, 1, 3, 3,1).rayList.get(0);
+        r6 = camera.constructRayThroughPixel(3, 3, 1, 2, 1, 3, 3,1).rayList.get(0);
+        r7 = camera.constructRayThroughPixel(3, 3, 2, 0, 1, 3, 3,1).rayList.get(0);
+        r8 = camera.constructRayThroughPixel(3, 3, 2, 1, 1, 3, 3,1).rayList.get(0);
+        r9 = camera.constructRayThroughPixel(3, 3, 2, 2, 1, 3, 3,1).rayList.get(0);
         count = 0;
         count += (r = s4.findIntersections(r1)) != null ? r.size() : 0;
         count += (r = s4.findIntersections(r2)) != null ? r.size() : 0;
@@ -127,15 +127,15 @@ public class IntegrationTest {
         //TC05: r=0.5
         camera = new Camera(new Point3D(0, 0, 0), new Vector(0, 0, 1), new Vector(0, -1, 0));
         Sphere s5 = new Sphere(0.5, new Point3D(0, 0, -1));
-        r1 = camera.constructRayThroughPixel(3, 3, 0, 0, 1, 3, 3);
-        r2 = camera.constructRayThroughPixel(3, 3, 0, 1, 1, 3, 3);
-        r3 = camera.constructRayThroughPixel(3, 3, 0, 2, 1, 3, 3);
-        r4 = camera.constructRayThroughPixel(3, 3, 1, 0, 1, 3, 3);
-        r5 = camera.constructRayThroughPixel(3, 3, 1, 1, 1, 3, 3);
-        r6 = camera.constructRayThroughPixel(3, 3, 1, 2, 1, 3, 3);
-        r7 = camera.constructRayThroughPixel(3, 3, 2, 0, 1, 3, 3);
-        r8 = camera.constructRayThroughPixel(3, 3, 2, 1, 1, 3, 3);
-        r9 = camera.constructRayThroughPixel(3, 3, 2, 2, 1, 3, 3);
+        r1 = camera.constructRayThroughPixel(3, 3, 0, 0, 1, 3, 3,1).rayList.get(0);
+        r2 = camera.constructRayThroughPixel(3, 3, 0, 1, 1, 3, 3,1).rayList.get(0);
+        r3 = camera.constructRayThroughPixel(3, 3, 0, 2, 1, 3, 3,1).rayList.get(0);
+        r4 = camera.constructRayThroughPixel(3, 3, 1, 0, 1, 3, 3,1).rayList.get(0);
+        r5 = camera.constructRayThroughPixel(3, 3, 1, 1, 1, 3, 3,1).rayList.get(0);
+        r6 = camera.constructRayThroughPixel(3, 3, 1, 2, 1, 3, 3,1).rayList.get(0);
+        r7 = camera.constructRayThroughPixel(3, 3, 2, 0, 1, 3, 3,1).rayList.get(0);
+        r8 = camera.constructRayThroughPixel(3, 3, 2, 1, 1, 3, 3,1).rayList.get(0);
+        r9 = camera.constructRayThroughPixel(3, 3, 2, 2, 1, 3, 3,1).rayList.get(0);
         count = 0;
         count += (r = s5.findIntersections(r1)) != null ? r.size() : 0;
         count += (r = s5.findIntersections(r2)) != null ? r.size() : 0;
@@ -164,7 +164,7 @@ public class IntegrationTest {
 
         for (int i = 0; i < 3; ++i) {
             for (int j = 0; j < 3; ++j) {
-                res = p1.findIntersections(camera.constructRayThroughPixel(3, 3, j, i, 1, 3, 3));
+                res = p1.findIntersections(camera.constructRayThroughPixel(3, 3, j, i, 1, 3, 3,1).rayList.get(0));
                 if (res != null)
                     count += res.size();
             }
@@ -178,7 +178,7 @@ public class IntegrationTest {
 
         for (int i = 0; i < 3; ++i) {
             for (int j = 0; j < 3; ++j) {
-                res = p2.findIntersections(camera.constructRayThroughPixel(3, 3, j, i, 1, 3, 3));
+                res = p2.findIntersections(camera.constructRayThroughPixel(3, 3, j, i, 1, 3, 3,1).rayList.get(0));
                 if (res != null)
                     count += res.size();
             }
@@ -192,7 +192,7 @@ public class IntegrationTest {
 
         for (int i = 0; i < 3; ++i) {
             for (int j = 0; j < 3; ++j) {
-                res = p3.findIntersections(camera.constructRayThroughPixel(3, 3, j, i, 1, 3, 3));
+                res = p3.findIntersections(camera.constructRayThroughPixel(3, 3, j, i, 1, 3, 3,1).rayList.get(0));
                 if (res != null)
                     count += res.size();
             }
@@ -216,7 +216,7 @@ public class IntegrationTest {
 
         for (int i = 0; i < 3; ++i) {
             for (int j = 0; j < 3; ++j) {
-                res = t1.findIntersections(camera.constructRayThroughPixel(3, 3, j, i, 1, 3, 3));
+                res = t1.findIntersections(camera.constructRayThroughPixel(3, 3, j, i, 1, 3, 3,1).rayList.get(0));
                 if (res != null)
                     count += res.size();
             }
@@ -230,7 +230,7 @@ public class IntegrationTest {
 
         for (int i = 0; i < 3; ++i) {
             for (int j = 0; j < 3; ++j) {
-                res = t2.findIntersections(camera.constructRayThroughPixel(3, 3, j, i, 1, 3, 3));
+                res = t2.findIntersections(camera.constructRayThroughPixel(3, 3, j, i, 1, 3, 3,1).rayList.get(0));
                 if (res != null)
                     count += res.size();
             }

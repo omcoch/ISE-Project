@@ -24,6 +24,8 @@ public class Render {
     private int _threads = 1;
     private final int SPARE_THREADS = 2;
     private boolean _print = false;
+    //the amount of rays in the beam
+    private int amountOfRays = 1;
 
     /**
      * Pixel is an internal helper class whose objects are associated with a Render object that
@@ -151,18 +153,24 @@ public class Render {
             threads[i] = new Thread(() -> {
                 Pixel pixel = new Pixel();
                 while (thePixel.nextPixel(pixel)) {
-                    // construct a ray for each pixel:
-                    Ray ray = camera.constructRayThroughPixel(Nx, Ny, pixel.col, pixel.row, distance, width, height);
-
-                    // find the intersection points for each geometry with the ray:
-                    List<Intersectable.GeoPoint> intersectionPoints = geometries.findIntersections(ray);
-                    if (intersectionPoints == null) {
-                        // paints blank pixels with the background color
-                        _imageWriter.writePixel(pixel.col, pixel.row, background);
-                    } else { // paint the pixel that the geometry is passing through it
-                        GeoPoint closestPoint = getClosestPoint(intersectionPoints);
-                        _imageWriter.writePixel(pixel.col, pixel.row, calcColor(closestPoint, ray).getColor());
+                    // construct a beam for each pixel:
+                    Beam rays = camera.constructRayThroughPixel(Nx, Ny, pixel.col, pixel.row, distance, width, height,amountOfRays);
+                    Color color = Color.BLACK;
+                    for (Ray ray : rays.rayList) {
+                        // find the intersection points for each geometry with the ray:
+                        List<Intersectable.GeoPoint> intersectionPoints = geometries.findIntersections(ray);
+                        if (intersectionPoints == null) {
+                            // add background color
+                            color=color.add(new Color(background));
+                        } else { // add the color of the geometry is passing through it
+                            GeoPoint closestPoint = getClosestPoint(intersectionPoints);
+                            color=color.add(calcColor(closestPoint, ray));
+                        }
                     }
+                    //calculate the average color of the beam
+                    color.scale(1 / rays.rayList.size());
+                    //paint the pixel with the color
+                    _imageWriter.writePixel(pixel.col, pixel.row, color.getColor());
                 }
             });
         }
@@ -171,7 +179,11 @@ public class Render {
         for (Thread thread : threads) thread.start();
 
         // Wait for all threads to finish
-        for (Thread thread : threads) try { thread.join(); } catch (Exception e) {}
+        for (Thread thread : threads)
+            try {
+                thread.join();
+            } catch (Exception e) {
+            }
         if (_print) System.out.printf("\r100%%\n");
     }
 
@@ -482,5 +494,10 @@ public class Render {
             }
         }
         return closestPoint;
+    }
+
+    public Render setAmountOfRays(int amountOfRays) {
+        this.amountOfRays = amountOfRays;
+        return this;
     }
 }

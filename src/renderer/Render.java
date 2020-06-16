@@ -154,7 +154,7 @@ public class Render {
                 Pixel pixel = new Pixel();
                 while (thePixel.nextPixel(pixel)) {
                     // construct a beam for each pixel:
-                    Beam rays = camera.constructRayThroughPixel(Nx, Ny, pixel.col, pixel.row, distance, width, height,amountOfRays);
+                    Beam rays = constructBeamThroughPixel(camera,Nx, Ny, pixel.col, pixel.row, distance, width, height);
                     Color color = Color.BLACK;
                     for (Ray ray : rays.rayList) {
                         // find the intersection points for each geometry with the ray:
@@ -496,8 +496,40 @@ public class Render {
         return closestPoint;
     }
 
+    /**
+     * set the amount of ray to create in beam
+     * @param amountOfRays the amount of ray
+     * @return this render
+     */
     public Render setAmountOfRays(int amountOfRays) {
         this.amountOfRays = amountOfRays;
         return this;
+    }
+
+    /**
+     * construct beam of rays through pixel
+     * @param camera the camera of scene
+     * @param nX number of pixels in x axis
+     * @param nY number of pixels in y axis
+     * @param j the pixel column
+     * @param i the pixel row
+     * @param screenDistance the distance of the view plane from the camera
+     * @param screenWidth the width of the screen
+     * @param screenHeight the height of the screen
+     * @return beam of rays that go through pixel
+     */
+    private Beam constructBeamThroughPixel(Camera camera,
+                                           int nX, int nY,
+                                           int j, int i, double screenDistance,
+                                           double screenWidth, double screenHeight){
+        //the main ray that go through the center of the pixel
+        Ray ray=camera.constructRayThroughPixel(nX, nY, j, i, screenDistance, screenWidth, screenHeight);
+        //the center of the pixel
+        Point3D pc=ray.get_p0().add(ray.get_dir().scale(screenDistance));
+        return new Beam(ray,
+                pc,
+                screenHeight/nY,//the height of the pixel
+                screenWidth/nX,//the width of the pixel
+                amountOfRays);
     }
 }

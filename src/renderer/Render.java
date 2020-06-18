@@ -24,9 +24,16 @@ public class Render {
     private int _threads = 1;
     private final int SPARE_THREADS = 2;
     private boolean _print = false;
-    //the amount of rays in the beam
-    private int amountOfRays = 1;
 
+    //the amount of rays in the beam for anti aliasing
+    private int amountOfRaysForAntiAliasing = 1;
+
+
+
+    //the amount of rays in the beam for soft shadow
+    private int amountOfRaysForSoftShadow=1;
+    //the radius of the point/spot light source, we using it when we calculate the shadow rays
+    private double radiusOfLightSource=0.0001;
     /**
      * Pixel is an internal helper class whose objects are associated with a Render object that
      * they are generated in scope of. It is used for multithreading in the Renderer and for follow up
@@ -417,20 +424,43 @@ public class Render {
      * @param ls       light source
      * @param l        light vector
      * @param n        normal
-     * @param geopoint the point
+     * @param geopoint the point we want to calculate the shadow
      * @return the transparency of the shadow in a point
      */
     private double transparency(LightSource ls, Vector l, Vector n, GeoPoint geopoint) {
         Vector lightDirection = l.scale(-1); // from point to light source
+        double ktrAll = 0.0, ktrMain = 1.0;
         Ray lightRay = new Ray(geopoint.point, lightDirection, n);
+        ktrMain = getKtr(ls, geopoint, lightRay);
+        List<GeoPoint> intersections;
+        Beam beam=new Beam(lightRay,//the main ray
+                l.get_head(),//the location of the light
+                radiusOfLightSource,//the radius of the light source
+                amountOfRaysForSoftShadow);//amount of shadow rays to create
+        for(int i=1;i<beam.rayList.size();i++) {
+            ktrAll+=getKtr(ls,geopoint,beam.rayList.get(i));
+        }
+        ktrAll/=(beam.rayList.size()-1);
+        return (ktrAll+4*ktrMain)/5;
+    }
+
+    /**
+     *
+     * @param ls
+     * @param geopoint
+     * @param lightRay
+     * @return
+     */
+    private double getKtr(LightSource ls, GeoPoint geopoint, Ray lightRay) {
+        double ktr =1 ;
         List<GeoPoint> intersections = _scene.get_geometries().findIntersections(lightRay);
-        if (intersections == null) return 1.0;
-        double lightDistance = ls.getDistance(geopoint.point);
-        double ktr = 1.0;
-        for (GeoPoint gp : intersections) {
-            if (alignZero(gp.point.distance(geopoint.point) - lightDistance) <= 0) {
-                ktr *= gp.geometry.get_material().get_kT();
-                if (ktr < MIN_CALC_COLOR_K) return 0.0;
+        if (intersections != null) {
+            double lightDistance = ls.getDistance(geopoint.point);
+            for (GeoPoint gp : intersections) {
+                if (alignZero(gp.point.distance(geopoint.point) - lightDistance) <= 0) {
+                    ktr *= gp.geometry.get_material().get_kT();
+                    if (ktr < MIN_CALC_COLOR_K) ktr =0;
+                }
             }
         }
         return ktr;
@@ -501,8 +531,8 @@ public class Render {
      * @param amountOfRays the amount of ray
      * @return this render
      */
-    public Render setAmountOfRays(int amountOfRays) {
-        this.amountOfRays = amountOfRays;
+    public Render setAmountOfRaysForAntiAliasing(int amountOfRays) {
+        this.amountOfRaysForAntiAliasing = amountOfRays;
         return this;
     }
 
@@ -530,6 +560,24 @@ public class Render {
                 pc,
                 screenHeight/nY,//the height of the pixel
                 screenWidth/nX,//the width of the pixel
-                amountOfRays);
+                amountOfRaysForAntiAliasing);
+    }
+
+    /**
+     *
+     * @param amountOfRaysForSoftShadow
+     */
+    public Render setAmountOfRaysForSoftShadow(int amountOfRaysForSoftShadow) {
+        this.amountOfRaysForSoftShadow = amountOfRaysForSoftShadow;
+        return this;
+    }
+
+    /**
+     *
+     * @param radiusOfLights
+     */
+    public Render setRadiusOfLightSource(double radiusOfLights) {
+        this.radiusOfLightSource = radiusOfLights;
+        return this;
     }
 }

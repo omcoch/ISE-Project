@@ -7,6 +7,7 @@ import primitives.Vector;
 public class PointLight extends Light implements LightSource {
     protected Point3D _position;
     protected double _kC,_kL,_kQ;
+    protected double radius;
 
     /**
      * constructor for point light

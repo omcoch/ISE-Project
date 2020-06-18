@@ -33,6 +33,13 @@ public class Beam {
         }
     }
 
+    /**
+     *
+     * @param ray
+     * @param pC
+     * @param radius
+     * @param amountRays
+     */
     public Beam(Ray ray,Point3D pC,double radius,int amountRays) {
         rayList= new LinkedList<Ray>();
         //adding the main ray to the list
@@ -54,6 +61,18 @@ public class Beam {
             rayList.add(r);
         }
     }
+
+    /**
+     *
+     * @param ray
+     * @param pC
+     * @param x
+     * @param y
+     * @param vx
+     * @param vy
+     * @param amountRays
+     * @return
+     */
     private Ray constructRay(Ray ray,Point3D pC, double x, double y,Vector vx,Vector vy,int amountRays) {
         Point3D point=pC;
         Vector v = ray.get_dir();

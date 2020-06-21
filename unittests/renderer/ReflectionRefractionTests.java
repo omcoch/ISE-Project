@@ -97,8 +97,8 @@ public class ReflectionRefractionTests {
         scene.addLights(new SpotLight(new Color(700, 400, 400), //
                 new Point3D(60, -50, 0), 1, 4E-5, 2E-7, new Vector(0, 0, 1)));
 
-        ImageWriter imageWriter = new ImageWriter("shadow with transparency", 200, 200, 600, 600);
-        Render render = new Render(imageWriter, scene);
+        ImageWriter imageWriter = new ImageWriter("shadow with transparency2", 200, 200, 600, 600);
+        Render render = new Render(imageWriter, scene).setAmountOfRaysForSoftShadow(300).setMultithreading(3).setDebugPrint().setRadiusOfLightSource(5);
 
         render.renderImage();
         render.writeToImage();
@@ -207,7 +207,7 @@ public class ReflectionRefractionTests {
         );
 
         ImageWriter imageWriter = new ImageWriter("ourBonusTest2", 200, 200, 600, 600);
-        Render render = new Render(imageWriter, scene).setMultithreading(3).setAmountOfRaysForSoftShadow(50).setAmountOfRaysForAntiAliasing(50);
+        Render render = new Render(imageWriter, scene).setMultithreading(3).setAmountOfRaysForSoftShadow(50).setDebugPrint();
 
         render.renderImage();
         render.writeToImage();

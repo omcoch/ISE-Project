@@ -28,12 +28,10 @@ public class Render {
     //the amount of rays in the beam for anti aliasing
     private int amountOfRaysForAntiAliasing = 1;
 
-
-
     //the amount of rays in the beam for soft shadow
     private int amountOfRaysForSoftShadow=1;
     //the radius of the point/spot light source, we using it when we calculate the shadow rays
-    private double radiusOfLightSource=0.0001;
+    private double radiusOfLightSource=1;
     /**
      * Pixel is an internal helper class whose objects are associated with a Render object that
      * they are generated in scope of. It is used for multithreading in the Renderer and for follow up
@@ -91,6 +89,7 @@ public class Render {
                 if (_counter == _nextCounter) {
                     ++_percents;
                     _nextCounter = _pixels * (_percents + 1) / 100;
+                    if(_print) System.out.println(_percents);
                     return _percents;
                 }
                 return 0;
@@ -432,24 +431,22 @@ public class Render {
         double ktrAll = 0.0, ktrMain = 1.0;
         Ray lightRay = new Ray(geopoint.point, lightDirection, n);
         ktrMain = getKtr(ls, geopoint, lightRay);
-        List<GeoPoint> intersections;
         Beam beam=new Beam(lightRay,//the main ray
-                l.get_head(),//the location of the light
+                geopoint.point.add(lightDirection.scale(ls.getDistance(geopoint.point))),//the location of the light
                 radiusOfLightSource,//the radius of the light source
                 amountOfRaysForSoftShadow);//amount of shadow rays to create
         for(int i=1;i<beam.rayList.size();i++) {
             ktrAll+=getKtr(ls,geopoint,beam.rayList.get(i));
         }
-        ktrAll/=(beam.rayList.size()-1);
-        return (ktrAll+4*ktrMain)/5;
+        return (ktrAll+ktrMain)/beam.rayList.size();
     }
 
     /**
-     *
-     * @param ls
-     * @param geopoint
-     * @param lightRay
-     * @return
+     *return the value of the attenuation of the shadow
+     * @param ls the light source
+     * @param geopoint the point we want to calculate the shadow in
+     * @param lightRay the light ray
+     * @return attenuation of the shadow in the given point
      */
     private double getKtr(LightSource ls, GeoPoint geopoint, Ray lightRay) {
         double ktr =1 ;
@@ -527,11 +524,13 @@ public class Render {
     }
 
     /**
-     * set the amount of ray to create in beam
+     * set the amount of ray to create in beam for anti aliasing,1 or less to disable
      * @param amountOfRays the amount of ray
      * @return this render
      */
     public Render setAmountOfRaysForAntiAliasing(int amountOfRays) {
+        if(amountOfRays<1)
+            amountOfRays=1;
         this.amountOfRaysForAntiAliasing = amountOfRays;
         return this;
     }
@@ -564,17 +563,19 @@ public class Render {
     }
 
     /**
-     *
-     * @param amountOfRaysForSoftShadow
+     * set the amount of ray to create in the beam for the soft shadow,1 or less to disable
+     * @param amountOfRaysForSoftShadow the amount of rays
      */
     public Render setAmountOfRaysForSoftShadow(int amountOfRaysForSoftShadow) {
+        if(amountOfRaysForSoftShadow<1)
+            amountOfRaysForSoftShadow=1;
         this.amountOfRaysForSoftShadow = amountOfRaysForSoftShadow;
         return this;
     }
 
     /**
-     *
-     * @param radiusOfLights
+     *set the radius of the lights sources in the scene
+     * @param radiusOfLights the radius
      */
     public Render setRadiusOfLightSource(double radiusOfLights) {
         this.radiusOfLightSource = radiusOfLights;

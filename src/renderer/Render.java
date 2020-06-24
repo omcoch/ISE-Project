@@ -456,7 +456,7 @@ public class Render {
             for (GeoPoint gp : intersections) {
                 if (alignZero(gp.point.distance(geopoint.point) - lightDistance) <= 0) {
                     ktr *= gp.geometry.get_material().get_kT();
-                    if (ktr < MIN_CALC_COLOR_K) ktr =0;
+                    if (ktr < MIN_CALC_COLOR_K) ktr =0.0;
                 }
             }
         }

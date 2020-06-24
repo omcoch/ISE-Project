@@ -20,6 +20,7 @@ public interface Intersectable {
 
         /**
          * Constructor
+         *
          * @param geometry
          * @param point
          */
@@ -40,9 +41,9 @@ public interface Intersectable {
     }
 
 
-
     /**
      * The function calculate intersection points of ray with a geometry
+     *
      * @param ray ray pointing toward a Geometry
      * @return List<Point3D> return list of the intersection points, null if not exists
      */

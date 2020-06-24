@@ -93,24 +93,23 @@ public class Vector {
     }
 
     /**
-     *create a new vector that it orthogonal to this vector
+     * This function create and return a new vector that is orthogonal to this vector
+     *
      * @return the orthogonal vector
      */
-    public Vector GetOrthogonal() {
+    public Vector getOrthogonal() {
         /*if(Util.isZero(_head._x._coord)) {
             return new Vector(0,_head._z._coord*-1,_head._y._coord).normalize();
         }
         return new Vector(_head._y._coord*-1,_head._x._coord,0).normalize();*/
-        if(_head._x._coord<=_head._y._coord&&_head._x._coord<=_head._z._coord){
-            return new Vector(0.0,_head._z._coord*-1,_head._y._coord).normalize();
-        }
-        if(_head._y._coord<=_head._x._coord&&_head._y._coord<=_head._z._coord){
-            return new Vector(_head._z._coord*-1,0.0,_head._x._coord).normalize();
-        }
-        if(_head._x._coord==0&&_head._y._coord==0){
-            return new Vector(1.0,1.0,0.0).normalize();
-        }
-        return new Vector(_head._y._coord*-1,_head._x._coord,0.0).normalize();
+        if (_head._x._coord <= _head._y._coord && _head._x._coord <= _head._z._coord)
+            return new Vector(0.0, _head._z._coord * -1, _head._y._coord).normalize();
+        else if (_head._y._coord <= _head._x._coord && _head._y._coord <= _head._z._coord)
+            return new Vector(_head._z._coord * -1, 0.0, _head._x._coord).normalize();
+        else if (_head._x._coord == 0 && _head._y._coord == 0)
+            return new Vector(1.0, 1.0, 0.0).normalize();
+        else
+            return new Vector(_head._y._coord * -1, _head._x._coord, 0.0).normalize();
     }
 
     @Override
@@ -119,7 +118,7 @@ public class Vector {
     }
 
     /**
-     * Calculate the normal of <b>this</b> vector
+     * Calculate and change the normal of <b>this</b> vector
      *
      * @return the same Vector after normalisation
      */

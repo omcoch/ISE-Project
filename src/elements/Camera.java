@@ -4,7 +4,7 @@ import primitives.*;
 import static primitives.Util.*;
 
 /**
- * Represents camera in 3D, its location and simulate the rays out from
+ * Represents camera in 3D, its location and simulate the rays out from it.
  */
 public class Camera {
     private Point3D location;
@@ -65,8 +65,8 @@ public class Camera {
     }
 
     /**
-     * Create a ray that start in the camera's location
-     * and go through the given Pixel
+     * Creates a ray that start in the camera's location and go through the given Pixel
+     *
      * @param nX number of pixels on X axis
      * @param nY number of pixels on Y axis
      * @param j index for x

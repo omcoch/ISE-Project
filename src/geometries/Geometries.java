@@ -6,7 +6,11 @@ import primitives.Ray;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Geometries implements Intersectable{
+/**
+ * Represents a group of geometry components,
+ * implements the composite design pattern
+ */
+public class Geometries implements Intersectable {
     private List<Intersectable> _geometries;
 
     /**
@@ -18,6 +22,7 @@ public class Geometries implements Intersectable{
 
     /**
      * Constructor
+     *
      * @param geometries collection of geometries
      */
     public Geometries(Intersectable... geometries) {
@@ -27,6 +32,7 @@ public class Geometries implements Intersectable{
 
     /**
      * Add geometries into the list
+     *
      * @param geometries collection of geometries
      */
     public void add(Intersectable... geometries) {
@@ -35,7 +41,8 @@ public class Geometries implements Intersectable{
 
 
     /**
-     * Calculate intersection point of ray with the geometries
+     * Calculate intersection points of ray with the geometries
+     *
      * @param ray ray pointing toward a Geometry
      * @return List<Point3D> return list of the intersection points, null if not exists
      */

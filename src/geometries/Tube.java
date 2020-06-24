@@ -7,15 +7,16 @@ import primitives.Vector;
 import java.util.List;
 
 /**
- * Tube class represents a Tube
+ * Tube class represents a Tube in a scene
  *
- * @author Omri&Ron
+ * @author Omri & Ron
  */
 public class Tube extends RadialGeometry {
-    Ray _ray;
+    Ray _ray; // The central axis of the tube
 
     /**
-     *  Calculate intersection of ray with the tube
+     * Calculate intersection of ray with the tube
+     *
      * @param ray ray pointing toward a Geometry
      * @return List<Point3D> return list of the intersection points, null if not exists
      */
@@ -24,11 +25,22 @@ public class Tube extends RadialGeometry {
         return null;
     }
 
+    /**
+     * Constructor
+     *
+     * @param _radius
+     * @param _ray
+     */
     public Tube(double _radius, Ray _ray) {
         super(_radius);
         this._ray = new Ray(_ray);
     }
 
+    /**
+     * Copy Constructor
+     *
+     * @param other
+     */
     public Tube(Tube other) {
         super(other);
         this._ray = new Ray(other._ray);
@@ -47,6 +59,11 @@ public class Tube extends RadialGeometry {
         return new Vector(p.subtract(center)).normalize();
     }
 
+    /**
+     * Getter for _ray
+     *
+     * @return
+     */
     public Ray get_ray() {
         return _ray;
     }

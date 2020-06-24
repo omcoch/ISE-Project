@@ -5,16 +5,21 @@ import primitives.Point3D;
 import primitives.Util;
 import primitives.Vector;
 
+/**
+ * Defines a light at a fixed position that
+ * radiates light in a specified direction from the light source
+ */
 public class SpotLight extends PointLight {
     private Vector _direction;
 
     /**
      * constructor of the spot light
+     *
      * @param _intensity intensity of the light
-     * @param _position position of the light
-     * @param _kC Constant attenuation
-     * @param _kL Linear attenuation
-     * @param _kQ Quadratic attenuation
+     * @param _position  position of the light
+     * @param _kC        Constant attenuation
+     * @param _kL        Linear attenuation
+     * @param _kQ        Quadratic attenuation
      * @param _direction the direction of the light
      */
     public SpotLight(Color _intensity, Point3D _position, double _kC, double _kL, double _kQ, Vector _direction) {

@@ -4,18 +4,23 @@ import primitives.Color;
 import primitives.Point3D;
 import primitives.Vector;
 
+/**
+ * Defines a point light source object, that has a fixed position and
+ * radiates light equally in all directions away from itself.
+ */
 public class PointLight extends Light implements LightSource {
     protected Point3D _position;
-    protected double _kC,_kL,_kQ;
+    protected double _kC, _kL, _kQ;
     protected double radius;
 
     /**
      * constructor for point light
+     *
      * @param _intensity the intensity of the light
-     * @param _position the position of the light
-     * @param _kC Constant attenuation
-     * @param _kL Linear attenuation
-     * @param _kQ Quadratic attenuation
+     * @param _position  the position of the light
+     * @param _kC        Constant attenuation
+     * @param _kL        Linear attenuation
+     * @param _kQ        Quadratic attenuation
      */
     public PointLight(Color _intensity, Point3D _position, double _kC, double _kL, double _kQ) {
         super(_intensity);
@@ -26,7 +31,7 @@ public class PointLight extends Light implements LightSource {
     }
 
     /**
-     * Returns intensity color of a point
+     * return the intensity of the light in a given
      *
      * @param p the point
      * @return color of intensity
@@ -41,6 +46,7 @@ public class PointLight extends Light implements LightSource {
 
     /**
      * return a vector from the light to the point
+     *
      * @param p point
      * @return vector from light to point
      */

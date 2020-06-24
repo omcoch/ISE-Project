@@ -6,10 +6,8 @@ import primitives.Material;
 import static primitives.Util.isZero;
 
 /**
- * interface RadialGeometry is the basic interface for all radial geometric objects
+ * RadialGeometry is the basic class for all radial geometric objects
  * who are implementing Geometry interface.
- *
- * @author Omri & Ron
  */
 public abstract class RadialGeometry extends Geometry {
     double _radius;

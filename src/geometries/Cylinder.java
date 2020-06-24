@@ -7,19 +7,30 @@ import primitives.Vector;
 import java.util.List;
 
 /**
- * Cylinder represents a cylinder
+ * Cylinder class, represents a cylinder in the scene
  *
  * @author Omri&Ron
  */
 public class Cylinder extends Tube {
     double _height;
 
-
+    /**
+     * Constructor for cylinder
+     *
+     * @param _radius radius length
+     * @param _ray
+     * @param _height
+     */
     public Cylinder(double _radius, Ray _ray, double _height) {
         super(_radius, _ray);
         this._height = _height;
     }
 
+    /**
+     * Copy constructor
+     *
+     * @param other another cylinder object
+     */
     public Cylinder(Cylinder other) {
         super(other);
         this._height = other._height;
@@ -44,6 +55,11 @@ public class Cylinder extends Tube {
         return super.getNormal(p); // the point is on the casing
     }
 
+    /**
+     * Getter for _height
+     *
+     * @return
+     */
     public double get_height() {
         return _height;
     }
@@ -58,6 +74,7 @@ public class Cylinder extends Tube {
 
     /**
      * Calculate intersection of ray with cylinder
+     *
      * @param ray ray pointing toward a Geometry
      * @return List<Point3D> return list of the intersection points
      */

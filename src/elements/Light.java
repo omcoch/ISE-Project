@@ -1,7 +1,6 @@
 package elements;
 
 import primitives.Color;
-import primitives.Point3D;
 
 /**
  * Represents a light, the abstract base class for all light implementations.
@@ -21,6 +20,7 @@ public abstract class Light {
 
     /**
      * Getter for intensity
+     *
      * @return color
      */
     public Color getIntensity() {

@@ -2,7 +2,6 @@ package geometries;
 
 import primitives.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,17 +12,38 @@ import java.util.List;
 public class Sphere extends RadialGeometry {
     Point3D _center;
 
+    /**
+     * Constructor for sphere
+     *
+     * @param emissionLight
+     * @param material
+     * @param radius
+     * @param center
+     */
     public Sphere(Color emissionLight, Material material, double radius, Point3D center) {
         super(emissionLight, radius, material);
         this._center = new Point3D(center);
     }
 
+    /**
+     * Constructor with some default values
+     *
+     * @param emissionLight the color
+     * @param radius        the radius
+     * @param center        the center point of sphere
+     */
     public Sphere(Color emissionLight, double radius, Point3D center) {
-        this(emissionLight,new Material(0, 0, 0),radius,center);
+        this(emissionLight, new Material(0, 0, 0), radius, center);
     }
 
+    /**
+     * Constructor with some default values
+     *
+     * @param radius
+     * @param center
+     */
     public Sphere(double radius, Point3D center) {
-        this(Color.BLACK,radius,center);
+        this(Color.BLACK, radius, center);
     }
 
 
@@ -69,15 +89,15 @@ public class Sphere extends RadialGeometry {
         }
         if (t2 != t1) {
             if (t1 > 0 && t2 > 0) { // the ray starts before the sphere
-                return List.of(new GeoPoint(this,ray.getPoint(t1)),
-                        new GeoPoint(this,ray.getPoint(t2)));
+                return List.of(new GeoPoint(this, ray.getPoint(t1)),
+                        new GeoPoint(this, ray.getPoint(t2)));
             }
             // the ray starts inside the sphere (2 options for t, but chose  only the positive)
             if (t1 > 0) {
-                return List.of(new GeoPoint(this,ray.getPoint(t1)));
+                return List.of(new GeoPoint(this, ray.getPoint(t1)));
             }
             if (t2 > 0) {
-                return List.of(new GeoPoint(this,ray.getPoint(t2)));
+                return List.of(new GeoPoint(this, ray.getPoint(t2)));
             }
         }
         return null;

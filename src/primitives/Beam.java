@@ -17,6 +17,7 @@ public class Beam {
 
     /**
      * Constructor for beam through a rectangle
+     * Is used in anti aliasing
      *
      * @param ray        the main ray
      * @param pC         the center of the rectangle
@@ -43,6 +44,7 @@ public class Beam {
 
     /**
      * Constructor for beam through a circle
+     * Is used in soft shadow
      *
      * @param ray        the main ray
      * @param pC         the center of the circle
@@ -93,7 +95,7 @@ public class Beam {
         if (!isZero(x)) point = point.add(vx.scale(x));
         if (!isZero(y)) point = point.add(vy.scale(y));
         return new Ray(ray._p0,
-                point.subtract(ray._p0) );
+                point.subtract(ray._p0));
     }
 
 }

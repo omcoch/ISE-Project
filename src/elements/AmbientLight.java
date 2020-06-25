@@ -9,8 +9,9 @@ public class AmbientLight extends Light {
 
     /**
      * Constructor
+     *
      * @param _intensity the intensity of the light
-     * @param ka the mekadem hanhata
+     * @param ka         the mekadem hanhata
      */
     public AmbientLight(Color _intensity, double ka) {
         super(_intensity);

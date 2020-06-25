@@ -1,7 +1,5 @@
 package primitives;
 
-import java.util.Objects;
-
 import static primitives.Util.simpleSquare;
 
 /**
@@ -14,8 +12,8 @@ public class Point3D {
     Coordinate _y;
     Coordinate _z;
 
-
     public final static Point3D ZERO = new Point3D(0.0, 0.0, 0.0);
+
 
     public Coordinate get_x() {
         return new Coordinate(_x); // if _x will be changed while programming, there will be no problem
@@ -60,6 +58,12 @@ public class Point3D {
                 _z.equals(point3D._z);
     }
 
+    /**
+     * Create vector between two points
+     *
+     * @param p a point
+     * @return a vector starts at p point and go to the current point
+     */
     public Vector subtract(Point3D p) {
         return new Vector(new Point3D(
                 this._x._coord - p._x._coord,
@@ -67,6 +71,12 @@ public class Point3D {
                 this._z._coord - p._z._coord));
     }
 
+    /**
+     * Create a point by moving the current point by vector
+     *
+     * @param v some vector
+     * @return the new point
+     */
     public Point3D add(Vector v) {
         return new Point3D(
                 v._head._x._coord + _x._coord,
@@ -75,12 +85,24 @@ public class Point3D {
         );
     }
 
+    /**
+     * Calculate the Squared distance between two point
+     *
+     * @param p a point
+     * @return the distance Squared between the current point and the given p point
+     */
     public double distanceSquared(Point3D p) {
         return simpleSquare(p._x._coord - _x._coord) +
                 simpleSquare(p._y._coord - _y._coord) +
                 simpleSquare(p._z._coord - _z._coord);
     }
 
+    /**
+     * Calculate the distance between two point
+     *
+     * @param p a point
+     * @return the distance between the current point and the given p point
+     */
     public double distance(Point3D p) {
         return Math.sqrt(distanceSquared(p));
     }

@@ -18,6 +18,7 @@ public abstract class Geometry implements Intersectable {
 
     /**
      * Constructor
+     *
      * @param _emission the color of emission
      * @param _material the material of the object
      */
@@ -28,10 +29,11 @@ public abstract class Geometry implements Intersectable {
 
     /**
      * Constructor
+     *
      * @param emission the color of emission
      */
     public Geometry(Color emission) {
-        this(emission,new Material(0, 0, 0));
+        this(emission, new Material(0, 0, 0));
     }
 
     /**
@@ -52,6 +54,7 @@ public abstract class Geometry implements Intersectable {
 
     /**
      * Gets the _emission color of the geometry
+     *
      * @return the emission color
      */
     public Color get_emission() {
@@ -60,6 +63,7 @@ public abstract class Geometry implements Intersectable {
 
     /**
      * Gets the _material of the geometry
+     *
      * @return the material
      */
     public Material get_material() {

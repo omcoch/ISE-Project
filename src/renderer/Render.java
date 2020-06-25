@@ -3,7 +3,7 @@ package renderer;
 import elements.Camera;
 import elements.LightSource;
 import geometries.Intersectable;
-import geometries.Intersectable.*;
+import geometries.Intersectable.GeoPoint;
 import primitives.*;
 import scene.Scene;
 
@@ -20,18 +20,17 @@ public class Render {
     // parameters for determine how much reflection and refraction rays we will make
     private static final int MAX_CALC_COLOR_LEVEL = 10;
     private static final double MIN_CALC_COLOR_K = 0.001;
-    //fields for multithreading
+    // parameters for multithreading
     private int _threads = 1;
     private final int SPARE_THREADS = 2;
     private boolean _print = false;
-
     //the amount of rays in the beam for anti aliasing
     private int amountOfRaysForAntiAliasing = 1;
-
     //the amount of rays in the beam for soft shadow
-    private int amountOfRaysForSoftShadow=1;
+    private int amountOfRaysForSoftShadow = 1;
     //the radius of the point/spot light source, we using it when we calculate the shadow rays
-    private double radiusOfLightSource=1;
+    private double radiusOfLightSource = 1;
+
     /**
      * Pixel is an internal helper class whose objects are associated with a Render object that
      * they are generated in scope of. It is used for multithreading in the Renderer and for follow up
@@ -89,7 +88,7 @@ public class Render {
                 if (_counter == _nextCounter) {
                     ++_percents;
                     _nextCounter = _pixels * (_percents + 1) / 100;
-                    if(_print) System.out.println(_percents);
+                    if (_print) System.out.println(_percents);
                     return _percents;
                 }
                 return 0;
@@ -97,6 +96,8 @@ public class Render {
             ++row;
             if (row < _maxRows) {
                 col = 0;
+                target.row = this.row;
+                target.col = this.col;
                 if (_counter == _nextCounter) {
                     ++_percents;
                     _nextCounter = _pixels * (_percents + 1) / 100;
@@ -160,21 +161,21 @@ public class Render {
                 Pixel pixel = new Pixel();
                 while (thePixel.nextPixel(pixel)) {
                     // construct a beam for each pixel:
-                    Beam rays = constructBeamThroughPixel(camera,Nx, Ny, pixel.col, pixel.row, distance, width, height);
+                    Beam rays = constructBeamThroughPixel(camera, Nx, Ny, pixel.col, pixel.row, distance, width, height);
                     Color color = Color.BLACK;
                     for (Ray ray : rays.rayList) {
                         // find the intersection points for each geometry with the ray:
                         List<Intersectable.GeoPoint> intersectionPoints = geometries.findIntersections(ray);
                         if (intersectionPoints == null) {
                             // add background color
-                            color=color.add(new Color(background));
+                            color = color.add(new Color(background));
                         } else { // add the color of the geometry is passing through it
                             GeoPoint closestPoint = getClosestPoint(intersectionPoints);
-                            color=color.add(calcColor(closestPoint, ray));
+                            color = color.add(calcColor(closestPoint, ray));
                         }
                     }
                     //calculate the average color of the beam
-                    color=color.scale(1d / rays.rayList.size());
+                    color = color.scale(1d / rays.rayList.size());
                     //paint the pixel with the color
                     _imageWriter.writePixel(pixel.col, pixel.row, color.getColor());
                 }
@@ -355,12 +356,11 @@ public class Render {
      * @param nShininess shininess level
      * @param ip         light intensity at the point
      * @return specular component light effect at the point
-     *
      * <p>
      * Finally, the Phong model has a provision for a highlight, or specular, component, which reflects light in a
      * shiny way. This is defined by [rs,gs,bs](-V.R)^p, where R is the mirror reflection direction vector we discussed
      * in class (and also used for ray tracing), and where p is a specular power. The higher the value of p, the shinier
-     * the surface.
+     * the surface. [credit for eliezer's github RIP]
      */
     private Color calcSpecular(double ks, Vector l, Vector n, Vector v, int nShininess, Color ip) {
         double p = nShininess;
@@ -431,32 +431,33 @@ public class Render {
         double ktrAll = 0.0, ktrMain = 1.0;
         Ray lightRay = new Ray(geopoint.point, lightDirection, n);
         ktrMain = getKtr(ls, geopoint, lightRay);
-        Beam beam=new Beam(lightRay,//the main ray
+        Beam beam = new Beam(lightRay,//the main ray
                 geopoint.point.add(lightDirection.scale(ls.getDistance(geopoint.point))),//the location of the light
                 radiusOfLightSource,//the radius of the light source
                 amountOfRaysForSoftShadow);//amount of shadow rays to create
-        for(int i=1;i<beam.rayList.size();i++) {
-            ktrAll+=getKtr(ls,geopoint,beam.rayList.get(i));
+        for (int i = 1; i < beam.rayList.size(); i++) {
+            ktrAll += getKtr(ls, geopoint, beam.rayList.get(i));
         }
-        return (ktrAll+ktrMain)/beam.rayList.size();
+        return (ktrAll + ktrMain) / beam.rayList.size();
     }
 
     /**
-     *return the value of the attenuation of the shadow
-     * @param ls the light source
+     * return the value of the attenuation of the shadow
+     *
+     * @param ls       the light source
      * @param geopoint the point we want to calculate the shadow in
      * @param lightRay the light ray
      * @return attenuation of the shadow in the given point
      */
     private double getKtr(LightSource ls, GeoPoint geopoint, Ray lightRay) {
-        double ktr =1 ;
+        double ktr = 1;
         List<GeoPoint> intersections = _scene.get_geometries().findIntersections(lightRay);
         if (intersections != null) {
             double lightDistance = ls.getDistance(geopoint.point);
             for (GeoPoint gp : intersections) {
                 if (alignZero(gp.point.distance(geopoint.point) - lightDistance) <= 0) {
                     ktr *= gp.geometry.get_material().get_kT();
-                    if (ktr < MIN_CALC_COLOR_K) ktr =0.0;
+                    if (ktr < MIN_CALC_COLOR_K) ktr = 0.0;
                 }
             }
         }
@@ -525,56 +526,60 @@ public class Render {
 
     /**
      * set the amount of ray to create in beam for anti aliasing,1 or less to disable
+     *
      * @param amountOfRays the amount of ray
      * @return this render
      */
     public Render setAmountOfRaysForAntiAliasing(int amountOfRays) {
-        if(amountOfRays<1)
-            amountOfRays=1;
+        if (amountOfRays < 1)
+            amountOfRays = 1;
         this.amountOfRaysForAntiAliasing = amountOfRays;
         return this;
     }
 
     /**
      * construct beam of rays through pixel
-     * @param camera the camera of scene
-     * @param nX number of pixels in x axis
-     * @param nY number of pixels in y axis
-     * @param j the pixel column
-     * @param i the pixel row
+     *
+     * @param camera         the camera of scene
+     * @param nX             number of pixels in x axis
+     * @param nY             number of pixels in y axis
+     * @param j              the pixel column
+     * @param i              the pixel row
      * @param screenDistance the distance of the view plane from the camera
-     * @param screenWidth the width of the screen
-     * @param screenHeight the height of the screen
+     * @param screenWidth    the width of the screen
+     * @param screenHeight   the height of the screen
      * @return beam of rays that go through pixel
      */
     private Beam constructBeamThroughPixel(Camera camera,
                                            int nX, int nY,
                                            int j, int i, double screenDistance,
-                                           double screenWidth, double screenHeight){
+                                           double screenWidth, double screenHeight) {
         //the main ray that go through the center of the pixel
-        Ray ray=camera.constructRayThroughPixel(nX, nY, j, i, screenDistance, screenWidth, screenHeight);
+        Ray ray = camera.constructRayThroughPixel(nX, nY, j, i, screenDistance, screenWidth, screenHeight);
         //the center of the pixel
-        Point3D pc=ray.get_p0().add(ray.get_dir().scale(screenDistance));
+        Point3D pc = ray.get_p0().add(ray.get_dir().scale(screenDistance));
         return new Beam(ray,
                 pc,
-                screenHeight/nY,//the height of the pixel
-                screenWidth/nX,//the width of the pixel
+                screenHeight / nY,//the height of the pixel
+                screenWidth / nX,//the width of the pixel
                 amountOfRaysForAntiAliasing);
     }
 
     /**
      * set the amount of ray to create in the beam for the soft shadow,1 or less to disable
+     *
      * @param amountOfRaysForSoftShadow the amount of rays
      */
     public Render setAmountOfRaysForSoftShadow(int amountOfRaysForSoftShadow) {
-        if(amountOfRaysForSoftShadow<1)
-            amountOfRaysForSoftShadow=1;
+        if (amountOfRaysForSoftShadow < 1)
+            amountOfRaysForSoftShadow = 1;
         this.amountOfRaysForSoftShadow = amountOfRaysForSoftShadow;
         return this;
     }
 
     /**
-     *set the radius of the lights sources in the scene
+     * set the radius of the lights sources in the scene
+     *
      * @param radiusOfLights the radius
      */
     public Render setRadiusOfLightSource(double radiusOfLights) {

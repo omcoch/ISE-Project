@@ -1,13 +1,8 @@
 package geometries;
 
-import primitives.Point3D;
-import primitives.Ray;
-import primitives.Vector;
-
 import primitives.*;
 
 import java.util.List;
-import java.util.Objects;
 
 /**
  * Plane class represents a Plane in scene

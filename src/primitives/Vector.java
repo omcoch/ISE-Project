@@ -1,7 +1,5 @@
 package primitives;
 
-import java.util.Objects;
-
 /**
  * class Vector is the basic class representing a vector in a 3D system.
  *
@@ -21,35 +19,76 @@ public class Vector {
         return _head.equals(vector._head);
     }
 
+    /**
+     * Getter for _head
+     *
+     * @return
+     */
     public Point3D get_head() {
         // to avoid user's changes of _head (because this is ref)
         return new Point3D(_head._x._coord, _head._y._coord, _head._z._coord);
     }
 
+    /**
+     * Constructor
+     *
+     * @param p point
+     */
     public Vector(Point3D p) {
         if (p.equals(Point3D.ZERO))
             throw new IllegalArgumentException("vector cannot be zero");
         this._head = new Point3D(p._x._coord, p._y._coord, p._z._coord);
     }
 
+    /**
+     * Copy constructor
+     *
+     * @param v other vector object
+     */
     public Vector(Vector v) {
         _head = new Point3D(v._head.get_x(), v._head.get_y(), v._head.get_z());
     }
 
+    /**
+     * Constructor
+     *
+     * @param x the x coordinate
+     * @param y the y coordinate
+     * @param z the z coordinate
+     */
     public Vector(Coordinate x, Coordinate y, Coordinate z) {
         this(new Point3D(x, y, z));
     }
 
+    /**
+     * Constructor
+     *
+     * @param x the x value
+     * @param y the y value
+     * @param z the z value
+     */
     public Vector(double x, double y, double z) {
         this(new Point3D(x, y, z));
     }
 
+    /**
+     * Calculate the value of the dot product between two vectors
+     *
+     * @param n another vector
+     * @return the dot product value
+     */
     public double dotProduct(Vector n) {
         return _head._x._coord * n._head._x._coord +
                 _head._y._coord * n._head._y._coord +
                 _head._z._coord * n._head._z._coord;
     }
 
+    /**
+     * Create a new vector by cross product between two vectors
+     *
+     * @param v another vector
+     * @return result of cross product
+     */
     public Vector crossProduct(Vector v) {
         return new Vector(
                 new Point3D(
@@ -60,14 +99,30 @@ public class Vector {
         );
     }
 
+    /**
+     * Calculate the squared length of the vector
+     *
+     * @return the squared length
+     */
     public double lengthSquared() {
         return _head.distanceSquared(Point3D.ZERO);
     }
 
+    /**
+     * Calculate the length of the vector
+     *
+     * @return the length
+     */
     public double length() {
         return Math.sqrt(lengthSquared());
     }
 
+    /**
+     * Create a new vector by adding a vector to current vector
+     *
+     * @param v another vector
+     * @return the result of adding two vector
+     */
     public Vector add(Vector v) {
         return new Vector(new Point3D(
                 _head.get_x()._coord + v._head.get_x()._coord,
@@ -76,6 +131,12 @@ public class Vector {
         ));
     }
 
+    /**
+     * Create a new vector by subtract a vector from the current vector
+     *
+     * @param v another vector
+     * @return the result of subtracting two vectors
+     */
     public Vector subtract(Vector v) {
         return new Vector(new Point3D(
                 _head.get_x()._coord - v._head.get_x()._coord,
@@ -84,6 +145,12 @@ public class Vector {
         ));
     }
 
+    /**
+     * Create a new vector by scale the current one
+     *
+     * @param s scalar to the scale the vector by
+     * @return the result of scaling the vector
+     */
     public Vector scale(double s) {
         return new Vector(new Point3D(
                 _head.get_x()._coord * s,

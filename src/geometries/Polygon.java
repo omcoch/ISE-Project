@@ -1,10 +1,11 @@
 package geometries;
 
-import java.util.List;
-
 import primitives.*;
 
-import static primitives.Util.*;
+import java.util.List;
+
+import static primitives.Util.alignZero;
+import static primitives.Util.isZero;
 
 /**
  * Polygon class represents two-dimensional polygon in 3D Cartesian coordinate
@@ -86,8 +87,9 @@ public class Polygon extends Geometry {
     }
 
     public Polygon(Color emissionLight, Point3D... vertices) {
-        this(emissionLight,new Material(0, 0, 0),vertices);
+        this(emissionLight, new Material(0, 0, 0), vertices);
     }
+
     public Polygon(Point3D... vertices) {
         this(Color.BLACK, vertices);
     }
@@ -99,6 +101,7 @@ public class Polygon extends Geometry {
 
     /**
      * Calculate intersection of ray with the polygon
+     *
      * @param ray ray pointing toward a Geometry
      * @return List<Point3D> return list of the intersection points, null if not exists
      */
@@ -111,7 +114,7 @@ public class Polygon extends Geometry {
         Point3D p0 = ray.get_p0();
         Vector v = ray.get_dir();
 
-        Vector v1  = _vertices.get(1).subtract(p0);
+        Vector v1 = _vertices.get(1).subtract(p0);
         Vector v2 = _vertices.get(0).subtract(p0);
         // The point is inside if all 𝒗 ∙ 𝑵𝒊 have the same sign
         double sign = v.dotProduct(v1.crossProduct(v2));
@@ -125,10 +128,10 @@ public class Polygon extends Geometry {
             v2 = _vertices.get(i).subtract(p0);
             sign = alignZero(v.dotProduct(v1.crossProduct(v2)));
             if (isZero(sign)) return null;
-            if (positive != (sign >0)) return null;
+            if (positive != (sign > 0)) return null;
         }
 
-        intersections.get(0).geometry=this;
+        intersections.get(0).geometry = this;
         return intersections;
     }
 }

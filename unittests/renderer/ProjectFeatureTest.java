@@ -66,7 +66,7 @@ public class ProjectFeatureTest {
 
 
         ImageWriter imageWriter = new ImageWriter("Soft Shadow Test", 200, 200, 600, 600);
-        Render render = new Render(imageWriter, scene).setAmountOfRaysForSoftShadow(300).setMultithreading(3).setDebugPrint().setRadiusOfLightSource(10);
+        Render render = new Render(imageWriter, scene).setAmountOfRaysForAntiAliasing(50).setAmountOfRaysForSoftShadow(300).setMultithreading(3).setDebugPrint().setRadiusOfLightSource(10);
 
         render.renderImage();
         render.writeToImage();

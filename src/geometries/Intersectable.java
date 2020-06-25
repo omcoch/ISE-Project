@@ -1,9 +1,9 @@
 package geometries;
 
-import primitives.*;
+import primitives.Point3D;
+import primitives.Ray;
 
 import java.util.List;
-import java.util.Objects;
 
 /**
  * Intersectable is a common interface for all geometries that are able

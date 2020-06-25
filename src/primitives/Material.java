@@ -4,19 +4,19 @@ package primitives;
  * Represents the material of shape
  */
 public class Material {
-    private double _kD;
-    private double _kS;
+    private double _kD; // Diffuse attenuation
+    private double _kS; // Specular attenuation
     private double _kT; // mekadem shkifut
     private double _kR; // mekadem hishtakfut
-    private int _nShininess;
+    private int _nShininess; // Shininess
 
     /**
+     * Full parameters constructor for material
      *
-     * full constructor for material
-     * @param _kD Diffuse attenuation
-     * @param _kS Specular attenuation
-     * @param _kT Transparency attenuation
-     * @param _kR Reflection attenuation
+     * @param _kD         Diffuse attenuation
+     * @param _kS         Specular attenuation
+     * @param _kT         Transparency attenuation
+     * @param _kR         Reflection attenuation
      * @param _nShininess Shininess
      */
     public Material(double _kD, double _kS, int _nShininess, double _kT, double _kR) {
@@ -28,17 +28,19 @@ public class Material {
     }
 
     /**
-     * constructor for material
-     * @param _kD Diffuse attenuation
-     * @param _kS Specular attenuation
+     * Constructor for material
+     *
+     * @param _kD         Diffuse attenuation
+     * @param _kS         Specular attenuation
      * @param _nShininess Shininess
      */
     public Material(double _kD, double _kS, int _nShininess) {
-        this(_kD,_kS,_nShininess,0,0);
+        this(_kD, _kS, _nShininess, 0, 0);
     }
 
     /**
-     * getter for the diffuse attenuation
+     * Getter for the diffuse attenuation
+     *
      * @return the diffuse attenuation
      */
     public double get_kD() {
@@ -46,7 +48,8 @@ public class Material {
     }
 
     /**
-     * getter for the specular attenuation
+     * Getter for the specular attenuation
+     *
      * @return the specular attenuation
      */
     public double get_kS() {
@@ -54,7 +57,8 @@ public class Material {
     }
 
     /**
-     * getter for the shininess
+     * Getter for the shininess
+     *
      * @return the shininess
      */
     public int get_nShininess() {
@@ -62,7 +66,8 @@ public class Material {
     }
 
     /**
-     * getter for the transparency attenuation
+     * Getter for the transparency attenuation
+     *
      * @return the transparency attenuation
      */
     public double get_kT() {
@@ -70,7 +75,8 @@ public class Material {
     }
 
     /**
-     * getter for the reflection attenuation
+     * Getter for the reflection attenuation
+     *
      * @return the reflection attenuation
      */
     public double get_kR() {

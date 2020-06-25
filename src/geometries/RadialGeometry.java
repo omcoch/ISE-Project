@@ -12,25 +12,53 @@ import static primitives.Util.isZero;
 public abstract class RadialGeometry extends Geometry {
     double _radius;
 
+    /**
+     * Constructor with all the parameters
+     *
+     * @param emissionLight the color
+     * @param radius        radius of radial-geometry
+     * @param material      the material
+     */
     public RadialGeometry(Color emissionLight, double radius, Material material) {
         super(emissionLight, material);
-        _radius=radius;
+        _radius = radius;
     }
 
+    /**
+     * Constructor with some default parameters
+     *
+     * @param emissionLight the color
+     * @param radius        the radius of radial-geometry
+     */
     public RadialGeometry(Color emissionLight, double radius) {
         super(emissionLight);
-        _radius=radius;
+        _radius = radius;
     }
 
+    /**
+     * Constructor with some default parameters
+     *
+     * @param radius
+     */
     public RadialGeometry(double radius) {
         super();
-        _radius=radius;
+        _radius = radius;
     }
 
+    /**
+     * Copy constructor
+     *
+     * @param rd another Radial Geometry object
+     */
     public RadialGeometry(RadialGeometry rd) {
         this(rd._radius);
     }
 
+    /**
+     * Getter for _radius
+     *
+     * @return the radius
+     */
     public double get_radius() {
         return _radius;
     }

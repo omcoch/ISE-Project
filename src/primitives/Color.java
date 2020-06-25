@@ -20,7 +20,8 @@ public class Color {
     /**
      * Default constructor - to generate Black Color (privately)
      */
-    private Color() {}
+    private Color() {
+    }
 
     /**
      * Constructor to generate a color according to RGB components Each component in
@@ -123,7 +124,7 @@ public class Color {
      * @return java.awt.Color object based on this Color RGB components
      */
     public java.awt.Color getColor() {
-        int r = (int)_r, g = (int)_g, b = (int)_b;
+        int r = (int) _r, g = (int) _g, b = (int) _b;
         return new java.awt.Color(Math.min(r, 255), Math.min(g, 255), Math.min(b, 255));
     }
 
@@ -160,6 +161,7 @@ public class Color {
 
     /**
      * Scale the color by (1 / reduction factor)
+     *
      * @param k reduction factor
      * @return new Color object which is the result of the operation
      */

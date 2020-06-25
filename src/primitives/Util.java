@@ -1,7 +1,5 @@
 package primitives;
 
-import javax.swing.text.StyledEditorKit;
-
 /**
  * Util class is used for some internal utilities, e.g. controlling accuracy
  *

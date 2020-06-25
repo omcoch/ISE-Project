@@ -1,6 +1,7 @@
 package primitives;
 
-import static primitives.Util.*;
+import static primitives.Util.alignZero;
+import static primitives.Util.isZero;
 
 /**
  * Class Coordinate is the basic class representing a coordinate for Cartesian

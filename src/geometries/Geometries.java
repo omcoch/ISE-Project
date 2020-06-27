@@ -1,6 +1,6 @@
 package geometries;
 
-import primitives.Ray;
+import primitives.*;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -11,6 +11,22 @@ import java.util.List;
  */
 public class Geometries implements Intersectable {
     private List<Intersectable> _geometries;
+
+    Point3D[] _bounds=null;
+
+    /**
+     * Constructor for creating bounding box
+     * @param min
+     * @param max
+     */
+    public Geometries(Point3D min, Point3D max) {
+        this();
+        // check if the min point is closer to the origin than the max point
+        assert (min.distance(Point3D.ZERO) < max.distance(Point3D.ZERO));
+        _bounds=new Point3D[2];
+        _bounds[0] = new Point3D(min);
+        _bounds[1] = new Point3D(max);
+    }
 
     /**
      * Default Constructor
@@ -47,8 +63,11 @@ public class Geometries implements Intersectable {
      */
     @Override
     public List<GeoPoint> findIntersections(Ray ray) {
-        List<GeoPoint> intersections = null;
+        // if the bounding box feature is not activated or
+        // the ray doesn't intersect the box => No further calculation is needed
 
+
+        List<GeoPoint> intersections = null;
         for (Intersectable geo : _geometries) {
             List<GeoPoint> tempIntersections = geo.findIntersections(ray);
             if (tempIntersections != null) {
@@ -59,4 +78,6 @@ public class Geometries implements Intersectable {
         }
         return intersections;
     }
+
+
 }

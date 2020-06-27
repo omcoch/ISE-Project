@@ -26,11 +26,11 @@ public class ProjectFeatureTest {
         scene.set_background(new primitives.Color(Color.white));
         scene.set_ambientLight(new AmbientLight(new primitives.Color(java.awt.Color.WHITE), 0.2));
 
-        scene.addGeometries(new Sphere(new primitives.Color(Color.black),165, new Point3D(0, 0, 1000)));
+        scene.addGeometries(new Sphere(new primitives.Color(Color.black),250, new Point3D(0, 0, 1000)));
 
 
-        ImageWriter imageWriter = new ImageWriter("Super Sampling Test", 500, 500, 500, 500);
-        Render render = new Render(imageWriter, scene).setAmountOfRaysForAntiAliasing(50).setMultithreading(3);
+        ImageWriter imageWriter = new ImageWriter("Super Sampling Test", 1000, 1000, 1000, 1000);
+        Render render = new Render(imageWriter, scene).setAmountOfRaysForAntiAliasing(200).setMultithreading(3).setDebugPrint();
 
         render.renderImage();
         render.writeToImage();

@@ -50,4 +50,11 @@ public abstract class Util {
     public static double simpleSquare(double x) {
         return x * x;
     }
+
+
+    public static void swap(Object obj1,Object obj2){
+        Object temp=obj1;
+        obj1=obj2;
+        obj2=temp;
+    }
 }

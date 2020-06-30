@@ -26,7 +26,7 @@ public class Beam {
      * @param amountRays the amount of rays to throw
      */
     public Beam(Ray ray, Point3D pC, double height, double width, int amountRays) {
-        rayList = new LinkedList<Ray>();
+        rayList = new LinkedList<>();
         //adding the main ray to the list
         rayList.add(ray);
         double x, y;
@@ -37,7 +37,7 @@ public class Beam {
                 y = (Math.random() * (height)) - (height / 2) + ray._p0._y._coord;//random number from -height/2 to height/2
                 x = (Math.random() * (width)) - (width / 2) + ray._p0._x._coord;//random number from -width/2 to width/2
                 r = constructRay(ray, pC, x, y, new Vector(1, 0, 0), new Vector(0, 1, 0));
-            } while (x == 0 && y == 0 || rayList.contains(r));//if x and y equals to 0 the ray is the same as the main ray, this condition is faster than the check if it exists in the list
+            } while (rayList.contains(r));// check if the new ray is already exists in the list
             rayList.add(r);
         }
     }
@@ -52,7 +52,7 @@ public class Beam {
      * @param amountRays the amount of rays to throw
      */
     public Beam(Ray ray, Point3D pC, double radius, int amountRays) {
-        rayList = new LinkedList<Ray>();
+        rayList = new LinkedList<>();
         //adding the main ray to the list
         rayList.add(ray);
         if (!Util.isZero(radius)) {
@@ -70,7 +70,7 @@ public class Beam {
                     x = d * cosTeta;
                     y = d * sinTeta;
                     r = constructRay(ray, pC, x, y, vx, vy);
-                } while (x == 0 && y == 0 || rayList.contains(r));//if x and y equals to 0 the ray is the same as the central ray, this condition is faster than to check if it exist in the list
+                } while (rayList.contains(r));// check if the new ray is already exists in the list
                 rayList.add(r);
             }
         }

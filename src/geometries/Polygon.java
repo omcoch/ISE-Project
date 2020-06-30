@@ -99,6 +99,36 @@ public class Polygon extends Geometry {
         return _plane.getNormal();
     }
 
+
+
+    /**
+     * Calculate the bounds of the box for the geometry
+     * @return an array of bounds (min and max)
+     */
+    @Override
+    public Point3D[] getBounds() {
+        Point3D[] bounds = new Point3D[2];
+        double xmin=_vertices.get(0).get_x().get(),ymin=_vertices.get(0).get_y().get(),zmin=_vertices.get(0).get_z().get(),
+                xmax=_vertices.get(0).get_x().get(),ymax=_vertices.get(0).get_y().get(),zmax=_vertices.get(0).get_z().get();
+        for(Point3D p:_vertices){
+            if(p.get_x().get()<xmin)
+                xmin=p.get_x().get();
+            if(p.get_y().get()<ymin)
+                ymin=p.get_y().get();
+            if(p.get_z().get()<zmin)
+                zmin=p.get_z().get();
+            if(p.get_x().get()>xmax)
+                xmax=p.get_x().get();
+            if(p.get_y().get()>ymax)
+                ymax=p.get_y().get();
+            if(p.get_z().get()>zmax)
+                zmax=p.get_z().get();
+        }
+        bounds[0]=new Point3D(xmin,ymin,zmin);
+        bounds[1]=new Point3D(xmax,ymax,zmax);
+        return bounds;
+    }
+
     /**
      * Calculate intersection of ray with the polygon
      *

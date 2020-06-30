@@ -1,5 +1,7 @@
 package primitives;
 
+import java.sql.Ref;
+
 /**
  * Util class is used for some internal utilities, e.g. controlling accuracy
  *
@@ -51,10 +53,11 @@ public abstract class Util {
         return x * x;
     }
 
+//TODO:
+    public static void swap(double obj1, double obj2){
 
-    public static void swap(Object obj1,Object obj2){
-        Object temp=obj1;
-        obj1=obj2;
-        obj2=temp;
+            double temp = obj1;
+            obj1 = obj2;
+            obj2 = temp;
     }
 }

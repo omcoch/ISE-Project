@@ -22,7 +22,7 @@ public class Scene {
     private Camera _camera;
     private double _distance;
 
-    private List<LightSource> _lights = new LinkedList<LightSource>();
+    private List<LightSource> _lights = new LinkedList<>();
 
     /**
      * Constructor of scene
@@ -148,7 +148,12 @@ public class Scene {
      *
      * @param geometries the geometries elements
      */
-    public void addGeometries(Intersectable... geometries) {
-        _geometries.add(geometries);
+    public void addGeometries(Intersectable... geometries) {_geometries.add(geometries); }
+
+    /**
+     * Construct the BVH 'tree'
+     */
+    public void constructBVH(){
+        _geometries.constructBVH();
     }
 }

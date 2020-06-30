@@ -152,6 +152,13 @@ public class Plane extends Geometry {
         return (a * p.get_x().get() + b * p.get_y().get() + c * p.get_z().get() + d) == 0;
     }
 
+
+
+    @Override
+    public Point3D[] getBounds() {
+        return null;
+    }
+
     /**
      * Calculate intersection points of ray with the plane
      *

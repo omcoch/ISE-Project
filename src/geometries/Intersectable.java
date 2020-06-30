@@ -12,6 +12,12 @@ import java.util.List;
 public interface Intersectable {
 
     /**
+     * Calculate the bounds of the box for the geometry
+     * @return an array of bounds (min and max)
+     */
+    Point3D[] getBounds();
+
+    /**
      * Help class that creates a connection between point and geometry
      */
     public static class GeoPoint {
@@ -21,8 +27,8 @@ public interface Intersectable {
         /**
          * Constructor
          *
-         * @param geometry
-         * @param point
+         * @param geometry the geometry the point is in
+         * @param point the point
          */
         public GeoPoint(Geometry geometry, Point3D point) {
             this.geometry = geometry;

@@ -14,6 +14,11 @@ import java.util.List;
 public class Tube extends RadialGeometry {
     Ray _ray; // The central axis of the tube
 
+    @Override
+    public Point3D[] getBounds() {
+        return null;
+    }
+
     /**
      * Calculate intersection of ray with the tube
      *
@@ -28,8 +33,8 @@ public class Tube extends RadialGeometry {
     /**
      * Constructor
      *
-     * @param _radius
-     * @param _ray
+     * @param _radius the radius
+     * @param _ray the direction of the tube
      */
     public Tube(double _radius, Ray _ray) {
         super(_radius);
@@ -39,7 +44,7 @@ public class Tube extends RadialGeometry {
     /**
      * Copy Constructor
      *
-     * @param other
+     * @param other other tube
      */
     public Tube(Tube other) {
         super(other);
@@ -62,7 +67,7 @@ public class Tube extends RadialGeometry {
     /**
      * Getter for _ray
      *
-     * @return
+     * @return the direction of the tube
      */
     public Ray get_ray() {
         return _ray;

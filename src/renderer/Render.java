@@ -30,6 +30,8 @@ public class Render {
     private int amountOfRaysForSoftShadow = 1;
     //the radius of the point/spot light source, we using it when we calculate the shadow rays
     private double radiusOfLightSource = 1;
+    // determine if BVH feature is on
+    private boolean BVH = false;
 
     /**
      * Pixel is an internal helper class whose objects are associated with a Render object that
@@ -141,7 +143,9 @@ public class Render {
      * Create image buffer according to the geometries that are in the scene.
      */
     public void renderImage() {
-
+        if (BVH) {
+            _scene.constructBVH();
+        }
         final Camera camera = _scene.get_camera();
         final Intersectable geometries = _scene.get_geometries();
         final java.awt.Color background = _scene.get_background().getColor();
@@ -357,7 +361,7 @@ public class Render {
      * @param ip         light intensity at the point
      * @return specular component light effect at the point
      * <p>
-     * Finally, the Phong model has a provision for a highlight, or specular, component, which reflects light in a
+     * the Phong model has a provision for a highlight, or specular, component, which reflects light in a
      * shiny way. This is defined by [rs,gs,bs](-V.R)^p, where R is the mirror reflection direction vector we discussed
      * in class (and also used for ray tracing), and where p is a specular power. The higher the value of p, the shinier
      * the surface. [credit for eliezer's github RIP]
@@ -421,14 +425,14 @@ public class Render {
      * Calculate the transparency of the shadow in a point
      *
      * @param ls       light source
-     * @param l        light vector
+     * @param l        vector from the light to the point
      * @param n        normal
      * @param geopoint the point we want to calculate the shadow
      * @return the transparency of the shadow in a point
      */
     private double transparency(LightSource ls, Vector l, Vector n, GeoPoint geopoint) {
         Vector lightDirection = l.scale(-1); // from point to light source
-        double ktrAll = 0.0, ktrMain = 1.0;
+        double ktrAll = 0.0, ktrMain;
         Ray lightRay = new Ray(geopoint.point, lightDirection, n);
         ktrMain = getKtr(ls, geopoint, lightRay);
         Beam beam = new Beam(lightRay,//the main ray
@@ -584,6 +588,16 @@ public class Render {
      */
     public Render setRadiusOfLightSource(double radiusOfLights) {
         this.radiusOfLightSource = radiusOfLights;
+        return this;
+    }
+
+    /**
+     * Set Bounding Volume Hierarchy on
+     *
+     * @return the Render object itself
+     */
+    public Render enableBVH() {
+        this.BVH = true;
         return this;
     }
 }

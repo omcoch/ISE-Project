@@ -10,7 +10,7 @@ import java.util.List;
  * @author Omri&Ron
  */
 public class Sphere extends RadialGeometry {
-    Point3D _center;
+    final Point3D _center;
 
     /**
      * Constructor for sphere

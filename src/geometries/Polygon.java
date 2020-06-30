@@ -17,11 +17,11 @@ public class Polygon extends Geometry {
     /**
      * List of polygon's vertices
      */
-    protected List<Point3D> _vertices;
+    protected final List<Point3D> _vertices;
     /**
      * Associated plane in which the polygon lays
      */
-    protected Plane _plane;
+    protected final Plane _plane;
 
     /**
      * Polygon constructor based on vertices list. The list must be ordered by edge

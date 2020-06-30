@@ -6,8 +6,8 @@ package primitives;
  * @author Ron & Omri
  */
 public class Ray {
-    Point3D _p0;
-    Vector _dir;
+    final Point3D _p0;
+    final Vector _dir;
     /**
      * used for moving the point by DELTA
      */
@@ -29,7 +29,7 @@ public class Ray {
      * @return new Point3D
      */
     public Point3D getPoint(double length) {
-        return Util.isZero(length) ? new Point3D(_p0) : _p0.add(_dir.scale(length));
+        return Util.isZero(length) ? _p0 : _p0.add(_dir.scale(length));
     }
 
     /**

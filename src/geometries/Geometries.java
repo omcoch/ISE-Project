@@ -12,7 +12,7 @@ import java.util.List;
 public class Geometries implements Intersectable {
     private List<Intersectable> _geometries;
 
-
+    //an array of 2 points that are the bounds of the box
     Point3D[] _bounds = null;
 
     /**
@@ -90,30 +90,49 @@ public class Geometries implements Intersectable {
     }
 
     /**
-     * find if the ray intersect the bounding box
+     * find if the ray intersect the bounding box.
+     * Computing the intersection of a ray with a AABB.
+     * a straight line defined by using the following analytical equation: y = mx + b => m=(y-b)/x = t
      *
      * @param ray the ray
      * @return true if the ray intersect else return false
      */
     private boolean isIntersectBox(Ray ray) {
-        double tmin = (_bounds[0].get_x().get() - ray.get_p0().get_x().get()) / ray.get_dir().get_head().get_x().get();
-        double tmax = (_bounds[1].get_x().get() - ray.get_p0().get_x().get()) / ray.get_dir().get_head().get_x().get();
-        double temp;
-        if (tmin > tmax) {
-            temp = tmin;
-            tmin = tmax;
-            tmax = temp;
-            //Util.swap(tmin, tmax);
+/*
+        Point3D startRay=ray.get_p0(), direction=ray.get_dir().get_head();
+        double start_x=startRay.get_x().get(),start_y=startRay.get_y().get(),start_z=startRay.get_z().get(),
+               dir_x=direction.get_x().get(),dir_y=direction.get_y().get(),dir_z=direction.get_z().get();
+
+        double tmin,tmax,temp;
+        if(dir_x!=0) {
+            tmin = (_bounds[0].get_x().get() - start_x) / dir_x;
+            tmax = (_bounds[1].get_x().get() - start_x) / dir_x;
+            if (tmin > tmax) {
+                temp = tmin;
+                tmin = tmax;
+                tmax = temp;
+                //Util.swap(tmin, tmax);
+            }
+        }
+        else{
+            tmin=Double.POSITIVE_INFINITY;
+            tmax=Double.POSITIVE_INFINITY;
         }
 
-        double tymin = (_bounds[0].get_y().get() - ray.get_p0().get_y().get()) / ray.get_dir().get_head().get_y().get();
-        double tymax = (_bounds[1].get_y().get() - ray.get_p0().get_y().get()) / ray.get_dir().get_head().get_y().get();
-
-        if (tymin > tymax) {
-            temp = tymin;
-            tymin = tymax;
-            tymax = temp;
-            //Util.swap(tymin, tymax);
+        double tymin,tymax;
+        if(dir_y!=0) {
+            tymin= (_bounds[0].get_y().get() - start_y) / dir_y;
+            tymax = (_bounds[1].get_y().get() - start_y) / dir_y;
+            if (tymin > tymax) {
+                temp = tymin;
+                tymin = tymax;
+                tymax = temp;
+                //Util.swap(tymin, tymax);
+            }
+        }
+        else{
+            tymin=Double.POSITIVE_INFINITY;
+            tymax=Double.POSITIVE_INFINITY;
         }
 
         if ((tmin > tymax) || (tymin > tmax))
@@ -125,21 +144,124 @@ public class Geometries implements Intersectable {
         if (tymax < tmax)
             tmax = tymax;
 
-        double tzmin = (_bounds[0].get_z().get() - ray.get_p0().get_z().get()) / ray.get_dir().get_head().get_z().get();
-        double tzmax = (_bounds[1].get_z().get() - ray.get_p0().get_z().get()) / ray.get_dir().get_head().get_z().get();
+        double tzmin,tzmax;
+        if(dir_z!=0) {
+            tzmin= (_bounds[0].get_z().get() - start_z) / dir_z;
+            tzmax= (_bounds[1].get_z().get() - start_z) / dir_z;
 
-        if (tzmin > tzmax) {
-            temp = tzmin;
-            tzmin = tzmax;
-            tzmax = temp;
-            //Util.swap(tzmin, tzmax);
+            if (tzmin > tzmax) {
+                temp = tzmin;
+                tzmin = tzmax;
+                tzmax = temp;
+                //Util.swap(tzmin, tzmax);
+            }
+        }
+        else{
+            tzmin=Double.POSITIVE_INFINITY;
+            tzmax=Double.POSITIVE_INFINITY;
         }
 
         if ((tmin > tzmax) || (tzmin > tmax) )
             return false;
 
-        if(tmax<=0)
-            return false;
+        tmax = Math.min(tzmax,tmax);
+        tmin = Math.max(tzmin,tmin);
+
+        if (tmax < tmin) return false;
+
+        return true;*/
+        Point3D start = ray.get_p0();
+
+        double start_X = start.get_x().get();
+        double start_Y = start.get_y().get();
+        double start_Z = start.get_z().get();
+
+        Point3D direction = ray.get_dir().get_head();
+
+        double direction_X = direction.get_x().get();
+        double direction_Y = direction.get_y().get();
+        double direction_Z = direction.get_z().get();
+
+        double max_t_for_X;
+        double min_t_for_X;
+
+        //If the direction_X is negative then the _min_X give the maximal value
+        if (direction_X < 0) {
+            max_t_for_X = (_bounds[0].get_x().get() - start_X) / direction_X;
+            // Check if the Intersectble is behind the camera
+            if (max_t_for_X <= 0) return false;
+            min_t_for_X = (_bounds[1].get_x().get() - start_X) / direction_X;
+        }
+        else if (direction_X > 0) {
+            max_t_for_X = (_bounds[1].get_x().get() - start_X) / direction_X;
+            if (max_t_for_X <= 0) return false;
+            min_t_for_X = (_bounds[0].get_x().get() - start_X) / direction_X;
+        }
+        else {
+            if (start_X >= _bounds[1].get_x().get() || start_X <= _bounds[0].get_x().get())
+                return false;
+            else{
+                max_t_for_X = Double.POSITIVE_INFINITY;
+                min_t_for_X = Double.NEGATIVE_INFINITY;
+            }
+        }
+
+        double max_t_for_Y;
+        double min_t_for_Y;
+
+        if (direction_Y < 0) {
+            max_t_for_Y = (_bounds[0].get_y().get() - start_Y) / direction_Y;
+            if (max_t_for_Y <= 0) return false;
+            min_t_for_Y = (_bounds[1].get_y().get() - start_Y) / direction_Y;
+        }
+        else if (direction_Y > 0) {
+            max_t_for_Y = (_bounds[1].get_y().get() - start_Y) / direction_Y;
+            if (max_t_for_Y <= 0) return false;
+            min_t_for_Y = (_bounds[0].get_y().get() - start_Y) / direction_Y;
+        }
+        else {
+            if (start_Y >= _bounds[1].get_y().get() || start_Y <= _bounds[0].get_y().get())
+                return false;
+            else{
+                max_t_for_Y = Double.POSITIVE_INFINITY;
+                min_t_for_Y = Double.NEGATIVE_INFINITY;
+            }
+        }
+
+        //Check the maximal and the minimal value for t
+        double temp_max = Math.min(max_t_for_Y,max_t_for_X);
+        double temp_min = Math.max(min_t_for_Y,min_t_for_X);
+        temp_min = Math.max(temp_min,0);
+
+        if (temp_max < temp_min) return false;
+
+        double max_t_for_Z;
+        double min_t_for_Z;
+
+        if (direction_Z < 0) {
+            max_t_for_Z = (_bounds[0].get_z().get() - start_Z) / direction_Z;
+            if (max_t_for_Z <= 0) return false;
+            min_t_for_Z = (_bounds[1].get_z().get() - start_Z) / direction_Z;
+        }
+        else if (direction_Z > 0) {
+            max_t_for_Z = (_bounds[1].get_z().get()) / direction_Z;
+            if (max_t_for_Z <= 0) return false;
+            min_t_for_Z = (_bounds[0].get_z().get() - start_Z) / direction_Z;
+        }
+        else {
+            if (start_Z >= _bounds[1].get_z().get() || start_Z <= _bounds[0].get_z().get())
+                return false;
+            else{
+                max_t_for_Z = Double.POSITIVE_INFINITY;
+                min_t_for_Z = Double.NEGATIVE_INFINITY;
+            }
+        }
+
+        temp_max = Math.min(max_t_for_Z,temp_max);
+        temp_min = Math.max(min_t_for_Z,temp_min);
+
+        if (temp_max < temp_min) return false;
+
         return true;
     }
 

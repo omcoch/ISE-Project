@@ -8,23 +8,23 @@ import static primitives.Util.simpleSquare;
  * @author Ron Elkabetz & Omri Cochavi
  */
 public class Point3D {
-    Coordinate _x;
-    Coordinate _y;
-    Coordinate _z;
+    final Coordinate _x;
+    final Coordinate _y;
+    final Coordinate _z;
 
     public final static Point3D ZERO = new Point3D(0.0, 0.0, 0.0);
 
 
     public Coordinate get_x() {
-        return new Coordinate(_x); // if _x will be changed while programming, there will be no problem
+        return _x; // if _x will be changed while programming, there will be no problem
     }
 
     public Coordinate get_y() {
-        return new Coordinate(_y); // if _ will be changed while programming, there will be no problem
+        return _y; // if _ will be changed while programming, there will be no problem
     }
 
     public Coordinate get_z() {
-        return new Coordinate(_z); // if _z will be changed while programming, there will be no problem
+        return _z; // if _z will be changed while programming, there will be no problem
     }
 
     /**

@@ -4,11 +4,11 @@ package primitives;
  * Represents the material of shape
  */
 public class Material {
-    private double _kD; // Diffuse attenuation
-    private double _kS; // Specular attenuation
-    private double _kT; // mekadem shkifut
-    private double _kR; // mekadem hishtakfut
-    private int _nShininess; // Shininess
+    private final double _kD; // Diffuse attenuation
+    private final double _kS; // Specular attenuation
+    private final double _kT; // mekadem shkifut
+    private final double _kR; // mekadem hishtakfut
+    private final int _nShininess; // Shininess
 
     /**
      * Full parameters constructor for material

@@ -26,7 +26,7 @@ public class Vector {
      */
     public Point3D get_head() {
         // to avoid user's changes of _head (because this is ref)
-        return new Point3D(_head._x._coord, _head._y._coord, _head._z._coord);
+        return _head;
     }
 
     /**

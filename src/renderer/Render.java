@@ -178,7 +178,7 @@ public class Render {
                             color = color.add(calcColor(closestPoint, ray));
                         }
                     }
-                    //calculate the average color of the beam
+                    //calculate the average color of the beam (using for anti aliasing)
                     color = color.scale(1d / rays.rayList.size());
                     //paint the pixel with the color
                     _imageWriter.writePixel(pixel.col, pixel.row, color.getColor());
@@ -286,6 +286,7 @@ public class Render {
             Vector l = lightSource.getL(geoPoint.point);
             double nl = alignZero(n.dotProduct(l)), nv = alignZero(n.dotProduct(v));
             if (sign(nl) == sign(nv) && nv != 0 && nl != 0) {
+                //calculate the attenuation of the shadow
                 double ktr = transparency(lightSource, l, n, geoPoint);
                 if (ktr * k > MIN_CALC_COLOR_K) {
                     Color lightIntensity = lightSource.getIntensity(geoPoint.point).scale(ktr);
@@ -435,14 +436,17 @@ public class Render {
         double ktrAll = 0.0, ktrMain;
         Ray lightRay = new Ray(geopoint.point, lightDirection, n);
         ktrMain = getKtr(ls, geopoint, lightRay);
-        Beam beam = new Beam(lightRay,//the main ray
-                geopoint.point.add(lightDirection.scale(ls.getDistance(geopoint.point))),//the location of the light
-                radiusOfLightSource,//the radius of the light source
-                amountOfRaysForSoftShadow);//amount of shadow rays to create
-        for (int i = 1; i < beam.rayList.size(); i++) {
-            ktrAll += getKtr(ls, geopoint, beam.rayList.get(i));
+        if(amountOfRaysForSoftShadow>1) {
+            Beam beam = new Beam(lightRay,//the main ray
+                    geopoint.point.add(lightDirection.scale(ls.getDistance(geopoint.point))),//the location of the light
+                    radiusOfLightSource,//the radius of the light source
+                    amountOfRaysForSoftShadow);//amount of shadow rays to create
+            for (int i = 1; i < beam.rayList.size(); i++) {
+                ktrAll += getKtr(ls, geopoint, beam.rayList.get(i));
+            }
+            ktrMain=(ktrAll + ktrMain) / beam.rayList.size();
         }
-        return (ktrAll + ktrMain) / beam.rayList.size();
+        return ktrMain;
     }
 
     /**

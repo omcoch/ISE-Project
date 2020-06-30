@@ -13,7 +13,7 @@ import static primitives.Util.isZero;
  * @author Ron & Omri
  */
 public class Beam {
-    public List<Ray> rayList;
+    public final List<Ray> rayList;
 
     /**
      * Constructor for beam through a rectangle

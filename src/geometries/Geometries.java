@@ -24,7 +24,7 @@ public class Geometries implements Intersectable {
     public Geometries(Point3D min, Point3D max) {
         this();
         // check if the min point is closer to the origin than the max point
-        assert (min.distance(Point3D.ZERO) <= max.distance(Point3D.ZERO));
+        //assert (min,minPointBound(min,max));
         _bounds = new Point3D[2];
         _bounds[0] = new Point3D(min);
         _bounds[1] = new Point3D(max);
@@ -135,9 +135,11 @@ public class Geometries implements Intersectable {
             //Util.swap(tzmin, tzmax);
         }
 
-        if ((tmin > tzmax) || (tzmin > tmax))
+        if ((tmin > tzmax) || (tzmin > tmax) )
             return false;
 
+        if(tmax<=0)
+            return false;
         return true;
     }
 
@@ -176,7 +178,7 @@ public class Geometries implements Intersectable {
             c._geometries.remove(right._geometries.get(0));
             c.add(c1);
         }//end while
-        _geometries = c._geometries;
+        _geometries = List.of(c._geometries.get(0));
     }
 
     /**
@@ -248,6 +250,7 @@ public class Geometries implements Intersectable {
      * Create bound boxes for each Geometry separately.
      */
     private void boundGeometries() {
+        flatten();
         List<Intersectable> l = new LinkedList<>();
         for (Intersectable i : _geometries) {
             Geometries g = new Geometries(i);
@@ -255,5 +258,25 @@ public class Geometries implements Intersectable {
             l.add(g);
         }
         _geometries = l;
+    }
+
+    public void flatten() {
+        Geometries new_geometries = new Geometries(_geometries.toArray(new Intersectable[_geometries.size()]));
+        _geometries.clear();
+        flatten(new_geometries);
+
+    }
+
+    /**
+     * recursive func to flatten the geometries list
+     * @param new_geometries current geometries
+     */
+    private void flatten(Geometries new_geometries) {
+        for (Intersectable intersectable : new_geometries._geometries) {
+            if (intersectable instanceof Geometry)
+                _geometries.add(intersectable);
+            else
+                flatten((Geometries) intersectable);
+        }
     }
 }

@@ -23,11 +23,19 @@ public class Geometries implements Intersectable {
      */
     public Geometries(Point3D min, Point3D max) {
         this();
+        _bounds = new Point3D[2];
         // check if the min point is closer to the origin than the max point
         //assert (min,minPointBound(min,max));
-        _bounds = new Point3D[2];
-        _bounds[0] = new Point3D(min);
-        _bounds[1] = new Point3D(max);
+        if(min.get_x().get()<=max.get_x().get()&&
+        min.get_y().get()<=max.get_y().get()&&
+        min.get_z().get()<=max.get_z().get()) {
+            _bounds[0] = new Point3D(min);
+            _bounds[1] = new Point3D(max);
+        }
+        else{
+            _bounds[1] = new Point3D(min);
+            _bounds[0] = new Point3D(max);
+        }
     }
 
     /**
@@ -98,7 +106,7 @@ public class Geometries implements Intersectable {
      * @return true if the ray intersect else return false
      */
     private boolean isIntersectBox(Ray ray) {
-/*
+
         Point3D startRay=ray.get_p0(), direction=ray.get_dir().get_head();
         double start_x=startRay.get_x().get(),start_y=startRay.get_y().get(),start_z=startRay.get_z().get(),
                dir_x=direction.get_x().get(),dir_y=direction.get_y().get(),dir_z=direction.get_z().get();
@@ -169,8 +177,8 @@ public class Geometries implements Intersectable {
 
         if (tmax < tmin) return false;
 
-        return true;*/
-        Point3D start = ray.get_p0();
+        return true;
+        /*Point3D start = ray.get_p0();
 
         double start_X = start.get_x().get();
         double start_Y = start.get_y().get();
@@ -262,7 +270,7 @@ public class Geometries implements Intersectable {
 
         if (temp_max < temp_min) return false;
 
-        return true;
+        return true;*/
     }
 
     /**

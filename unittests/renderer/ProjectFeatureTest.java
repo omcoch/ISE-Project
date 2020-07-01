@@ -219,4 +219,98 @@ public class ProjectFeatureTest {
         render.renderImage();
         render.writeToImage();
     }
+
+    @Test
+    public void HousesScene(){
+        Scene scene = new Scene("Test scene");
+        scene.set_camera(new Camera(new Point3D(0, 0, -1000), new Vector(0, 0, 1), new Vector(0, 1, 0)));
+        scene.set_distance(1000);
+        scene.set_background(primitives.Color.BLACK);
+        scene.set_ambientLight(new AmbientLight(primitives.Color.BLACK, 0));
+
+        scene.addGeometries(
+                new Polygon(new primitives.Color(0,50,0),new Material(0.1,0.1,0 ),
+                        new Point3D(-200,-200,-200),new Point3D(200,-200,-200),new Point3D(350,-200,400),new Point3D(-350,-200,400)),
+                //moon
+               new Sphere(new primitives.Color(15,10,10), new Material(0.1,0.1,10,0.8,0),
+                        40,new Point3D(350,350,700)),
+                //stars
+                new Sphere(new primitives.Color(30,30,10), new Material(0.1,0.2,50,0.8,0),
+                        2,new Point3D(-100,250,600)),
+                new Sphere(new primitives.Color(50,30,10), new Material(0.1,0.2,50,0.8,0),
+                        3,new Point3D(100,350,500)),
+                new Sphere(new primitives.Color(30,20,10), new Material(0.1,0.2,50,0.8,0),
+                        2,new Point3D(-200,150,700)),
+                new Sphere(new primitives.Color(40,25,10), new Material(0.1,0.2,50,0.8,0),
+                        4,new Point3D(-150,250,500)),
+                new Sphere(new primitives.Color(40,35,10), new Material(0.1,0.2,50,0.8,0),
+                        2,new Point3D(50,250,650)),
+                new Sphere(new primitives.Color(30,30,10), new Material(0.1,0.2,50,0.8,0),
+                        2,new Point3D(-300,250,800)),
+                new Sphere(new primitives.Color(50,30,10), new Material(0.1,0.2,50,0.8,0),
+                        2,new Point3D(200,150,400)),
+                new Sphere(new primitives.Color(30,20,10), new Material(0.1,0.2,50,0.8,0),
+                        2,new Point3D(-150,250,750)),
+                new Sphere(new primitives.Color(40,25,10), new Material(0.1,0.2,50,0.8,0),
+                        4,new Point3D(-200,300,600)),
+                new Sphere(new primitives.Color(30,40,20), new Material(0.1,0.2,50,0.8,0),
+                        3,new Point3D(150,250,650)),
+                //house
+                new Polygon(new primitives.Color(20,20,20),new Material(0.2,0.1,10),
+                        new Point3D(-150,-200,250),new Point3D(-150,-70,250),new Point3D(-150,-70,100),new Point3D(-150,-200,100)),
+                new Polygon(new primitives.Color(20,20,20),new Material(0.2,0.1,10),
+                        new Point3D(-150,-200,250),new Point3D(-150,-70,250),new Point3D(-250,-70,250),new Point3D(-250,-200,250)),
+                new Polygon(new primitives.Color(20,20,20),new Material(0.2,0.1,10),
+                        new Point3D(-250,-200,250),new Point3D(-250,-70,250),new Point3D(-250,-70,100),new Point3D(-250,-200,100)),
+                new Polygon(new primitives.Color(20,20,20),new Material(0.2,0.1,10),
+                        new Point3D(-250,-200,100),new Point3D(-250,-70,100),new Point3D(-150,-70,100),new Point3D(-150,-200,100)),
+                new Polygon(new primitives.Color(20,20,20),new Material(0.2,0.1,10),
+                        new Point3D(-150,-70,250),new Point3D(-250,-70,250),new Point3D(-250,-70,100),new Point3D(-150,-70,100))
+
+        );
+        scene.addLights(
+                //moon
+                new PointLight(new primitives.Color(1000, 1000, 1000),
+                        new Point3D(350,350,700), 1, 4E-5, 2E-7),
+                //stars
+                new PointLight(new primitives.Color(1000, 1000, 1000),
+                        new Point3D(-100,250,600), 1, 0.01, 0.0001),
+                new PointLight(new primitives.Color(1000, 1000, 1000),
+                        new Point3D(100,350,500), 1, 0.01, 0.0001),
+                new PointLight(new primitives.Color(1000, 1000, 1000),
+                        new Point3D(-200,150,700), 1, 0.01, 0.0001),
+                new PointLight(new primitives.Color(1000, 1000, 1000),
+                        new Point3D(-150,250,500), 1, 0.01, 0.0001),
+                new PointLight(new primitives.Color(1000, 1000, 1000),
+                        new Point3D(50,250,650), 1, 0.01, 0.0001),
+                new PointLight(new primitives.Color(1000, 1000, 1000),
+                        new Point3D(-300,250,800), 1, 0.01, 0.0001),
+                new PointLight(new primitives.Color(1000, 1000, 1000),
+                        new Point3D(100,350,500), 1, 0.01, 0.0001),
+                new PointLight(new primitives.Color(1000, 1000, 1000),
+                        new Point3D(200,150,400), 1, 0.01, 0.0001),
+                new PointLight(new primitives.Color(1000, 1000, 1000),
+                        new Point3D(-150,250,750), 1, 0.01, 0.0001),
+                new PointLight(new primitives.Color(1000, 1000, 1000),
+                        new Point3D(-200,300,600), 1, 0.01, 0.0001),
+                new PointLight(new primitives.Color(1000, 1000, 1000),
+                        new Point3D(150,250,650), 1, 0.01, 0.0001),
+                //spot on building
+                new SpotLight(new primitives.Color(1000, 1000, 100),
+                        new Point3D(-151,-70,99), 1, 0.01, 0.0001,new Vector(0,0,-1))
+
+        );
+        ImageWriter imageWriter = new ImageWriter("HousesScene", 500, 500, 1000, 1000);
+        Render render = new Render(imageWriter, scene)
+                .setDebugPrint()
+                .setMultithreading(3)
+                .setAmountOfRaysForAntiAliasing(10)
+                .setAmountOfRaysForSoftShadow(10)
+                .enableBVH()
+                .setRadiusOfLightSource(10)
+        ;
+
+        render.renderImage();
+        render.writeToImage();
+    }
 }

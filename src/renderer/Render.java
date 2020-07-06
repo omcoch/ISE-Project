@@ -436,7 +436,7 @@ public class Render {
         double ktrAll = 0.0, ktrMain;
         Ray lightRay = new Ray(geopoint.point, lightDirection, n);
         ktrMain = getKtr(ls, geopoint, lightRay);
-        if(amountOfRaysForSoftShadow>1) {
+        if (amountOfRaysForSoftShadow > 1) {
             Beam beam = new Beam(lightRay,//the main ray
                     geopoint.point.add(lightDirection.scale(ls.getDistance(geopoint.point))),//the location of the light
                     radiusOfLightSource,//the radius of the light source
@@ -444,7 +444,7 @@ public class Render {
             for (int i = 1; i < beam.rayList.size(); i++) {
                 ktrAll += getKtr(ls, geopoint, beam.rayList.get(i));
             }
-            ktrMain=(ktrAll + ktrMain) / beam.rayList.size();
+            ktrMain = (ktrAll + ktrMain) / beam.rayList.size();
         }
         return ktrMain;
     }

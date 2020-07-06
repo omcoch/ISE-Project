@@ -148,12 +148,14 @@ public class Scene {
      *
      * @param geometries the geometries elements
      */
-    public void addGeometries(Intersectable... geometries) {_geometries.add(geometries); }
+    public void addGeometries(Intersectable... geometries) {
+        _geometries.add(geometries);
+    }
 
     /**
      * Construct the BVH 'tree'
      */
-    public void constructBVH(){
+    public void constructBVH() {
         _geometries.constructBVH();
     }
 }

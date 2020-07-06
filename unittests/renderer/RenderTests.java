@@ -101,6 +101,7 @@ public class RenderTests {
     /**
      * Handle the xml file which contains data for Scene and ImageWriter objects
      * and inserts the data into these class variables
+     *
      * @param filename the xml file to upload
      */
     private void GetFromXML(String filename) {

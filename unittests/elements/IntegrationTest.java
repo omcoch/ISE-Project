@@ -226,7 +226,7 @@ public class IntegrationTest {
 
         //TC02: long
         Triangle t2 = new Triangle(new Point3D(0, -20, 2), new Point3D(1, 1, 2), new Point3D(-1, 1, 2));
-        count=0;
+        count = 0;
 
         for (int i = 0; i < 3; ++i) {
             for (int j = 0; j < 3; ++j) {

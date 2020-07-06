@@ -40,40 +40,40 @@ class TriangleTest {
     @Test
     void testFindIntersections() {
         // ============ Equivalence Partitions Tests ==============
-        Polygon tri = new Triangle(new Point3D(-3,0,0), new Point3D(0,0,2), new Point3D(-6, 0, 0));
+        Polygon tri = new Triangle(new Point3D(-3, 0, 0), new Point3D(0, 0, 2), new Point3D(-6, 0, 0));
 
         // TC00: ray intersects with the plane
-        Ray r0 = new Ray(new Point3D(-1,-2,0), new Vector(new Point3D(0,1, 0)));
+        Ray r0 = new Ray(new Point3D(-1, -2, 0), new Vector(new Point3D(0, 1, 0)));
         assertNull("wrong number of intersections", tri.findIntersections(r0));
 
         // TC01: ray intersects inside the triangle
-        Ray r1 = new Ray(new Point3D(-1,-2,0), new Vector(new Point3D(-1,2, 1)));
+        Ray r1 = new Ray(new Point3D(-1, -2, 0), new Vector(new Point3D(-1, 2, 1)));
         List<Intersectable.GeoPoint> result = tri.findIntersections(r1);
-        assertEquals("wrong intersection point",new Point3D(-2,0,1),result.get(0));
+        assertEquals("wrong intersection point", new Point3D(-2, 0, 1), result.get(0));
 
         // TC02: ray intersects outside against edge
-        Ray r2 = new Ray(new Point3D(-1,-2,0), new Vector(new Point3D(0,2,1)));
-        assertNull("wrong intersection point against edge",tri.findIntersections(r2));
+        Ray r2 = new Ray(new Point3D(-1, -2, 0), new Vector(new Point3D(0, 2, 1)));
+        assertNull("wrong intersection point against edge", tri.findIntersections(r2));
 
         // TC03: ray intersects outside against vertex
-        Ray r3 = new Ray(new Point3D(-1,-2,0), new Vector(new Point3D(1.8,1.98,2.5)));
-        assertNull("wrong intersection point against vertex",tri.findIntersections(r3));
+        Ray r3 = new Ray(new Point3D(-1, -2, 0), new Vector(new Point3D(1.8, 1.98, 2.5)));
+        assertNull("wrong intersection point against vertex", tri.findIntersections(r3));
 
 
         // =============== Boundary Values Tests ==================
 
         //**** Group:the ray begins "before" the plane
         // TC04: ray intersects on edge
-        Ray r4 = new Ray(new Point3D(-1,-2,0), new Vector(new Point3D(-3,2,0)));
-        assertNull("wrong intersection point on edge",tri.findIntersections(r4));
+        Ray r4 = new Ray(new Point3D(-1, -2, 0), new Vector(new Point3D(-3, 2, 0)));
+        assertNull("wrong intersection point on edge", tri.findIntersections(r4));
 
         // TC05: ray intersects in vertex
-        Ray r5 = new Ray(new Point3D(-1,-2,0), new Vector(new Point3D(-5,2,0)));
-        assertNull("wrong intersection point in vertex",tri.findIntersections(r5));
+        Ray r5 = new Ray(new Point3D(-1, -2, 0), new Vector(new Point3D(-5, 2, 0)));
+        assertNull("wrong intersection point in vertex", tri.findIntersections(r5));
 
         // TC06: ray intersects On edge's continuation
-        Ray r6 = new Ray(new Point3D(-1,-2,0), new Vector(new Point3D(-1,2,0)));
-        assertNull("wrong intersection point On edge's continuation",tri.findIntersections(r5));
+        Ray r6 = new Ray(new Point3D(-1, -2, 0), new Vector(new Point3D(-1, 2, 0)));
+        assertNull("wrong intersection point On edge's continuation", tri.findIntersections(r5));
 
     }
 

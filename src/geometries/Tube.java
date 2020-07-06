@@ -34,7 +34,7 @@ public class Tube extends RadialGeometry {
      * Constructor
      *
      * @param _radius the radius
-     * @param _ray the direction of the tube
+     * @param _ray    the direction of the tube
      */
     public Tube(double _radius, Ray _ray) {
         super(_radius);

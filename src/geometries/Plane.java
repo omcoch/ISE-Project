@@ -153,7 +153,6 @@ public class Plane extends Geometry {
     }
 
 
-
     @Override
     public Point3D[] getBounds() {
         return null;

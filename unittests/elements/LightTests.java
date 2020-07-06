@@ -76,7 +76,7 @@ public class LightTests {
                 new Sphere(new Color(java.awt.Color.BLUE), new Material(0.5, 0.5, 100), 50, new Point3D(0, 0, 50)));
 
         scene.addLights(new SpotLight(new Color(500, 300, 0), new Point3D(-50, 50, -50),
-                 1, 0.00001, 0.00000001, new Vector(1, -1, 2)));
+                1, 0.00001, 0.00000001, new Vector(1, -1, 2)));
 
         ImageWriter imageWriter = new ImageWriter("sphereSpot", 150, 150, 500, 500);
         Render render = new Render(imageWriter, scene);
@@ -100,9 +100,9 @@ public class LightTests {
                 new Sphere(new Color(java.awt.Color.BLUE), new Material(0.5, 0.5, 100), 50, new Point3D(0, 0, 50)));
 
         scene.addLights(new SpotLight(new Color(java.awt.Color.GREEN), new Point3D(-70, 50, -50),
-                1, 0.0000001, 0.0000000001, new Vector(1, -1, 2)),
-                new PointLight(new Color(java.awt.Color.yellow), new Point3D(50,-70,30),1,0.000001,0.0000000001),
-                new DirectionalLight(new Color( java.awt.Color.red),new Vector(-5,-3,1)));
+                        1, 0.0000001, 0.0000000001, new Vector(1, -1, 2)),
+                new PointLight(new Color(java.awt.Color.yellow), new Point3D(50, -70, 30), 1, 0.000001, 0.0000000001),
+                new DirectionalLight(new Color(java.awt.Color.red), new Vector(-5, -3, 1)));
 
         ImageWriter imageWriter = new ImageWriter("sphereLights", 150, 150, 500, 500);
         Render render = new Render(imageWriter, scene);
@@ -192,6 +192,7 @@ public class LightTests {
         render.renderImage();
         render.writeToImage();
     }
+
     /**
      * Produce a picture of a two triangles lighted by 3 different light
      */
@@ -210,8 +211,8 @@ public class LightTests {
                         new Point3D(-150, 150, 150), new Point3D(-70, -70, 50), new Point3D(75, -75, 150)));
 
         scene.addLights(new DirectionalLight(new Color(java.awt.Color.GREEN), new Vector(1, 1, 1)),
-                new SpotLight(new Color(java.awt.Color.red),new Point3D(70,-70,100),1,0.001,0.000001,new Vector(-2,2,1)),
-                new PointLight(new Color(java.awt.Color.BLUE),new Point3D(20,10,30),1,0.0001,0.00001 ));
+                new SpotLight(new Color(java.awt.Color.red), new Point3D(70, -70, 100), 1, 0.001, 0.000001, new Vector(-2, 2, 1)),
+                new PointLight(new Color(java.awt.Color.BLUE), new Point3D(20, 10, 30), 1, 0.0001, 0.00001));
 
         ImageWriter imageWriter = new ImageWriter("trianglesLights", 200, 200, 500, 500);
         Render render = new Render(imageWriter, scene);

@@ -21,9 +21,9 @@ public final class Main {
      */
     public static void main(String[] args) {
 
-        double x=2,y=3;
-        Util.swap(x,y);
-        out.println(x+" "+y);
+        double x = 2, y = 3;
+        Util.swap(x, y);
+        out.println(x + " " + y);
 
         try { // test zero vector
             new Vector(0, 0, 0);

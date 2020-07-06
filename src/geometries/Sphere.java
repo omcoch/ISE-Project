@@ -16,9 +16,9 @@ public class Sphere extends RadialGeometry {
      * Constructor for sphere
      *
      * @param emissionLight the color
-     * @param material the material of the sphere
-     * @param radius the radius
-     * @param center the center point of sphere
+     * @param material      the material of the sphere
+     * @param radius        the radius
+     * @param center        the center point of sphere
      */
     public Sphere(Color emissionLight, Material material, double radius, Point3D center) {
         super(emissionLight, radius, material);
@@ -67,13 +67,14 @@ public class Sphere extends RadialGeometry {
 
     /**
      * Calculate the bounds of the box for the geometry
+     *
      * @return an array of bounds (min and max)
      */
     @Override
     public Point3D[] getBounds() {
-        Point3D[] bounds=new Point3D[2];
-        bounds[0]=new Point3D(_center.get_x().get()-_radius,_center.get_y().get()-_radius,_center.get_z().get()-_radius);
-        bounds[1]=new Point3D(_center.get_x().get()+_radius,_center.get_y().get()+_radius,_center.get_z().get()+_radius);
+        Point3D[] bounds = new Point3D[2];
+        bounds[0] = new Point3D(_center.get_x().get() - _radius, _center.get_y().get() - _radius, _center.get_z().get() - _radius);
+        bounds[1] = new Point3D(_center.get_x().get() + _radius, _center.get_y().get() + _radius, _center.get_z().get() + _radius);
         return bounds;
     }
 

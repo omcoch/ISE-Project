@@ -29,8 +29,11 @@ public class ProjectFeatureTest {
         scene.addGeometries(new Sphere(new primitives.Color(Color.black),250, new Point3D(0, 0, 1000)));
 
 
-        ImageWriter imageWriter = new ImageWriter("Super Sampling Test", 1000, 1000, 1000, 1000);
-        Render render = new Render(imageWriter, scene).setAmountOfRaysForAntiAliasing(200).setMultithreading(3).setDebugPrint();
+        ImageWriter imageWriter = new ImageWriter("Super Sampling Test", 1000, 1000, 500, 500);
+        Render render = new Render(imageWriter, scene)
+                .setAmountOfRaysForAntiAliasing(200)
+                .setMultithreading(3)
+                .setDebugPrint();
 
         render.renderImage();
         render.writeToImage();
@@ -191,34 +194,18 @@ public class ProjectFeatureTest {
 
 
         ImageWriter imageWriter = new ImageWriter("testComplex_scene", 400, 300, 1440, 1080);
-        Render render = new Render(imageWriter, scene).setMultithreading(3).setDebugPrint().setAmountOfRaysForSoftShadow(100).setRadiusOfLightSource(10).enableBVH();
+        Render render = new Render(imageWriter, scene)
+                .setMultithreading(3)
+                .setDebugPrint()
+                .setAmountOfRaysForSoftShadow(100)
+                .setRadiusOfLightSource(10)
+                .enableBVH();
         render.renderImage();
         render.writeToImage();
     }
 
 
-    @Test
-    public void SphereTriangleInitial() {
-        Scene scene = new Scene("Test scene");
-        scene.set_camera(new Camera(new Point3D(0, 0, -1000), new Vector(0, 0, 1), new Vector(0, -1, 0)));
-        scene.set_distance(1000);
-        scene.set_background(primitives.Color.BLACK);
-        scene.set_ambientLight(new AmbientLight(primitives.Color.BLACK, 0));
 
-        scene.addGeometries(new Sphere(new primitives.Color(Color.green), new Material(0.5, 0.5, 30), //
-                        60, new Point3D(0, 0, 200)), //
-                new Triangle(new primitives.Color(java.awt.Color.BLUE), new Material(0.5, 0.5, 30), //
-                        new Point3D(-70, 40, 0), new Point3D(-40, 70, 0), new Point3D(-68, 68, 4)));
-
-        scene.addLights(new SpotLight(new primitives.Color(400, 240, 0), //
-                new Point3D(-100, 100, -200), 1, 1E-5, 1.5E-7, new Vector(1, -1, 3)));
-
-        ImageWriter imageWriter = new ImageWriter("sphereTriangleInitial2", 200, 200, 400, 400);
-        Render render = new Render(imageWriter, scene);
-
-        render.renderImage();
-        render.writeToImage();
-    }
 
     @Test
     public void HousesScene(){
@@ -255,6 +242,14 @@ public class ProjectFeatureTest {
                         4,new Point3D(-200,300,600)),
                 new Sphere(new primitives.Color(30,40,20), new Material(0.1,0.2,50,0.8,0),
                         3,new Point3D(150,250,650)),
+                new Sphere(new primitives.Color(50,50,10), new Material(0.2,0.3,50,0.8,0),
+                        2,new Point3D(350,200,750)),
+                new Sphere(new primitives.Color(40,45,10), new Material(0.1,0.2,50,0.8,0),
+                        4,new Point3D(-270,300,600)),
+                new Sphere(new primitives.Color(30,40,20), new Material(0.1,0.2,50,0.8,0),
+                        3,new Point3D(250,250,650)),
+
+
                 //house
                 new Polygon(new primitives.Color(20,20,20),new Material(0.2,0.1,10),
                         new Point3D(-150,-200,250),new Point3D(-150,-70,250),new Point3D(-150,-70,100),new Point3D(-150,-200,100)),
@@ -265,7 +260,17 @@ public class ProjectFeatureTest {
                 new Polygon(new primitives.Color(20,20,20),new Material(0.2,0.1,10),
                         new Point3D(-250,-200,100),new Point3D(-250,-70,100),new Point3D(-150,-70,100),new Point3D(-150,-200,100)),
                 new Polygon(new primitives.Color(20,20,20),new Material(0.2,0.1,10),
-                        new Point3D(-150,-70,250),new Point3D(-250,-70,250),new Point3D(-250,-70,100),new Point3D(-150,-70,100))
+                        new Point3D(-150,-70,250),new Point3D(-250,-70,250),new Point3D(-250,-70,100),new Point3D(-150,-70,100)),
+                //pyramids
+                new Triangle(new primitives.Color(25,22,10),new Material(0.1,0.1,10,0,0.5),
+                        new Point3D(150,-250,250),new Point3D(75,-100,200),new Point3D(100,-250,150)),
+                new Triangle(new primitives.Color(25,22,10),new Material(0.1,0.1,10,0,0.5),
+                        new Point3D(100,-250,150),new Point3D(75,-100,200),new Point3D(50,-250,250)),
+
+                new Triangle(new primitives.Color(25,22,10),new Material(0.1,0.1,10,0,0.5),
+                        new Point3D(250,-250,300),new Point3D(175,-100,250),new Point3D(200,-250,200)),
+                new Triangle(new primitives.Color(25,22,10),new Material(0.1,0.1,10,0,0.5),
+                        new Point3D(200,-250,200),new Point3D(175,-100,250),new Point3D(150,-250,300))
 
         );
         scene.addLights(
@@ -295,9 +300,20 @@ public class ProjectFeatureTest {
                         new Point3D(-200,300,600), 1, 0.01, 0.0001),
                 new PointLight(new primitives.Color(1000, 1000, 1000),
                         new Point3D(150,250,650), 1, 0.01, 0.0001),
+                new PointLight(new primitives.Color(1000, 1000, 1000),
+                        new Point3D(350,200,750), 1, 0.01, 0.0001),
+                new PointLight(new primitives.Color(1000, 1000, 1000),
+                        new Point3D(-270,300,600), 1, 0.01, 0.0001),
+                new PointLight(new primitives.Color(1000, 1000, 1000),
+                        new Point3D(250,250,650), 1, 0.01, 0.0001),
+
                 //spot on building
                 new SpotLight(new primitives.Color(1000, 1000, 100),
-                        new Point3D(-151,-70,99), 1, 0.01, 0.0001,new Vector(0,0,-1))
+                        new Point3D(-151,-70,99), 1, 0.01, 0.0001,new Vector(0,-1,0)),
+                new SpotLight(new primitives.Color(1000, 1000, 100),
+                        new Point3D(-251,-70,99), 1, 0.01, 0.0001,new Vector(0,-1,0)),
+                new SpotLight(new primitives.Color(1000, 1000, 100),
+                        new Point3D(-149,-70,251), 1, 0.01, 0.0001,new Vector(0,-1,0))
 
         );
         ImageWriter imageWriter = new ImageWriter("HousesScene", 500, 500, 1000, 1000);
@@ -306,8 +322,8 @@ public class ProjectFeatureTest {
                 .setMultithreading(3)
                 .setAmountOfRaysForAntiAliasing(10)
                 .setAmountOfRaysForSoftShadow(10)
-                .enableBVH()
-                .setRadiusOfLightSource(10)
+                //.enableBVH()
+                .setRadiusOfLightSource(40)
         ;
 
         render.renderImage();

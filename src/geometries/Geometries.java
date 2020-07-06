@@ -26,16 +26,12 @@ public class Geometries implements Intersectable {
         _bounds = new Point3D[2];
         // check if the min point is closer to the origin than the max point
         //assert (min,minPointBound(min,max));
-        if(min.get_x().get()<=max.get_x().get()&&
-        min.get_y().get()<=max.get_y().get()&&
-        min.get_z().get()<=max.get_z().get()) {
-            _bounds[0] = new Point3D(min);
-            _bounds[1] = new Point3D(max);
-        }
-        else{
-            _bounds[1] = new Point3D(min);
-            _bounds[0] = new Point3D(max);
-        }
+        _bounds[0]=new Point3D(Math.min(min.get_x().get(),max.get_x().get()),
+                Math.min(min.get_y().get(),max.get_y().get()),
+                Math.min(min.get_z().get(),max.get_z().get()));
+        _bounds[1]=new Point3D(Math.max(min.get_x().get(),max.get_x().get()),
+                Math.max(min.get_y().get(),max.get_y().get()),
+                Math.max(min.get_z().get(),max.get_z().get()));
     }
 
     /**
@@ -107,10 +103,13 @@ public class Geometries implements Intersectable {
      */
     private boolean isIntersectBox(Ray ray) {
 
-        Point3D startRay=ray.get_p0(), direction=ray.get_dir().get_head();
-        double start_x=startRay.get_x().get(),start_y=startRay.get_y().get(),start_z=startRay.get_z().get(),
-               dir_x=direction.get_x().get(),dir_y=direction.get_y().get(),dir_z=direction.get_z().get();
-
+        /*Point3D startRay=ray.get_p0(), direction=ray.get_dir().get_head();
+        double  start_x=startRay.get_x().get(),
+                start_y=startRay.get_y().get(),
+                start_z=startRay.get_z().get(),
+                dir_x=direction.get_x().get(),
+                dir_y=direction.get_y().get(),
+                dir_z=direction.get_z().get();
         double tmin,tmax,temp;
         if(dir_x!=0) {
             tmin = (_bounds[0].get_x().get() - start_x) / dir_x;
@@ -121,10 +120,17 @@ public class Geometries implements Intersectable {
                 tmax = temp;
                 //Util.swap(tmin, tmax);
             }
+            // Check if the Intersectable is behind the camera
+            if (tmax <= 0) return false;
         }
         else{
-            tmin=Double.POSITIVE_INFINITY;
-            tmax=Double.POSITIVE_INFINITY;
+            //if the ray is parallel to the box and start outside
+            if (start_x >= _bounds[1].get_x().get() || start_x <= _bounds[0].get_x().get())
+                return false;
+            else{
+                tmax = Double.POSITIVE_INFINITY;
+                tmin = Double.NEGATIVE_INFINITY;
+            }
         }
 
         double tymin,tymax;
@@ -137,10 +143,16 @@ public class Geometries implements Intersectable {
                 tymax = temp;
                 //Util.swap(tymin, tymax);
             }
+            if (tymax <= 0) return false;
         }
         else{
-            tymin=Double.POSITIVE_INFINITY;
-            tymax=Double.POSITIVE_INFINITY;
+            //if the ray is parallel to the box and start outside
+            if (start_y >= _bounds[1].get_y().get() || start_y <= _bounds[0].get_y().get())
+                return false;
+            else{
+                tymin = Double.POSITIVE_INFINITY;
+                tymax = Double.NEGATIVE_INFINITY;
+            }
         }
 
         if ((tmin > tymax) || (tymin > tmax))
@@ -163,10 +175,16 @@ public class Geometries implements Intersectable {
                 tzmax = temp;
                 //Util.swap(tzmin, tzmax);
             }
+            if (tzmax <= 0) return false;
         }
         else{
-            tzmin=Double.POSITIVE_INFINITY;
-            tzmax=Double.POSITIVE_INFINITY;
+            //if the ray is parallel to the box and start outside
+            if (start_z >= _bounds[1].get_z().get() || start_z <= _bounds[0].get_z().get())
+                return false;
+            else{
+                tzmin = Double.POSITIVE_INFINITY;
+                tzmax = Double.NEGATIVE_INFINITY;
+            }
         }
 
         if ((tmin > tzmax) || (tzmin > tmax) )
@@ -178,7 +196,8 @@ public class Geometries implements Intersectable {
         if (tmax < tmin) return false;
 
         return true;
-        /*Point3D start = ray.get_p0();
+
+        */Point3D start = ray.get_p0();
 
         double start_X = start.get_x().get();
         double start_Y = start.get_y().get();
@@ -196,7 +215,7 @@ public class Geometries implements Intersectable {
         //If the direction_X is negative then the _min_X give the maximal value
         if (direction_X < 0) {
             max_t_for_X = (_bounds[0].get_x().get() - start_X) / direction_X;
-            // Check if the Intersectble is behind the camera
+            // Check if the Intersectable is behind the camera
             if (max_t_for_X <= 0) return false;
             min_t_for_X = (_bounds[1].get_x().get() - start_X) / direction_X;
         }
@@ -270,7 +289,7 @@ public class Geometries implements Intersectable {
 
         if (temp_max < temp_min) return false;
 
-        return true;*/
+        return true;
     }
 
     /**
@@ -285,27 +304,27 @@ public class Geometries implements Intersectable {
             Geometries left = null, right = null;
             best = Double.POSITIVE_INFINITY;
             for (int i = 0; i < c._geometries.size(); i++) {
-                Intersectable geo1 = c._geometries.get(i);
+                Geometries geo1 = (Geometries)c._geometries.get(i);
                 for (int j = i + 1; j < c._geometries.size(); j++) {
-                    Intersectable geo2 = c._geometries.get(j);
+                    Geometries geo2 = (Geometries)c._geometries.get(j);
                     if (!geo1.equals(geo2)) {
                         double distance = distance(geo1, geo2);
                         if (distance < best) {
                             best = distance;
-                            left = new Geometries(geo1);
-                            right = new Geometries(geo2);
+                            left = geo1;
+                            right = geo2;
                         }//endif
                     }//endif
                 }//end for
             }//end for
             // after finding the two closet geometries (left and right) - binding them into one Geometries object
-            left._bounds = left._geometries.get(0).getBounds();
-            right._bounds = right._geometries.get(0).getBounds();
+            //left._bounds = left._geometries.get(0).getBounds();
+            //right._bounds = right._geometries.get(0).getBounds();
             //add the new combined bound to the list
             Geometries c1 = new Geometries(minPointBound(left, right), maxPointBound(left, right));
             c1.add(left, right);
-            c._geometries.remove(left._geometries.get(0));
-            c._geometries.remove(right._geometries.get(0));
+            c._geometries.remove(left);
+            c._geometries.remove(right);
             c.add(c1);
         }//end while
         _geometries = List.of(c._geometries.get(0));
@@ -380,7 +399,7 @@ public class Geometries implements Intersectable {
      * Create bound boxes for each Geometry separately.
      */
     private void boundGeometries() {
-        flatten();
+        //flatten();
         List<Intersectable> l = new LinkedList<>();
         for (Intersectable i : _geometries) {
             Geometries g = new Geometries(i);

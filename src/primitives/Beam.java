@@ -29,6 +29,8 @@ public class Beam {
         rayList = new LinkedList<>();
         //adding the main ray to the list
         rayList.add(ray);
+        Vector vx = ray.get_dir().getOrthogonal(),
+                vy = vx.crossProduct(ray.get_dir());//two orthogonal vectors
         double x, y;
         Ray r;
         for (int i = 1; i < amountRays; i++) {
@@ -36,7 +38,7 @@ public class Beam {
                 //create random ray in the boundary of the rectangle that doesn't exist in the list already
                 y = (Math.random() * (height)) - (height / 2) + ray._p0._y._coord;//random number from -height/2 to height/2
                 x = (Math.random() * (width)) - (width / 2) + ray._p0._x._coord;//random number from -width/2 to width/2
-                r = constructRay(ray, pC, x, y, new Vector(1, 0, 0), new Vector(0, 1, 0));
+                r = constructRay(ray, pC, x, y, vx, vy);
             } while (rayList.contains(r));// check if the new ray is already exists in the list
             rayList.add(r);
         }

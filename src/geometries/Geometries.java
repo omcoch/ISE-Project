@@ -12,7 +12,7 @@ import java.util.List;
 public class Geometries implements Intersectable {
     private List<Intersectable> _geometries;
 
-    //an array of 2 points that are the bounds of the box
+    //two arrays that contains the x,y,z values that are the bounds of the box
     double[] _minbounds = null;
     double[] _maxbounds = null;
 
@@ -24,13 +24,14 @@ public class Geometries implements Intersectable {
      */
     public Geometries(Point3D min, Point3D max) {
         this();
+        //initialize the arrays
         _minbounds = new double[3];
         _maxbounds = new double[3];
-        // check if the min point is closer to the origin than the max point
-        //assert (min,minPointBound(min,max));
+        //insert the minimum values to the _minbounds
         _minbounds[0] = Math.min(min.get_x().get(), max.get_x().get());
         _minbounds[1] = Math.min(min.get_y().get(), max.get_y().get());
         _minbounds[2] = Math.min(min.get_z().get(), max.get_z().get());
+        //insert the maximum values to the _maxbounds
         _maxbounds[0] = Math.max(min.get_x().get(), max.get_x().get());
         _maxbounds[1] = Math.max(min.get_y().get(), max.get_y().get());
         _maxbounds[2] = Math.max(min.get_z().get(), max.get_z().get());
@@ -63,9 +64,9 @@ public class Geometries implements Intersectable {
     }
 
     /**
-     * getter for bounds
+     * create an array of points that represent the bounds of the box
      *
-     * @return the bounds array
+     * @return an array of Point3D
      */
     @Override
     public Point3D[] getBounds() {
@@ -110,20 +111,24 @@ public class Geometries implements Intersectable {
         Point3D head = ray.get_p0();
         Point3D dir = ray.get_dir().get_head();
 
-        double[] dirRay = {dir.get_x().get(), dir.get_y().get(), dir.get_z().get()},
-                tailRay = {head.get_x().get(), head.get_y().get(), head.get_z().get()};
+        double[] rayDir = {dir.get_x().get(), dir.get_y().get(), dir.get_z().get()},
+                rayHead = {head.get_x().get(), head.get_y().get(), head.get_z().get()};
 
         double tmin = Double.NEGATIVE_INFINITY, tmax = Double.POSITIVE_INFINITY;
+        //loop for determine the x y z min+max values
         for (int i = 0; i < 3; i++) {
-            if (dirRay[i] != 0.0) {
-                double t1 = (_minbounds[i] - tailRay[i]) / dirRay[i];
-                double t2 = (_maxbounds[i] - tailRay[i]) / dirRay[i];
-
+            if (rayDir[i] != 0.0) {
+                double t1 = (_minbounds[i] - rayHead[i]) / rayDir[i];
+                double t2 = (_maxbounds[i] - rayHead[i]) / rayDir[i];
+                //choose the max value of minimum values
                 tmin = Math.max(tmin, Math.min(t1, t2));
+                //choose the min value of maximum values
                 tmax = Math.min(tmax, Math.max(t1, t2));
-                if (tmax <= 0)
+                if (tmax <= 0.0)
                     return false;
-            } else if (tailRay[i] < _minbounds[i] || tailRay[i] > _maxbounds[i] || tmax < 0.0)
+            }
+            //the ray is parallel to the box, check if it's pass through the box
+            else if (rayHead[i] < _minbounds[i] || rayHead[i] > _maxbounds[i] || tmax < 0.0)
                 return false;
         }
 
@@ -155,9 +160,7 @@ public class Geometries implements Intersectable {
                     }//endif
                 }//end for
             }//end for
-            // after finding the two closet geometries (left and right) - binding them into one Geometries object
-            //left._bounds = left._geometries.get(0).getBounds();
-            //right._bounds = right._geometries.get(0).getBounds();
+            //after finding the two closet geometries (left and right) - binding them into one Geometries object
             //add the new combined bound to the list
             Geometries c1 = new Geometries(minPointBound(left, right), maxPointBound(left, right));
             c1.add(left, right);
@@ -180,7 +183,7 @@ public class Geometries implements Intersectable {
             return new Point3D(right._maxbounds[0], right._maxbounds[1], right._maxbounds[2]);
         if (right._maxbounds == null)
             return new Point3D(left._maxbounds[0], left._maxbounds[1], left._maxbounds[2]);
-        double x = Math.max(left._maxbounds[0], right._maxbounds[0]),
+        double  x = Math.max(left._maxbounds[0], right._maxbounds[0]),
                 y = Math.max(left._maxbounds[1], right._maxbounds[1]),
                 z = Math.max(left._maxbounds[2], right._maxbounds[2]);
         return new Point3D(x, y, z);
@@ -198,7 +201,7 @@ public class Geometries implements Intersectable {
             return new Point3D(right._minbounds[0], right._minbounds[1], right._minbounds[2]);
         if (right._minbounds == null)
             return new Point3D(left._minbounds[0], left._minbounds[1], left._minbounds[2]);
-        double x = Math.min(left._minbounds[0], right._minbounds[0]),
+        double  x = Math.min(left._minbounds[0], right._minbounds[0]),
                 y = Math.min(left._minbounds[1], right._minbounds[1]),
                 z = Math.min(left._minbounds[2], right._minbounds[2]);
         return new Point3D(x, y, z);
